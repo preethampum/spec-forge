@@ -414,14 +414,26 @@
 <!-- Action Area: Primary CTA & Parsing Configurations -->
 <section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 shadow-sm mb-8">
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-<div class="space-y-1.5">
-<div class="flex items-center gap-2">
+<div class="space-y-2">
+<div class="flex items-center gap-2 flex-wrap">
 <button id="btnGenerateSpec" type="button" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-lg bg-primary text-white font-label-lg text-label-lg font-bold hover:bg-primary-container shadow transition-all duration-150 transform active:scale-[0.99] cursor-pointer">
 <span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome">auto_awesome</span>
-<span>Generate Corrected Spec</span>
+<span>Generate &amp; Download Spec</span>
+</button>
+<button id="btnDownloadSpecDocx" type="button" class="inline-flex items-center gap-1.5 px-4 py-3 rounded-lg bg-secondary text-white hover:bg-on-secondary-container text-label-md font-label-md font-semibold transition-colors shadow-xs cursor-pointer" title="Direct download generated syllabus Word doc">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Download Spec (.docx)</span>
+</button>
+<button id="btnDownloadBlueprintJson" type="button" class="inline-flex items-center gap-1.5 px-4 py-3 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary border border-outline-variant text-label-md font-label-md font-medium transition-colors cursor-pointer" title="Download AI Blueprint JSON">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+<span>Download Blueprint (.json)</span>
+</button>
+<button type="button" onclick="openStep1DownloadHub()" class="inline-flex items-center gap-1.5 px-4 py-3 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-label-md font-label-md font-bold transition-colors shadow-xs cursor-pointer" title="Access all 4 download ways (Direct Save, Open in Tab, Clipboard Copy, Inspector)">
+<span class="material-symbols-outlined text-[18px]">folder_zip</span>
+<span>Download Hub (4 Ways)</span>
 </button>
 <button id="btnDryRun" type="button" class="inline-flex items-center gap-1 px-4 py-3 rounded-lg bg-surface hover:bg-surface-container-low text-on-surface-variant border border-outline-variant text-label-md font-label-md transition-colors cursor-pointer">
-<span>Test Extraction Dry-Run</span>
+<span>Dry-Run</span>
 </button>
 </div>
 <!-- Helper Text & Security Note -->
@@ -852,14 +864,53 @@
       });
     }
 
-    // 3. ACTION BUTTONS: EXTRACT SPEC & DRY-RUN
+    // File Download Handler with Triple-Redundancy (Parent Message, Direct Link, Hidden Frame)
+    function triggerFileDownload(filename, directApiUrl) {
+      appendLog('INFO', 'Generating file: ' + filename + ' ...');
+      
+      // 1. Post to top window to bypass sandbox constraints
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'SPECFORGE_DOWNLOAD',
+          url: directApiUrl,
+          filename: filename
+        }, '*');
+      }
+
+      // 2. Direct anchor click
+      const a = document.createElement('a');
+      a.href = directApiUrl;
+      a.download = filename;
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function() {
+        if (a.parentNode) document.body.removeChild(a);
+      }, 500);
+
+      // 3. Fallback invisible iframe trigger
+      const dlFrame = document.createElement('iframe');
+      dlFrame.style.display = 'none';
+      dlFrame.src = directApiUrl;
+      document.body.appendChild(dlFrame);
+      setTimeout(function() {
+        if (dlFrame.parentNode) document.body.removeChild(dlFrame);
+      }, 3000);
+
+      appendLog('SUCCESS', 'Generated artifact: ' + filename + ' transferred to your device.');
+      showToast('File Generated & Downloaded', 'Saved ' + filename + ' to your computer.');
+    }
+
+    // 3. ACTION BUTTONS: EXTRACT SPEC & REAL FILE GENERATION
     const btnGenerateSpec = document.getElementById('btnGenerateSpec');
+    const btnDownloadSpecDocx = document.getElementById('btnDownloadSpecDocx');
+    const btnDownloadBlueprintJson = document.getElementById('btnDownloadBlueprintJson');
     const btnDryRun = document.getElementById('btnDryRun');
 
     if (btnGenerateSpec) {
       btnGenerateSpec.addEventListener('click', function() {
         btnGenerateSpec.disabled = true;
-        btnGenerateSpec.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span><span>Extracting Outcomes (CO1–CO6)...</span>';
+        btnGenerateSpec.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span><span>Extracting &amp; Generating File...</span>';
         
         appendLog('INFO', 'Initiating neural course outcome extraction & Bloom hierarchy alignment...');
         setTimeout(function() {
@@ -868,17 +919,31 @@
 
         setTimeout(function() {
           appendLog('SUCCESS', 'Successfully extracted 6 Course Outcomes, 52 contact hours, and lecture-tutorial breakdown.');
-          btnGenerateSpec.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Extraction Complete! Loading Spec...</span>';
-          showToast('Specification Generated', 'Navigating to Step 2: Spec Correction');
+          btnGenerateSpec.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Spec Generated &amp; Downloaded!</span>';
           
+          // Trigger actual file generation and download back to user
+          triggerFileDownload('CS401_Course_Specification_v2.1.docx', '/api/export/docx');
+
           setTimeout(function() {
             if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
               window.parent.switchStep(2);
             } else {
               window.location.href = '/spec';
             }
-          }, 600);
-        }, 1200);
+          }, 1200);
+        }, 1000);
+      });
+    }
+
+    if (btnDownloadSpecDocx) {
+      btnDownloadSpecDocx.addEventListener('click', function() {
+        triggerFileDownload('CS401_Course_Specification_v2.1.docx', '/api/export/docx');
+      });
+    }
+
+    if (btnDownloadBlueprintJson) {
+      btnDownloadBlueprintJson.addEventListener('click', function() {
+        triggerFileDownload('CS401_Question_Paper_Blueprint_AY24.json', '/api/export/blueprint');
       });
     }
 
@@ -891,6 +956,14 @@
         }, 400);
       });
     }
+
+    window.openStep1DownloadHub = function() {
+      if (window.parent && window.parent !== window && typeof window.parent.openDownloadCenter === 'function') {
+        window.parent.openDownloadCenter();
+      } else {
+        window.open('/api/export/docx', '_blank');
+      }
+    };
   })();
 </script>
 </body></html>

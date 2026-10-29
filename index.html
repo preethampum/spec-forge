@@ -116,10 +116,16 @@
         <span class="hidden md:inline">Full Screen</span>
       </a>
 
+      <!-- Download Center Button (Multi-Way Downloader) -->
+      <button onclick="openDownloadCenter()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-xs" title="Multiple Ways to Download (Direct, Clipboard, New Tab, Preview)">
+        <span class="material-symbols-outlined text-[16px]">file_download</span>
+        <span>Download Center</span>
+      </button>
+
       <!-- Quick Export Button -->
       <button onclick="switchStep(6)" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary text-white hover:bg-primary-container transition-colors shadow-xs">
-        <span class="material-symbols-outlined text-[16px]">download</span>
-        <span class="hidden sm:inline">Dossier</span>
+        <span class="material-symbols-outlined text-[16px]">visibility</span>
+        <span class="hidden sm:inline">Step 6 Dossier</span>
       </button>
 
       <div class="h-4 w-px bg-outline-variant mx-1 hidden sm:block"></div>
@@ -200,7 +206,7 @@
       title="SpecForge Curriculum Specification Workbench"
       class="w-full flex-1 border-0 shadow-inner bg-surface"
       style="min-height: calc(100vh - 6rem);"
-      sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+      sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-downloads"
     ></iframe>
   </main>
 
@@ -319,6 +325,305 @@
     </div>
   </div>
 
+  <!-- ==================== DOWNLOAD CENTER MODAL (DIFFERENT WAYS TO DOWNLOAD) ==================== -->
+  <div id="downloadCenterModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-surface-container-lowest w-full max-w-4xl rounded-2xl shadow-2xl border border-outline-variant overflow-hidden flex flex-col max-h-[92vh] animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between bg-gradient-to-r from-emerald-900 to-teal-900 text-white">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-emerald-300 border border-white/20">
+            <span class="material-symbols-outlined text-[24px]">folder_zip</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-bold text-white">SpecForge Multi-Way Download &amp; Export Center</h3>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-400 text-emerald-950 uppercase">4 Ways Available</span>
+            </div>
+            <p class="text-xs text-emerald-200">Guaranteed access: Direct File Save, Open in New Tab / Print PDF, Instant Clipboard Copy, &amp; In-Browser Inspector</p>
+          </div>
+        </div>
+        <button onclick="closeDownloadCenter()" class="w-8 h-8 rounded-lg flex items-center justify-center text-emerald-200 hover:text-white hover:bg-white/10 transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Quick Explanation Bar -->
+      <div class="bg-emerald-50 px-6 py-2.5 border-b border-emerald-100 flex items-center justify-between text-xs text-emerald-900">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[16px] text-emerald-700">info</span>
+          <span>If your browser prevents automatic downloads inside frames, choose <strong>Open in New Tab</strong> or <strong>Copy to Clipboard</strong> below.</span>
+        </div>
+        <span class="font-semibold text-emerald-800 hidden sm:inline">CS401 • AY 2024-25</span>
+      </div>
+
+      <!-- Modal Body (List of Artifacts with 4 Ways to Download) -->
+      <div class="p-6 overflow-y-auto space-y-4">
+
+        <!-- Artifact 1: Word Specification (.docx) -->
+        <div class="bg-surface rounded-xl border border-outline-variant p-4 hover:border-primary/50 transition-all shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-800 flex items-center justify-center shrink-0 border border-blue-200">
+                <span class="material-symbols-outlined text-[22px]">description</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-bold text-on-surface">Course Specification Document (.docx)</h4>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">Microsoft Word</span>
+                </div>
+                <p class="text-xs text-outline">Complete syllabus, revised Bloom K4-K6 outcomes, credit breakdown, and DC/BOS sign-offs.</p>
+              </div>
+            </div>
+          </div>
+          <!-- 4 Different Ways to Download -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-outline-variant/60">
+            <!-- Way 1: Direct File Download -->
+            <a href="/api/export/docx" download="CS401_Course_Specification_v2.1.docx" target="_blank" onclick="showAppToast('Direct Download Initiated', 'Saved CS401_Course_Specification_v2.1.docx to your computer.')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors shadow-xs">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              <span>1. Direct Save</span>
+            </a>
+            <!-- Way 2: Open in New Tab -->
+            <button onclick="window.open('/api/export/docx', '_blank')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-primary">open_in_new</span>
+              <span>2. New Tab</span>
+            </button>
+            <!-- Way 3: Copy to Clipboard -->
+            <button onclick="copyContentToClipboard('/api/raw/docx', 'Course Specification Word Document XML')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-secondary">content_copy</span>
+              <span>3. Copy to Clip</span>
+            </button>
+            <!-- Way 4: In-App Viewer -->
+            <button onclick="previewContent('/api/raw/docx', 'Course Specification Word Document (.docx / XML)')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-amber-700">visibility</span>
+              <span>4. View Raw</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artifact 2: CO-PO-PSO Articulation Matrix (.csv) -->
+        <div class="bg-surface rounded-xl border border-outline-variant p-4 hover:border-primary/50 transition-all shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 border border-emerald-200">
+                <span class="material-symbols-outlined text-[22px]">table_chart</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-bold text-on-surface">NBA SAR Criterion 2 Articulation Matrix (.csv)</h4>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Excel / Sheets</span>
+                </div>
+                <p class="text-xs text-outline">CO1-CO6 mapped to PO1-PO11 and PSO1-PSO3 with direct attainment index calculation.</p>
+              </div>
+            </div>
+          </div>
+          <!-- 4 Different Ways to Download -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-outline-variant/60">
+            <!-- Way 1: Direct File Download -->
+            <a href="/api/export/csv" download="CS401_NBA_SAR_Criterion_2_Matrix.csv" target="_blank" onclick="showAppToast('Direct Download Initiated', 'Saved CS401_NBA_SAR_Criterion_2_Matrix.csv to your computer.')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-700 text-white text-xs font-semibold hover:bg-emerald-800 transition-colors shadow-xs">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              <span>1. Direct Save</span>
+            </a>
+            <!-- Way 2: Open in New Tab -->
+            <button onclick="window.open('/api/export/csv', '_blank')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-primary">open_in_new</span>
+              <span>2. New Tab</span>
+            </button>
+            <!-- Way 3: Copy to Clipboard -->
+            <button onclick="copyContentToClipboard('/api/raw/csv', 'CO-PO-PSO Articulation Matrix CSV')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-secondary">content_copy</span>
+              <span>3. Copy to Clip</span>
+            </button>
+            <!-- Way 4: In-App Viewer -->
+            <button onclick="previewContent('/api/raw/csv', 'CO-PO-PSO Articulation Matrix (.csv)')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-amber-700">visibility</span>
+              <span>4. View Raw</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artifact 3: NBA Tier-1 Accreditation Dossier (.json) -->
+        <div class="bg-surface rounded-xl border border-outline-variant p-4 hover:border-primary/50 transition-all shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 border border-amber-200">
+                <span class="material-symbols-outlined text-[22px]">data_object</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-bold text-on-surface">Full NBA Tier-1 Accreditation Dossier (.json)</h4>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">Machine-Readable</span>
+                </div>
+                <p class="text-xs text-outline">Complete certified schema with all 11 compliance audits (0 errors), credit math, and cryptographic hashes.</p>
+              </div>
+            </div>
+          </div>
+          <!-- 4 Different Ways to Download -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-outline-variant/60">
+            <!-- Way 1: Direct File Download -->
+            <a href="/api/export/json" download="CS401_NBA_Tier1_Accreditation_Dossier.json" target="_blank" onclick="showAppToast('Direct Download Initiated', 'Saved CS401_NBA_Tier1_Accreditation_Dossier.json to your computer.')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-amber-700 text-white text-xs font-semibold hover:bg-amber-800 transition-colors shadow-xs">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              <span>1. Direct Save</span>
+            </a>
+            <!-- Way 2: Open in New Tab -->
+            <button onclick="window.open('/api/export/json', '_blank')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-primary">open_in_new</span>
+              <span>2. New Tab</span>
+            </button>
+            <!-- Way 3: Copy to Clipboard -->
+            <button onclick="copyContentToClipboard('/api/raw/json', 'NBA Tier-1 Accreditation Dossier JSON')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-secondary">content_copy</span>
+              <span>3. Copy to Clip</span>
+            </button>
+            <!-- Way 4: In-App Viewer -->
+            <button onclick="previewContent('/api/raw/json', 'NBA Tier-1 Accreditation Dossier (.json)')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-amber-700">visibility</span>
+              <span>4. View Raw</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artifact 4: Question Paper Blueprint (.json) -->
+        <div class="bg-surface rounded-xl border border-outline-variant p-4 hover:border-primary/50 transition-all shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-purple-100 text-purple-800 flex items-center justify-center shrink-0 border border-purple-200">
+                <span class="material-symbols-outlined text-[22px]">quiz</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-bold text-on-surface">End-Semester Question Paper Blueprint (.json)</h4>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800">100 Marks</span>
+                </div>
+                <p class="text-xs text-outline">Exam question weightage distribution across Bloom levels K3-K6 aligned with AICTE model framework.</p>
+              </div>
+            </div>
+          </div>
+          <!-- 4 Different Ways to Download -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-outline-variant/60">
+            <!-- Way 1: Direct File Download -->
+            <a href="/api/export/blueprint" download="CS401_Question_Paper_Blueprint_AY24.json" target="_blank" onclick="showAppToast('Direct Download Initiated', 'Saved CS401_Question_Paper_Blueprint_AY24.json to your computer.')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-purple-700 text-white text-xs font-semibold hover:bg-purple-800 transition-colors shadow-xs">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              <span>1. Direct Save</span>
+            </a>
+            <!-- Way 2: Open in New Tab -->
+            <button onclick="window.open('/api/export/blueprint', '_blank')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-primary">open_in_new</span>
+              <span>2. New Tab</span>
+            </button>
+            <!-- Way 3: Copy to Clipboard -->
+            <button onclick="copyContentToClipboard('/api/raw/blueprint', 'Question Paper Blueprint JSON')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-secondary">content_copy</span>
+              <span>3. Copy to Clip</span>
+            </button>
+            <!-- Way 4: In-App Viewer -->
+            <button onclick="previewContent('/api/raw/blueprint', 'End-Semester Question Paper Blueprint (.json)')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-amber-700">visibility</span>
+              <span>4. View Raw</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artifact 5: Certified Accreditation Gazette (.html / PDF Print) -->
+        <div class="bg-surface rounded-xl border border-outline-variant p-4 hover:border-primary/50 transition-all shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center shrink-0 border border-teal-200">
+                <span class="material-symbols-outlined text-[22px]">print</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-bold text-on-surface">Certified Academic Gazette Dossier (.html / PDF)</h4>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-100 text-teal-800">Printable &amp; PDF</span>
+                </div>
+                <p class="text-xs text-outline">Standalone printable specification with official cryptographic seal and BOS approval signatures.</p>
+              </div>
+            </div>
+          </div>
+          <!-- 4 Different Ways to Download -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-outline-variant/60">
+            <!-- Way 1: Direct File Download -->
+            <a href="/api/export/html" download="CS401_Curriculum_Specification_Dossier.html" target="_blank" onclick="showAppToast('Direct Download Initiated', 'Saved CS401_Curriculum_Specification_Dossier.html to your computer.')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-teal-700 text-white text-xs font-semibold hover:bg-teal-800 transition-colors shadow-xs">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              <span>1. Direct Save</span>
+            </a>
+            <!-- Way 2: Open in New Tab & Print to PDF -->
+            <button onclick="window.open('/api/export/html', '_blank')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-primary">print</span>
+              <span>2. Print / PDF</span>
+            </button>
+            <!-- Way 3: Copy to Clipboard -->
+            <button onclick="copyContentToClipboard('/api/raw/html', 'Accreditation Gazette HTML')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-secondary">content_copy</span>
+              <span>3. Copy HTML</span>
+            </button>
+            <!-- Way 4: In-App Viewer -->
+            <button onclick="previewContent('/api/raw/html', 'Certified Academic Gazette Dossier (.html)')" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant hover:bg-surface-container text-xs font-medium transition-colors">
+              <span class="material-symbols-outlined text-[16px] text-amber-700">visibility</span>
+              <span>4. View Raw</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3.5 border-t border-outline-variant bg-surface-container-low flex items-center justify-between">
+        <span class="text-xs text-outline">Files are served directly from the SpecForge autonomous server on port 3000.</span>
+        <button onclick="closeDownloadCenter()" class="px-5 py-2 text-xs font-bold rounded-lg bg-primary text-white hover:bg-primary-container transition-colors shadow-xs">
+          Done
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== IN-APP RAW DOCUMENT PREVIEWER MODAL ==================== -->
+  <div id="rawPreviewerModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-surface-container-lowest w-full max-w-4xl rounded-2xl shadow-2xl border border-outline-variant overflow-hidden flex flex-col max-h-[92vh] animate-in fade-in zoom-in-95 duration-150">
+      <div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">code</span>
+          </div>
+          <div>
+            <h3 id="previewerTitle" class="text-sm font-bold text-on-surface">Document Content Inspector</h3>
+            <p class="text-xs text-outline">Live raw text output • Select all or copy directly below</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyPreviewerText()" class="px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-on-secondary-container text-xs font-semibold flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-[16px]">content_copy</span>
+            <span>Copy All</span>
+          </button>
+          <button onclick="closePreviewer()" class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-4 bg-slate-950 flex-1 overflow-auto">
+        <pre id="previewerCode" class="text-xs font-mono text-emerald-400 whitespace-pre-wrap select-all leading-relaxed"></pre>
+      </div>
+      <div class="px-6 py-3 border-t border-outline-variant bg-surface-container-low flex items-center justify-between">
+        <span class="text-xs text-outline">Click inside the code box to select all text.</span>
+        <button onclick="closePreviewer()" class="px-4 py-1.5 text-xs font-semibold rounded-lg bg-surface border border-outline-variant text-on-surface hover:bg-surface-container">
+          Close Inspector
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== GLOBAL APP TOAST ==================== -->
+  <div id="appToast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900 text-white shadow-xl border border-slate-700 max-w-md">
+    <div id="toastIconContainer" class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[18px]">check_circle</span>
+    </div>
+    <div class="min-w-0 flex-1">
+      <h5 id="toastTitle" class="text-xs font-bold leading-tight">Action Successful</h5>
+      <p id="toastMessage" class="text-[11px] text-slate-300 leading-tight truncate">File operation completed.</p>
+    </div>
+  </div>
+
   <!-- ==================== JAVASCRIPT CONTROLLER ==================== -->
   <script>
     const STEPS = [
@@ -402,14 +707,127 @@
       frame.contentWindow?.postMessage({ type: 'SPECFORGE_SETTINGS_UPDATED' }, '*');
     }
 
-    // Close modal on escape key
+    // ==================== MULTI-WAY DOWNLOAD & EXPORT CONTROLLER ====================
+    let previewerRawText = '';
+
+    function openDownloadCenter() {
+      document.getElementById('downloadCenterModal').classList.remove('hidden');
+    }
+
+    function closeDownloadCenter() {
+      document.getElementById('downloadCenterModal').classList.add('hidden');
+    }
+
+    function showAppToast(title, message) {
+      const toast = document.getElementById('appToast');
+      document.getElementById('toastTitle').textContent = title || 'Action Successful';
+      document.getElementById('toastMessage').textContent = message || 'File operation completed.';
+      
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    // Way 3: Copy raw content directly to clipboard
+    async function copyContentToClipboard(rawApiUrl, artifactName) {
+      showAppToast('Fetching Content...', 'Retrieving authentic ' + artifactName + '...');
+      try {
+        const response = await fetch(rawApiUrl);
+        const text = await response.text();
+        await navigator.clipboard.writeText(text);
+        showAppToast('Copied to Clipboard!', artifactName + ' copied! You can now paste it directly into any editor.');
+      } catch (err) {
+        console.warn('Clipboard fetch fallback:', err);
+        // Fallback open in new window
+        window.open(rawApiUrl, '_blank');
+        showAppToast('Opened in New Tab', 'Content opened in tab for easy copy.');
+      }
+    }
+
+    // Way 4: In-App Document Previewer
+    async function previewContent(rawApiUrl, title) {
+      showAppToast('Loading Inspector...', 'Fetching ' + title + '...');
+      try {
+        const response = await fetch(rawApiUrl);
+        const text = await response.text();
+        previewerRawText = text;
+        document.getElementById('previewerTitle').textContent = title;
+        document.getElementById('previewerCode').textContent = text;
+        document.getElementById('rawPreviewerModal').classList.remove('hidden');
+      } catch (err) {
+        window.open(rawApiUrl, '_blank');
+      }
+    }
+
+    function closePreviewer() {
+      document.getElementById('rawPreviewerModal').classList.add('hidden');
+    }
+
+    async function copyPreviewerText() {
+      if (!previewerRawText) return;
+      try {
+        await navigator.clipboard.writeText(previewerRawText);
+        showAppToast('Copied All!', 'All document content copied to clipboard.');
+      } catch (e) {
+        const pre = document.getElementById('previewerCode');
+        const range = document.createRange();
+        range.selectNodeContents(pre);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        showAppToast('Text Selected', 'Press Ctrl+C (Cmd+C) to copy.');
+      }
+    }
+
+    // Close download center and previewer modals on Escape or outside click
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeAiModal();
+      if (e.key === 'Escape') {
+        closeAiModal();
+        closeDownloadCenter();
+        closePreviewer();
+      }
     });
 
-    // Close on click outside
-    document.getElementById('aiModalBackdrop').addEventListener('click', (e) => {
-      if (e.target.id === 'aiModalBackdrop') closeAiModal();
+    document.getElementById('downloadCenterModal').addEventListener('click', (e) => {
+      if (e.target.id === 'downloadCenterModal') closeDownloadCenter();
+    });
+
+    document.getElementById('rawPreviewerModal').addEventListener('click', (e) => {
+      if (e.target.id === 'rawPreviewerModal') closePreviewer();
+    });
+
+    // Parent Frame File Download Relay (bypasses iframe sandbox download constraints)
+    window.addEventListener('message', function(event) {
+      if (event.data && (event.data.type === 'SPECFORGE_DOWNLOAD' || event.data.type === 'TRIGGER_DOWNLOAD')) {
+        const { url, filename, content, mimeType } = event.data;
+        let downloadUrl = url;
+        let shouldRevoke = false;
+
+        if (!downloadUrl && content) {
+          const blob = new Blob([content], { type: mimeType || 'application/octet-stream' });
+          downloadUrl = URL.createObjectURL(blob);
+          shouldRevoke = true;
+        }
+
+        if (downloadUrl) {
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = filename || 'CS401_Accreditation_Document';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            if (shouldRevoke) URL.revokeObjectURL(downloadUrl);
+          }, 400);
+
+          showAppToast('Downloading ' + (filename || 'File'), 'If download did not start, open the top Download Center for alternate ways.');
+        }
+      }
     });
   </script>
 </body>
