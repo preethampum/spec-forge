@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpecForge — Workflow &amp; Approval (CS401: Advanced Algorithms)</title>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Container Queries & Forms -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#f8f9ff",
+            "on-secondary-container": "#006f67",
+            "on-primary-fixed-variant": "#264191",
+            "on-secondary": "#ffffff",
+            "primary-fixed": "#dce1ff",
+            "outline": "#757682",
+            "inverse-primary": "#b6c4ff",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#444651",
+            "surface-container-highest": "#d3e4fe",
+            "on-background": "#0b1c30",
+            "surface-container-low": "#eff4ff",
+            "outline-variant": "#c5c5d3",
+            "surface-container-high": "#dce9ff",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "secondary-fixed-dim": "#80d5cb",
+            "inverse-on-surface": "#eaf1ff",
+            "primary": "#00236f",
+            "primary-fixed-dim": "#b6c4ff",
+            "inverse-surface": "#213145",
+            "on-surface": "#0b1c30",
+            "tertiary": "#00246b",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "on-secondary-fixed-variant": "#00504a",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#9cf2e8",
+            "on-tertiary-container": "#8da9ff",
+            "on-primary-container": "#90a8ff",
+            "surface-container": "#e5eeff",
+            "background": "#f8f9ff",
+            "secondary-container": "#99efe5",
+            "primary-container": "#1e3a8a",
+            "tertiary-fixed": "#dbe1ff",
+            "on-primary-fixed": "#00164e",
+            "secondary": "#006a63",
+            "tertiary-container": "#00389a",
+            "error": "#ba1a1a",
+            "surface-variant": "#d3e4fe",
+            "on-secondary-fixed": "#00201d",
+            "surface-dim": "#cbdbf5",
+            "on-error": "#ffffff",
+            "surface-tint": "#4059aa",
+            "on-tertiary-fixed": "#00174b",
+            "on-primary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "margin-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "label-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "tabular-data": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "headline-sm": ["Inter"]
+          },
+          "fontSize": {
+            "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-lg": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.025em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "tabular-data": ["0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 1.125rem;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #eff4ff;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #c5c5d3;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md text-body-md min-h-screen flex flex-col selection:bg-primary-fixed selection:text-primary">
+<!-- ================= TOP APP BAR (Shared Components JSON Anchor) ================= -->
+<header class="w-full h-14 px-gutter flex items-center justify-between z-40 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm sticky top-0">
+<!-- Brand & Course Context -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold text-label-md">
+          SF
+        </div>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary tracking-tight">SpecForge</span>
+</div>
+<div class="h-4 w-px bg-outline-variant"></div>
+<!-- Breadcrumb & Status -->
+<nav class="flex items-center gap-space-sm font-label-md text-label-md text-on-surface-variant">
+<span class="hover:text-primary transition-colors cursor-pointer">CS401: Advanced Algorithms</span>
+<span class="text-outline">/</span>
+<span class="text-on-surface font-semibold">Workflow &amp; Approval</span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container border border-secondary/30 text-label-sm font-label-sm ml-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+          AI: Connected
+        </span>
+</nav>
+</div>
+<!-- Navigation Role Switcher (from JSON: Author, Reviewer, HOD) -->
+<div class="hidden md:flex items-center space-x-6 h-full">
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors duration-150">
+        Author
+      </button>
+<button class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary font-label-lg text-label-lg py-space-sm font-semibold">
+        Reviewer
+      </button>
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors duration-150">
+        HOD
+      </button>
+</div>
+<!-- Actions & Profile -->
+<div class="flex items-center gap-space-md">
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-secondary text-secondary hover:bg-surface-container-low text-label-md font-label-md transition-colors">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+<span>Share</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container text-label-md font-label-md transition-colors shadow-sm">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+<span>Save</span>
+</button>
+<div class="h-4 w-px bg-outline-variant mx-1"></div>
+<!-- Trailing Icon Actions: notifications, account_circle -->
+<button class="relative p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg transition-colors" title="Notifications">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<!-- User Profile Card -->
+<div class="flex items-center gap-2 pl-1 cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center text-primary font-semibold text-label-sm">
+          AS
+        </div>
+<div class="hidden lg:flex flex-col text-left">
+<span class="text-label-sm font-label-sm font-semibold text-on-surface leading-tight">Dr. A. Sharma</span>
+<span class="text-label-sm font-label-sm text-outline text-[10px]">Curriculum Lead</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ================= WORKBENCH WRAPPER (3-Pane Architecture) ================= -->
+<div class="flex-1 flex overflow-hidden">
+<!-- ================= LEFT RAIL: SideNavBar (Shared Components JSON Anchor) ================= -->
+<aside class="fixed left-0 top-14 bottom-0 w-[280px] flex flex-col justify-between p-space-md bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-30 overflow-y-auto custom-scroll">
+<!-- Rail Top Header: Course Identification Card -->
+<div class="space-y-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant shadow-sm">
+<div class="flex items-start justify-between">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-sm text-[10px] tracking-wide uppercase border border-outline-variant/60 font-semibold">
+              NBA Tier-1
+            </span>
+<span class="text-label-sm font-label-sm text-outline">Credits: 4</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface mt-2 leading-snug">
+            CS401: Advanced Algorithms
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+            AY 2024-25 • Sem VII
+          </p>
+<div class="mt-2.5 pt-2 border-t border-outline-variant/40 flex items-center justify-between text-label-sm text-outline font-label-sm">
+<span>Structure: 3L:1T:0P</span>
+<span class="text-secondary font-semibold">56 Cont. Hrs</span>
+</div>
+</div>
+<!-- Workflow Stepper Nav Items (Upload, Spec, CO-PO-PSO Map, Checks, Workflow, Export) -->
+<nav class="space-y-1">
+<div class="px-space-md py-1 text-label-sm font-label-sm text-outline uppercase tracking-wider">
+            Curriculum Lifecycle
+          </div>
+<!-- 1. Upload (Completed) -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center justify-between gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-secondary" data-icon="upload_file">upload_file</span>
+<span class="text-label-md font-label-md">1. Upload</span>
+</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</a>
+<!-- 2. Spec (Completed) -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center justify-between gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-secondary" data-icon="tune">tune</span>
+<span class="text-label-md font-label-md">2. Spec</span>
+</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</a>
+<!-- 3. CO-PO-PSO Map (Completed) -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center justify-between gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-secondary" data-icon="grid_view">grid_view</span>
+<span class="text-label-md font-label-md">3. CO-PO-PSO Map</span>
+</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</a>
+<!-- 4. Checks (Completed) -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center justify-between gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-secondary" data-icon="fact_check">fact_check</span>
+<span class="text-label-md font-label-md">4. Checks</span>
+</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</a>
+<!-- 5. Workflow (ACTIVE) -->
+<a class="border-l-4 border-primary dark:border-inverse-primary bg-surface-container-lowest dark:bg-surface-container text-primary dark:text-inverse-primary font-semibold px-space-md py-space-sm flex items-center justify-between gap-space-md rounded-r-lg shadow-sm" href="#">
+<span class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-primary" data-icon="schema">schema</span>
+<span class="text-label-md font-label-md">5. Workflow</span>
+</span>
+<span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-surface-container-high text-primary">
+              Step 5 • Approval
+            </span>
+</a>
+<!-- 6. Export (Ready • 0 Errors) -->
+<a id="step6ExportLink" class="text-on-surface-variant font-normal px-space-md py-space-sm flex items-center justify-between gap-space-md hover:bg-surface-container transition-colors rounded-lg cursor-pointer group" href="/export">
+<span class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-md font-label-md group-hover:text-primary">6. Export</span>
+</span>
+<span class="text-[11px] font-mono font-bold text-secondary">0 Err</span>
+</a>
+</nav>
+<!-- CTA from JSON: Validate Matrix -->
+<div class="pt-2">
+<button class="w-full py-2 px-3 rounded-lg border border-secondary text-secondary hover:bg-surface-container-lowest font-label-md text-label-md transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Validate Matrix</span>
+</button>
+</div>
+</div>
+<!-- Rail Footer (from JSON: Accreditation Rubric, Settings) -->
+<div class="pt-space-md border-t border-outline-variant/60 space-y-1">
+<a class="text-on-surface-variant font-normal px-space-md py-space-sm flex items-center gap-space-md hover:bg-surface-container transition-colors rounded-lg text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="gavel">gavel</span>
+<span>Accreditation Rubric</span>
+</a>
+<a class="text-on-surface-variant font-normal px-space-md py-space-sm flex items-center gap-space-md hover:bg-surface-container transition-colors rounded-lg text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</aside>
+<!-- ================= MAIN DOCUMENT WORKBENCH ================= -->
+<main class="flex-1 ml-[280px] overflow-y-auto pb-16 custom-scroll">
+<!-- Stage Header Banner -->
+<div class="bg-surface-container-lowest border-b border-outline-variant px-margin py-space-lg">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="text-label-sm font-label-sm font-semibold tracking-wider text-primary uppercase flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                STEP 5 OF 6 • CURRICULUM GOVERNANCE &amp; MULTI-TIER APPROVAL
+              </div>
+<h1 class="text-headline-xl font-headline-xl text-on-surface tracking-tight mt-1">
+                Curriculum Governance &amp; Approval Workflow
+              </h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 max-w-3xl">
+                Manage Washington Accord tier verification, department peer review, and Board of Studies sign-off for CS401.
+              </p>
+</div>
+<!-- Pre-flight Status Badge -->
+<div class="flex items-center gap-2 self-start md:self-auto bg-surface-container-low border border-outline-variant px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<div class="text-left">
+<div class="text-label-sm font-label-sm font-bold text-on-surface">Tier-1 Compliance Ready</div>
+<div class="text-[11px] text-outline">BOS Docket Ref: #BOS-24-CS401</div>
+</div>
+</div>
+</div>
+<!-- Quick Metadata Strip -->
+<div class="mt-space-md pt-space-md border-t border-outline-variant/60 flex flex-wrap items-center gap-y-2 gap-x-6 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="text-outline">Status:</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold text-label-sm border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                Under Review (Stage 3 of 5)
+              </span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline" data-icon="person">person</span>
+<span>Submitted by <strong class="text-on-surface font-semibold">Prof. R. Kulkarni</strong> (2 days ago)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline" data-icon="assignment_ind">assignment_ind</span>
+<span>Assigned Reviewer: <strong class="text-on-surface font-semibold">Dr. P. Mehta</strong></span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline" data-icon="event">event</span>
+<span>Target BOS Meeting: <strong class="text-on-surface font-semibold">15 Oct 2024</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Stage Content Area -->
+<div class="max-w-[1280px] mx-auto px-margin py-space-lg space-y-space-lg">
+
+<!-- Active Workflow Remediation Action Banner -->
+<div id="workflowRemediationBanner" class="p-4 rounded-xl border border-amber-300 bg-amber-50/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3.5 transition-all duration-300">
+  <div class="flex items-start gap-3">
+    <div id="bannerIconContainer" class="w-9 h-9 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[20px]" id="bannerIcon">warning</span>
+    </div>
+    <div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <h4 id="bannerTitle" class="text-label-md font-label-md font-bold text-amber-950">Active Exception Route: Unit 4 Intractability Proofs Flagged</h4>
+        <span id="bannerTag" class="px-2 py-0.5 rounded bg-amber-200 text-amber-900 text-[10px] uppercase font-bold tracking-wide">Action Required</span>
+      </div>
+      <p id="bannerDesc" class="text-body-sm font-body-sm text-amber-900 mt-0.5">
+        Returned by Dr. V. Raman (HOD): <em>"Ensure Unit 4 intractability proofs align with Washington Accord K6 synthesis requirements before forwarding."</em>
+      </p>
+    </div>
+  </div>
+  <div class="flex items-center gap-2 shrink-0 self-end md:self-auto">
+    <button id="btnBannerViewDiff" type="button" class="px-3 py-1.5 rounded-lg border border-outline-variant hover:bg-white text-on-surface text-label-sm font-label-sm font-semibold transition-colors cursor-pointer flex items-center gap-1">
+      <span class="material-symbols-outlined text-[15px]">difference</span>
+      <span>Inspect Diff</span>
+    </button>
+    <button id="btnBannerSolveMistake" type="button" class="px-4 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-label-sm font-label-sm font-bold shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer">
+      <span class="material-symbols-outlined text-[16px]">auto_fix_high</span>
+      <span id="btnBannerSolveText">Solve All Mistakes</span>
+    </button>
+  </div>
+</div>
+
+<!-- ================= HORIZONTAL STATUS TRACKER PIPELINE ================= -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<h3 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="linear_scale">linear_scale</span>
+              Approval Milestone Pipeline
+            </h3>
+<span class="text-label-sm font-label-sm text-outline">Autonomous Academic Council Protocol v4.2</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-6 gap-3 items-stretch">
+<!-- Step 1: Draft (Completed) -->
+<div id="stage01Card" class="p-3 rounded-lg border border-secondary/30 bg-surface-container-low flex flex-col justify-between transition-all duration-200 cursor-pointer hover:border-secondary">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-secondary">STAGE 01</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="mt-2">
+<div class="text-label-md font-label-md font-bold text-on-surface">Draft Initialized</div>
+<div class="text-body-sm font-body-sm text-outline text-[11px]">Prof. R. Kulkarni</div>
+</div>
+<div class="mt-2 text-[10px] text-secondary font-semibold flex items-center gap-1">
+<span>Completed</span> • <span>02 Oct</span>
+</div>
+</div>
+<!-- Step 2: Submitted (Completed) -->
+<div id="stage02Card" class="p-3 rounded-lg border border-secondary/30 bg-surface-container-low flex flex-col justify-between transition-all duration-200 cursor-pointer hover:border-secondary">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-secondary">STAGE 02</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="mt-2">
+<div class="text-label-md font-label-md font-bold text-on-surface">Formally Submitted</div>
+<div class="text-body-sm font-body-sm text-outline text-[11px]">Author Sign-off</div>
+</div>
+<div class="mt-2 text-[10px] text-secondary font-semibold flex items-center gap-1">
+<span>Completed</span> • <span>05 Oct</span>
+</div>
+</div>
+<!-- Step 3: Under Review (ACTIVE) -->
+<div id="stage03Card" class="p-3 rounded-lg border-2 border-primary bg-surface-container-high/40 flex flex-col justify-between relative shadow-sm transition-all duration-200 cursor-pointer">
+<div id="stage03CurrentPill" class="absolute -top-2.5 right-3 px-2 py-0.2 bg-primary text-on-primary text-[10px] font-bold rounded uppercase tracking-wider">
+                Current Stage
+              </div>
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-primary">STAGE 03</span>
+<span id="stage03Pulse" class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+</div>
+<div class="mt-2">
+<div class="text-label-md font-label-md font-bold text-primary">Under Peer Review</div>
+<div class="text-body-sm font-body-sm text-on-surface text-[11px]">Dr. P. Mehta (Auditor)</div>
+</div>
+<div class="mt-2 text-[10px] text-primary font-bold flex items-center gap-1" id="stage03StatusText">
+<span class="material-symbols-outlined text-[13px]" data-icon="schedule">schedule</span>
+<span>In Progress (Day 2 of 4)</span>
+</div>
+</div>
+<!-- Step 4: Pending HOD (Upcoming) -->
+<div id="stage04Card" class="p-3 rounded-lg border border-outline-variant/60 bg-surface-container-low/50 opacity-70 flex flex-col justify-between transition-all duration-300 cursor-pointer hover:border-primary/60" title="Click to view HOD sign-off stage">
+<div class="flex items-center justify-between">
+<span id="stage04Tag" class="text-label-sm font-label-sm font-bold text-outline">STAGE 04</span>
+<span id="stage04Icon" class="material-symbols-outlined text-outline/60" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<div class="mt-2">
+<div id="stage04Title" class="text-label-md font-label-md font-semibold text-on-surface-variant">Department HOD</div>
+<div class="text-body-sm font-body-sm text-outline text-[11px]">Dr. V. Raman</div>
+</div>
+<div class="mt-2 text-[10px] text-outline flex items-center gap-1" id="stage04Status">
+<span>Queued</span>
+</div>
+</div>
+<!-- Step 5: Approved (Final certified milestone) -->
+<div id="stage05Card" class="p-3 rounded-lg border border-outline-variant/60 bg-surface-container-low/50 opacity-70 flex flex-col justify-between transition-all duration-300 cursor-pointer hover:border-emerald-400" title="Final Board of Studies certified milestone">
+<div class="flex items-center justify-between">
+<span id="stage05Tag" class="text-label-sm font-label-sm font-bold text-outline">STAGE 05</span>
+<span id="stage05Icon" class="material-symbols-outlined text-outline/60" data-icon="verified">verified</span>
+</div>
+<div class="mt-2">
+<div id="stage05Title" class="text-label-md font-label-md font-semibold text-on-surface-variant">BOS Approved</div>
+<div class="text-body-sm font-body-sm text-outline text-[11px]">Final Certified Gazette</div>
+</div>
+<div class="mt-2 text-[10px] text-outline flex items-center gap-1" id="stage05Status">
+<span>Pending Approval</span>
+</div>
+</div>
+<!-- Branch Node: Returned / Revisions Required -->
+<div id="branchStageNode" class="p-3 rounded-lg border border-error/50 bg-error-container/30 flex flex-col justify-between transition-all duration-300 cursor-pointer hover:border-error hover:shadow-md" title="Click to solve and clear this exception route">
+<div class="flex items-center justify-between">
+<span id="branchStageTag" class="text-label-sm font-label-sm font-bold text-error uppercase">Exception Route</span>
+<span id="branchStageIcon" class="material-symbols-outlined text-error" data-icon="replay">replay</span>
+</div>
+<div class="mt-2">
+<div id="branchStageTitle" class="text-label-md font-label-md font-bold text-on-error-container">Returned Branch</div>
+<div id="branchStageSub" class="text-body-sm font-body-sm text-outline text-[11px]">Triggers author remediation loop</div>
+</div>
+<div class="mt-2 flex items-center justify-between gap-1">
+  <div class="text-[10px] text-error font-semibold flex items-center gap-1" id="branchStageStatus">
+    <span>Remediation ready</span>
+  </div>
+  <button id="btnSolveBranchMistake" type="button" class="px-2 py-0.5 rounded bg-error text-white text-[10px] font-bold shadow-xs hover:bg-error-dim flex items-center gap-0.5 transition-colors cursor-pointer" title="Solve this mistake now">
+    <span class="material-symbols-outlined text-[12px]">auto_fix_high</span>
+    <span id="btnSolveBranchText">Solve</span>
+  </button>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= TWO-COLUMN WORKSPACE LAYOUT ================= -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- ================= LEFT COLUMN: GOVERNANCE ACTION PANEL (7 COLS) ================= -->
+<div class="lg:col-span-7 space-y-space-md">
+<!-- Perspective Banner & Role Preview Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-container-high text-primary flex items-center justify-center font-bold text-label-md">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</span>
+<div>
+<span class="text-label-sm font-label-sm text-outline">Active Workbench Perspective:</span>
+<h4 class="text-headline-sm font-headline-sm text-on-surface">Acting as: Reviewer</h4>
+</div>
+</div>
+<!-- Role Testing Toggle Pill -->
+<div class="inline-flex p-1 bg-surface-container rounded-lg border border-outline-variant/60 self-start sm:self-auto">
+<button class="px-2.5 py-1 text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface rounded transition-colors" title="View Author Permissions">
+                    Author
+                  </button>
+<button class="px-2.5 py-1 text-label-sm font-label-sm bg-surface-container-lowest text-primary font-bold rounded shadow-sm">
+                    Reviewer (Active)
+                  </button>
+<button class="px-2.5 py-1 text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface rounded transition-colors" title="View HOD Permissions">
+                    HOD
+                  </button>
+</div>
+</div>
+<!-- Perspective Description -->
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-3">
+                Assigned auditor: <strong class="text-on-surface">Dr. P. Mehta (Dept Curriculum Auditor)</strong>. You have formal rights to annotate outcome mappings, verify taxonomy distributions, and forward to HOD or bounce back for revisions.
+              </p>
+</div>
+<!-- Active Reviewer Action Card -->
+<div class="bg-surface-container-lowest border-2 border-primary/20 rounded-lg p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="rate_review">rate_review</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Reviewer Decision &amp; Governance Action</h3>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-sm text-xs font-semibold">
+                  Required Stage Action
+                </span>
+</div>
+<!-- Mandatory Structured Comments Input -->
+<div class="mt-4 space-y-2">
+<label class="block text-label-md font-label-md text-on-surface font-semibold" for="reviewComments">
+                  Reviewer Feedback &amp; Audit Comments <span class="text-error font-normal text-body-sm">(Required if returning)</span>
+</label>
+<textarea class="w-full rounded-lg border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary text-body-md font-body-md text-on-surface p-3 placeholder:text-outline/60" id="reviewComments" placeholder="State formal findings regarding Bloom's levels, laboratory contact balance, or matrix weights before forwarding or returning..." rows="4"></textarea>
+<!-- Quick Compliance Prompt Tags -->
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="text-label-sm font-label-sm text-outline mr-1">Insert tag:</span>
+<button class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm transition-colors border border-outline-variant/60" type="button">
+                    + Bloom verb alignment
+                  </button>
+<button class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm transition-colors border border-outline-variant/60" type="button">
+                    + CIE/SEE distribution verified
+                  </button>
+<button class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm transition-colors border border-outline-variant/60" type="button">
+                    + PO3 matrix justification sound
+                  </button>
+</div>
+</div>
+<!-- Reviewer Action Buttons -->
+<div class="mt-space-lg pt-space-md border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-3">
+<button id="btnReturnComment" class="w-full sm:w-auto px-4 py-2 rounded-lg border border-error text-error hover:bg-error-container/20 font-label-md text-label-md transition-colors flex items-center justify-center gap-2 cursor-pointer" type="button">
+<span class="material-symbols-outlined text-error" data-icon="assignment_return">assignment_return</span>
+<span>Return with comment</span>
+</button>
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<button id="btnSaveDraftNotes" class="w-full sm:w-auto px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-colors cursor-pointer" type="button">
+                    Save Draft Notes
+                  </button>
+<button id="btnForwardHod" class="w-full sm:w-auto px-5 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md transition-colors shadow-sm flex items-center justify-center gap-2 font-semibold cursor-pointer" type="button">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+<span>Forward to HOD</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Role Matrix Permission Inspector (Author & HOD States) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="admin_panel_settings">admin_panel_settings</span>
+                  Role Privilege &amp; Action State Overview
+                </h4>
+<span class="text-label-sm font-label-sm text-outline">RBAC Security Policy</span>
+</div>
+<div class="space-y-3">
+<!-- Author State (Disabled / Submitted) -->
+<div class="p-3 rounded-lg border border-outline-variant/60 bg-surface-container-low/40 flex items-start justify-between gap-3">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md font-semibold text-on-surface">Author Action: Submit for review</span>
+<span class="px-2 py-0.2 rounded bg-surface-container text-outline text-[10px] uppercase font-bold">Inactive (Already Submitted)</span>
+</div>
+<p class="text-body-sm font-body-sm text-outline">
+                      Author action — Course specification is already submitted and currently under review by Dr. P. Mehta. Author cannot resubmit without a revision request.
+                    </p>
+</div>
+<button id="btnRoleSubmitAuthor" class="px-3 py-1.5 rounded border border-outline text-outline hover:text-on-surface hover:bg-surface-container text-label-sm font-label-sm flex items-center gap-1 shrink-0 cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">send</span>
+                    Submit
+                  </button>
+</div>
+<!-- HOD Action 1: Approve Final Sign-off -->
+<div class="p-3 rounded-lg border border-outline-variant/60 bg-surface-container-low/40 flex items-start justify-between gap-3">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md font-semibold text-on-surface">HOD Action: Approve (Final Sign-off)</span>
+<span id="badgeHodApprove" class="px-2 py-0.2 rounded bg-surface-container text-outline text-[10px] uppercase font-bold">Awaiting Stage 3 Completion</span>
+</div>
+<p class="text-body-sm font-body-sm text-outline">
+                      HOD only — Enabled once departmental Reviewer forwards the audited specification. Unlocks Step 6 Export.
+                    </p>
+</div>
+<button id="btnRoleApproveHod" class="px-3 py-1.5 rounded bg-surface-container-high hover:bg-primary-container hover:text-white text-outline hover:text-on-primary text-label-sm font-label-sm flex items-center gap-1 shrink-0 cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                    Approve
+                  </button>
+</div>
+<!-- HOD Action 2: Return to Author / Reviewer -->
+<div class="p-3 rounded-lg border border-outline-variant/60 bg-surface-container-low/40 flex items-start justify-between gap-3">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md font-semibold text-on-surface">HOD Action: Return to Author / Reviewer</span>
+<span class="px-2 py-0.2 rounded bg-surface-container text-outline text-[10px] uppercase font-bold">HOD Reserved</span>
+</div>
+<p class="text-body-sm font-body-sm text-outline">
+                      HOD only — Reserved for final Board of Studies evaluation and department curriculum committee veto.
+                    </p>
+</div>
+<button id="btnRoleReturnHod" class="px-3 py-1.5 rounded border border-outline text-outline hover:text-error hover:border-error hover:bg-error-container/20 text-label-sm font-label-sm flex items-center gap-1 shrink-0 cursor-pointer transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">replay</span>
+                    Return
+                  </button>
+</div>
+</div>
+</div>
+<!-- Compliance Pre-flight Checklist Summary Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<h4 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="task_alt" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+                  Pre-flight Checklist Summary
+                </h4>
+<span class="text-label-sm font-label-sm text-secondary font-bold">Ready for Sign-Off</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/60">
+<div class="flex items-center justify-between text-secondary">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface font-tabular-data">11/11</span>
+</div>
+<div class="text-label-sm font-label-sm font-semibold text-on-surface mt-1">NBA Validation</div>
+<div class="text-[11px] text-outline">100% rules cleared</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/60">
+<div class="flex items-center justify-between text-secondary">
+<span class="material-symbols-outlined" data-icon="grid_on">grid_on</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface font-tabular-data">2.6</span>
+</div>
+<div class="text-label-sm font-label-sm font-semibold text-on-surface mt-1">Matrix Density</div>
+<div class="text-[11px] text-outline">CO-PO-PSO verified</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/60">
+<div class="flex items-center justify-between text-secondary">
+<span class="material-symbols-outlined" data-icon="timelapse">timelapse</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface font-tabular-data">56h</span>
+</div>
+<div class="text-label-sm font-label-sm font-semibold text-on-surface mt-1">Contact Hours</div>
+<div class="text-[11px] text-outline">42L + 14T reconciled</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT COLUMN: AUDIT HISTORY & TIMELINE (5 COLS) ================= -->
+<div class="lg:col-span-5 space-y-space-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md shadow-sm">
+<!-- History Header with Controls -->
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+                    Governance History &amp; Audit Trail
+                  </h3>
+<p class="text-body-sm font-body-sm text-outline">Cryptographically timestamped events</p>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Filter Timeline">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Export Ledger">
+<span class="material-symbols-outlined text-[18px]" data-icon="file_download">file_download</span>
+</button>
+</div>
+</div>
+<!-- Vertical Timeline Stream -->
+<div class="relative mt-4 pl-6 space-y-6 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant">
+<!-- Event 1 (Most Recent - Today, 11:42 AM) -->
+<div class="relative">
+<!-- Node bullet -->
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low p-3.5 rounded-lg border border-outline-variant/80">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-high text-primary font-bold text-[10px] flex items-center justify-center">
+                          PM
+                        </div>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface">Dr. P. Mehta</div>
+<div class="text-[10px] text-outline font-label-sm">Curriculum Auditor / Reviewer</div>
+</div>
+</div>
+<span class="text-[10px] text-outline font-tabular-data">Today, 11:42 AM</span>
+</div>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-label-sm text-[11px] font-semibold">
+                        Annotated Matrix Cell CO4-&gt;PO3
+                      </span>
+</div>
+<p class="mt-2 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest p-2 rounded border border-outline-variant/40">
+                      "Added requirement for Tier-1 algorithmic reduction proof deliverable. Pre-flight checks passed 100%."
+                    </p>
+</div>
+</div>
+<!-- Event 2 (Yesterday, 4:15 PM) -->
+<div class="relative">
+<!-- Node bullet -->
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low p-3.5 rounded-lg border border-outline-variant/80">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-high text-secondary font-bold text-[10px] flex items-center justify-center">
+                          RK
+                        </div>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface">Prof. R. Kulkarni</div>
+<div class="text-[10px] text-outline font-label-sm">Course Author</div>
+</div>
+</div>
+<span class="text-[10px] text-outline font-tabular-data">Yesterday, 4:15 PM</span>
+</div>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded bg-secondary-container/40 text-on-secondary-container font-label-sm text-[11px] font-semibold border border-secondary/20">
+                        Submitted Course Spec for Formal Review
+                      </span>
+</div>
+<p class="mt-2 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest p-2 rounded border border-outline-variant/40">
+                      "Reconciled tutorial hours to 14h to satisfy autonomous credit regulations. Assessment total calibrated to 100%."
+                    </p>
+</div>
+</div>
+<!-- Event 3 (3 days ago, 2:30 PM) - Exception / Return Event -->
+<div class="relative" id="hodObservationCard">
+<!-- Node bullet -->
+<div id="hodBulletDot" class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-error ring-4 ring-surface-container-lowest transition-colors duration-300"></div>
+<div id="hodCardContainer" class="bg-surface-container-low p-3.5 rounded-lg border border-error/30 transition-all duration-300">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div id="hodAvatar" class="w-6 h-6 rounded-full bg-error-container text-on-error-container font-bold text-[10px] flex items-center justify-center transition-colors">
+  VR
+</div>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface">Dr. V. Raman</div>
+<div class="text-[10px] text-outline font-label-sm">Head of Department</div>
+</div>
+</div>
+<span class="text-[10px] text-outline font-tabular-data">3 days ago, 2:30 PM</span>
+</div>
+<div class="mt-2.5 flex items-center gap-1.5 flex-wrap">
+<span id="hodStatusBadge" class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-[11px] font-semibold transition-colors">
+  Returned Draft with Observations
+</span>
+<span id="hodResolvedBadge" class="hidden px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-label-sm text-[11px] font-semibold border border-emerald-300">
+  ✓ WA K6 Synthesis Aligned &amp; Resolved
+</span>
+</div>
+<p id="hodQuoteBox" class="mt-2 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest p-2 rounded border border-error/20 transition-colors">
+  "Ensure Unit 4 intractability proofs align with Washington Accord K6 synthesis requirements before forwarding."
+</p>
+
+<!-- AI Remediation Explanation Card (Shown when fix is accepted) -->
+<div id="hodFixDetails" class="hidden mt-2 p-2.5 rounded bg-emerald-50 border border-emerald-200 text-body-sm font-body-sm text-emerald-950 transition-all">
+  <div class="flex items-center justify-between mb-1">
+    <div class="flex items-center gap-1.5 font-semibold text-emerald-800 text-[11px]">
+      <span class="material-symbols-outlined text-[15px] text-emerald-700">auto_awesome</span>
+      <span>AI Remediation Applied: Unit 4 Washington Accord K6 Synthesis</span>
+    </div>
+    <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-100 px-1.5 py-0.2 rounded">Passed Gate</span>
+  </div>
+  <p class="text-[11px] leading-relaxed text-emerald-900">
+    Rebuilt Unit 4 topics to K6 Synthesis level: added formal Cook-Levin reduction proofs, Karp hardness constructions (3-SAT → Vertex Cover → Subset-Sum), fixed-parameter tractability (FPT), and sublinear approximation guarantees. Complies with Washington Accord WP1, WP2, and WP3 complex engineering requirements.
+  </p>
+</div>
+
+<!-- Action Buttons Bar for Dr. Raman's Observation -->
+<div class="mt-3 pt-2.5 border-t border-outline-variant/60 flex flex-wrap items-center justify-between gap-2">
+  <div class="flex items-center gap-1.5">
+    <button id="btnHodViewDiff" type="button" class="px-2.5 py-1 rounded border border-outline-variant hover:bg-surface-container text-on-surface text-label-sm font-label-sm transition-colors flex items-center gap-1 cursor-pointer" title="View before and after diff of Unit 4">
+      <span class="material-symbols-outlined text-[14px]">difference</span>
+      <span>View K6 Diff</span>
+    </button>
+    <button id="btnHodDismiss" type="button" class="px-2.5 py-1 rounded border border-outline-variant hover:bg-surface-container text-outline hover:text-on-surface text-label-sm font-label-sm transition-colors cursor-pointer" title="Dismiss observation">
+      <span>Dismiss</span>
+    </button>
+  </div>
+  <div class="flex items-center gap-1.5">
+    <button id="btnHodAcceptFix" type="button" class="px-3 py-1.5 rounded-lg bg-primary-container hover:bg-primary text-white text-label-sm font-label-sm font-semibold transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer" title="Accept AI Fix and align Unit 4 to K6">
+      <span class="material-symbols-outlined text-[15px]" id="btnHodAcceptIcon">check</span>
+      <span id="btnHodAcceptFixText">Accept Fix</span>
+    </button>
+    <button id="btnHodRevertFix" type="button" class="hidden px-2.5 py-1 rounded border border-outline-variant hover:bg-surface-container text-outline hover:text-on-surface text-label-sm font-label-sm transition-colors cursor-pointer" title="Revert accepted fix">
+      <span>Revert Fix</span>
+    </button>
+  </div>
+</div>
+</div>
+</div>
+<!-- Event 4 (5 days ago, 10:00 AM) -->
+<div class="relative">
+<!-- Node bullet -->
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-outline ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low p-3.5 rounded-lg border border-outline-variant/80">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-high text-outline font-bold text-[10px] flex items-center justify-center">
+                          RK
+                        </div>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface">Prof. R. Kulkarni</div>
+<div class="text-[10px] text-outline font-label-sm">Course Author</div>
+</div>
+</div>
+<span class="text-[10px] text-outline font-tabular-data">5 days ago, 10:00 AM</span>
+</div>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-[11px] font-semibold">
+                        Initial Spec Draft Created &amp; Uploaded
+                      </span>
+</div>
+<p class="mt-2 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest p-2 rounded border border-outline-variant/40">
+                      "Ingested from <code class="text-[11px] bg-surface-container px-1 py-0.5 rounded text-primary">syllabus_cs401_v2.docx</code> via SpecForge AI parser."
+                    </p>
+</div>
+</div>
+</div>
+<!-- Ledger Verification Token -->
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between text-outline text-[11px]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="lock_clock">lock_clock</span>
+                  Audit Hash: 9f8a...c120
+                </span>
+<span class="hover:text-primary cursor-pointer">View full raw log →</span>
+</div>
+</div>
+<!-- Accreditation Council Rubric Snapshot -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md shadow-sm">
+<h4 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="gavel">gavel</span>
+                Washington Accord Tier-1 Criteria
+              </h4>
+<p class="text-body-sm font-body-sm text-outline mb-3">
+                Mandatory criteria checklist for autonomous institute Board of Studies ratifications.
+              </p>
+<ul class="space-y-2 text-body-sm font-body-sm">
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low border border-outline-variant/40">
+<span class="text-on-surface">WA Complex Engineering Problem (WP1-WP7)</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low border border-outline-variant/40">
+<span class="text-on-surface">Continuous Internal Evaluation (50% CIE)</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low border border-outline-variant/40">
+<span class="text-on-surface">External Examiner Moderation Quorum</span>
+<span class="text-label-sm font-label-sm text-outline">Pending BOS</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- ================= FOOTER BAR (Sticky Workbench Progression) ================= -->
+<footer class="fixed bottom-0 left-[280px] right-0 h-14 bg-surface-container-lowest border-t border-outline-variant px-margin flex items-center justify-between z-20 shadow-md">
+<!-- Left status text -->
+<div class="flex items-center gap-3">
+<span id="footerStatusDot" class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-label-md font-label-md text-on-surface" id="footerStatusContainer">
+        Status: <strong class="text-primary font-bold" id="footerStatusText">Stage 3 • Under Review</strong>
+</span>
+<span class="hidden sm:inline text-outline text-label-sm font-label-sm" id="footerStatusSub">
+        (Assigned to Dr. P. Mehta)
+      </span>
+</div>
+<!-- Stepper Navigation Controls -->
+<div class="flex items-center gap-3">
+<button id="btnWorkflowBackStep4" type="button" class="px-3 py-1.5 rounded-lg border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors flex items-center gap-1.5 cursor-pointer">
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_back">arrow_back</span>
+<span>Step 4 — Automated Checks</span>
+</button>
+<!-- Step 6 Advance button -->
+<button id="btnWorkflowNextStep6" type="button" class="px-4 py-1.5 rounded-lg bg-primary-container text-white hover:bg-primary font-label-md text-label-md flex items-center gap-1.5 shadow-sm font-semibold cursor-pointer" title="Proceed to Official Export">
+<span>Step 6 — Export &amp; Dossier</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</footer>
+
+<!-- Floating In-App Toast Notification -->
+<div id="workflowToast" class="fixed bottom-20 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <div class="bg-surface-container-lowest border border-outline-variant shadow-xl rounded-lg px-4 py-3 flex items-center gap-3 min-w-[320px]">
+    <div id="wfToastIcon" class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[18px]">check_circle</span>
+    </div>
+    <div class="min-w-0 flex-1">
+      <div id="wfToastTitle" class="text-xs font-bold text-on-surface">Workflow Action</div>
+      <div id="wfToastMessage" class="text-xs text-on-surface-variant truncate">Changes saved successfully.</div>
+    </div>
+  </div>
+</div>
+
+<!-- K6 Synthesis Diff & Remediation Modal Backdrop -->
+<div id="hodDiffModalBackdrop" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-200">
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl max-w-2xl w-full overflow-hidden transform scale-95 transition-transform duration-200" id="hodDiffModalContent">
+    <!-- Modal Header -->
+    <div class="px-6 py-4 bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+          <span class="material-symbols-outlined text-[18px]">difference</span>
+        </span>
+        <div>
+          <h3 class="text-label-lg font-label-lg font-bold text-on-surface">Unit 4 Remediation: Washington Accord K6 Synthesis Diff</h3>
+          <p class="text-[11px] text-outline">Observation raised by Dr. V. Raman (Head of Department)</p>
+        </div>
+      </div>
+      <button id="btnModalClose" type="button" class="p-1 rounded-lg hover:bg-surface-container text-outline hover:text-on-surface transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <!-- Modal Body: Side-by-Side Comparison -->
+    <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto custom-scroll">
+      <!-- Observation Banner -->
+      <div class="p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-950 flex items-start gap-2.5">
+        <span class="material-symbols-outlined text-amber-700 text-[18px] shrink-0 mt-0.5">assignment_late</span>
+        <div class="text-xs">
+          <strong class="font-bold text-amber-900">Dr. V. Raman's Formal Feedback:</strong>
+          <div class="italic text-amber-800 mt-0.5">"Ensure Unit 4 intractability proofs align with Washington Accord K6 synthesis requirements before forwarding."</div>
+        </div>
+      </div>
+
+      <!-- Before vs After Panels -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        <!-- Before -->
+        <div class="p-3.5 rounded-lg bg-error-container/20 border border-error/30 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-error/20">
+              <span class="font-bold text-error uppercase text-[10px] tracking-wide">Previous (Flagged Draft)</span>
+              <span class="px-1.5 py-0.2 rounded bg-error-container text-on-error-container font-mono text-[10px]">Bloom K4</span>
+            </div>
+            <h5 class="font-bold text-on-surface mb-1">Unit 4: NP-Completeness Overview</h5>
+            <ul class="space-y-1 text-on-surface-variant list-disc list-inside text-[11px]">
+              <li>Classes P, NP, and NP-Hard basic definitions.</li>
+              <li>Cook-Levin Theorem summary.</li>
+              <li>Elementary 3-SAT reduction to Clique.</li>
+            </ul>
+          </div>
+          <div class="mt-3 pt-2 border-t border-error/20 text-[10px] text-error font-medium">
+            ✕ Lacked Washington Accord WP1/WP3 synthesis depth (K6).
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="p-3.5 rounded-lg bg-emerald-50 border border-emerald-300 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-emerald-200">
+              <span class="font-bold text-emerald-800 uppercase text-[10px] tracking-wide">SpecForge AI Fix (Aligned)</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-900 font-mono text-[10px] font-bold">Bloom K6</span>
+            </div>
+            <h5 class="font-bold text-emerald-950 mb-1">Unit 4: NP-Completeness &amp; Intractability Proofs</h5>
+            <ul class="space-y-1 text-emerald-900 list-disc list-inside text-[11px]">
+              <li><strong class="text-emerald-950">Synthesis:</strong> Cook-Levin reduction foundations.</li>
+              <li><strong class="text-emerald-950">Hierarchy:</strong> Polynomial-time Karp reductions (3-SAT → Vertex Cover → Subset-Sum).</li>
+              <li><strong class="text-emerald-950">Hardness:</strong> Fixed-parameter tractability (FPT) &amp; sublinear bounds.</li>
+            </ul>
+          </div>
+          <div class="mt-3 pt-2 border-t border-emerald-200 text-[10px] text-emerald-800 font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[13px]">check_circle</span>
+            <span>Accredited: Meets Washington Accord K6 Synthesis &amp; NBA Tier-1.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer Actions -->
+    <div class="px-6 py-3.5 bg-surface-container-low border-t border-outline-variant flex items-center justify-between">
+      <button id="btnModalCancel" type="button" class="px-3.5 py-1.5 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface text-label-md font-label-md transition-colors cursor-pointer">
+        Cancel
+      </button>
+      <button id="btnModalApplyFix" type="button" class="px-4 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer">
+        <span class="material-symbols-outlined text-[16px]">task_alt</span>
+        <span>Accept &amp; Apply K6 Alignment</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Workflow Controller Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    function showWfToast(title, message, isError) {
+      const toast = document.getElementById('workflowToast');
+      const toastTitle = document.getElementById('wfToastTitle');
+      const toastMessage = document.getElementById('wfToastMessage');
+      const toastIcon = document.getElementById('wfToastIcon');
+      if (!toast) return;
+
+      toastTitle.textContent = title;
+      toastMessage.textContent = message;
+
+      if (isError) {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">error</span>';
+      } else {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span>';
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(function() {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    // Modal helpers
+    const diffModal = document.getElementById('hodDiffModalBackdrop');
+    const modalContent = document.getElementById('hodDiffModalContent');
+    const btnModalClose = document.getElementById('btnModalClose');
+    const btnModalCancel = document.getElementById('btnModalCancel');
+    const btnModalApply = document.getElementById('btnModalApplyFix');
+    const btnHodViewDiff = document.getElementById('btnHodViewDiff');
+
+    function openDiffModal() {
+      if (!diffModal) return;
+      diffModal.classList.remove('opacity-0', 'pointer-events-none');
+      diffModal.classList.add('opacity-100');
+      if (modalContent) {
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+      }
+    }
+
+    function closeDiffModal() {
+      if (!diffModal) return;
+      diffModal.classList.add('opacity-0', 'pointer-events-none');
+      diffModal.classList.remove('opacity-100');
+      if (modalContent) {
+        modalContent.classList.add('scale-95');
+        modalContent.classList.remove('scale-100');
+      }
+    }
+
+    if (btnHodViewDiff) btnHodViewDiff.addEventListener('click', openDiffModal);
+    if (btnModalClose) btnModalClose.addEventListener('click', closeDiffModal);
+    if (btnModalCancel) btnModalCancel.addEventListener('click', closeDiffModal);
+    if (diffModal) {
+      diffModal.addEventListener('click', (e) => {
+        if (e.target === diffModal) closeDiffModal();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDiffModal();
+    });
+
+    // Dr. V. Raman's observation resolution logic
+    const btnHodAccept = document.getElementById('btnHodAcceptFix');
+    const btnHodDismiss = document.getElementById('btnHodDismiss');
+    const btnHodRevert = document.getElementById('btnHodRevertFix');
+    const hodBulletDot = document.getElementById('hodBulletDot');
+    const hodCardContainer = document.getElementById('hodCardContainer');
+    const hodAvatar = document.getElementById('hodAvatar');
+    const hodStatusBadge = document.getElementById('hodStatusBadge');
+    const hodResolvedBadge = document.getElementById('hodResolvedBadge');
+    const hodQuoteBox = document.getElementById('hodQuoteBox');
+    const hodFixDetails = document.getElementById('hodFixDetails');
+    const btnHodAcceptFixText = document.getElementById('btnHodAcceptFixText');
+    const btnHodAcceptIcon = document.getElementById('btnHodAcceptIcon');
+
+    // Banner elements
+    const banner = document.getElementById('workflowRemediationBanner');
+    const bannerIconContainer = document.getElementById('bannerIconContainer');
+    const bannerIcon = document.getElementById('bannerIcon');
+    const bannerTitle = document.getElementById('bannerTitle');
+    const bannerTag = document.getElementById('bannerTag');
+    const bannerDesc = document.getElementById('bannerDesc');
+    const btnBannerSolve = document.getElementById('btnBannerSolveMistake');
+    const btnBannerSolveText = document.getElementById('btnBannerSolveText');
+    const btnBannerViewDiff = document.getElementById('btnBannerViewDiff');
+
+    // Branch solve button
+    const btnSolveBranch = document.getElementById('btnSolveBranchMistake');
+    const btnSolveBranchText = document.getElementById('btnSolveBranchText');
+
+    // Stage 04 & Stage 05 elements
+    const stage01Card = document.getElementById('stage01Card');
+    const stage02Card = document.getElementById('stage02Card');
+    const stage03Card = document.getElementById('stage03Card');
+    const stage04Card = document.getElementById('stage04Card');
+    const stage04Tag = document.getElementById('stage04Tag');
+    const stage04Icon = document.getElementById('stage04Icon');
+    const stage04Title = document.getElementById('stage04Title');
+    const stage04Status = document.getElementById('stage04Status');
+
+    const stage05Card = document.getElementById('stage05Card');
+    const stage05Tag = document.getElementById('stage05Tag');
+    const stage05Icon = document.getElementById('stage05Icon');
+    const stage05Title = document.getElementById('stage05Title');
+    const stage05Status = document.getElementById('stage05Status');
+
+    // Footer status elements
+    const footerStatusText = document.getElementById('footerStatusText');
+    const footerStatusSub = document.getElementById('footerStatusSub');
+    const footerStatusDot = document.getElementById('footerStatusDot');
+
+    let isMistakeSolved = false;
+    let isHodApproved = false;
+
+    function applyHodFix() {
+      isMistakeSolved = true;
+
+      // 1. Update observation card UI to resolved state
+      if (hodBulletDot) {
+        hodBulletDot.className = 'absolute -left-6 top-1 w-3 h-3 rounded-full bg-emerald-600 ring-4 ring-surface-container-lowest transition-colors duration-300';
+      }
+      if (hodCardContainer) {
+        hodCardContainer.className = 'bg-emerald-50/40 p-3.5 rounded-lg border border-emerald-300 transition-all duration-300 shadow-sm';
+      }
+      if (hodAvatar) {
+        hodAvatar.className = 'w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px] flex items-center justify-center transition-colors';
+      }
+      if (hodStatusBadge) hodStatusBadge.classList.add('hidden');
+      if (hodResolvedBadge) hodResolvedBadge.classList.remove('hidden');
+      if (hodQuoteBox) {
+        hodQuoteBox.className = 'mt-2 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest p-2 rounded border border-emerald-200 transition-colors';
+      }
+      if (hodFixDetails) hodFixDetails.classList.remove('hidden');
+
+      if (btnHodAccept) {
+        btnHodAccept.className = 'px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-label-sm font-label-sm font-semibold transition-colors flex items-center gap-1.5 shadow-sm';
+        if (btnHodAcceptFixText) btnHodAcceptFixText.textContent = 'Fix Applied';
+        if (btnHodAcceptIcon) btnHodAcceptIcon.textContent = 'done_all';
+      }
+      if (btnHodRevert) btnHodRevert.classList.remove('hidden');
+      if (btnHodDismiss) btnHodDismiss.classList.add('hidden');
+
+      // 2. Update the branch stage node in the milestone tracker
+      if (branchStageNode) {
+        branchStageNode.className = 'p-3 rounded-lg border border-emerald-300 bg-emerald-50/70 flex flex-col justify-between transition-all duration-300 cursor-pointer hover:border-emerald-500 shadow-xs';
+      }
+      if (branchStageTag) {
+        branchStageTag.className = 'text-label-sm font-label-sm font-bold text-emerald-800 uppercase';
+        branchStageTag.textContent = 'Cleared Gate';
+      }
+      if (branchStageIcon) {
+        branchStageIcon.className = 'material-symbols-outlined text-emerald-700';
+        branchStageIcon.textContent = 'task_alt';
+      }
+      if (branchStageTitle) {
+        branchStageTitle.className = 'text-label-md font-label-md font-bold text-emerald-950';
+        branchStageTitle.textContent = 'Remediation Cleared';
+      }
+      if (branchStageSub) {
+        branchStageSub.className = 'text-body-sm font-body-sm text-emerald-800 text-[11px]';
+        branchStageSub.textContent = 'WA K6 synthesis satisfied';
+      }
+      if (branchStageStatus) {
+        branchStageStatus.className = 'text-[10px] text-emerald-700 font-semibold flex items-center gap-1';
+        branchStageStatus.innerHTML = '<span class="material-symbols-outlined text-[13px]">check</span><span>Gate resolved</span>';
+      }
+      if (btnSolveBranch) {
+        btnSolveBranch.className = 'px-2 py-0.5 rounded bg-emerald-700 text-white text-[10px] font-bold shadow-xs flex items-center gap-0.5 cursor-pointer';
+        if (btnSolveBranchText) btnSolveBranchText.textContent = '✓ Solved';
+      }
+
+      // 3. Update top banner
+      if (banner) {
+        banner.className = 'p-4 rounded-xl border border-emerald-300 bg-emerald-50/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3.5 transition-all duration-300';
+      }
+      if (bannerIconContainer) {
+        bannerIconContainer.className = 'w-9 h-9 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0';
+      }
+      if (bannerIcon) {
+        bannerIcon.textContent = 'verified';
+      }
+      if (bannerTitle) {
+        bannerTitle.className = 'text-label-md font-label-md font-bold text-emerald-950';
+        bannerTitle.textContent = 'All Workflow Mistakes Solved: Unit 4 Aligned to Washington Accord K6';
+      }
+      if (bannerTag) {
+        bannerTag.className = 'px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 text-[10px] uppercase font-bold tracking-wide border border-emerald-300';
+        bannerTag.textContent = 'Exception Cleared';
+      }
+      if (bannerDesc) {
+        bannerDesc.className = 'text-body-sm font-body-sm text-emerald-900 mt-0.5';
+        bannerDesc.innerHTML = 'Remediation verified: Unit 4 intractability proofs upgraded to K6 synthesis (Cook-Levin reductions + FPT). Ready for Department HOD sign-off.';
+      }
+      if (btnBannerSolve) {
+        btnBannerSolve.className = 'px-4 py-1.5 rounded-lg bg-emerald-800 text-white text-label-sm font-label-sm font-bold shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer';
+      }
+      if (btnBannerSolveText) {
+        btnBannerSolveText.textContent = '✓ Mistakes Solved';
+      }
+
+      // 4. Advance Stage 04 to active
+      if (!isHodApproved && stage04Card) {
+        stage04Card.className = 'p-3 rounded-lg border-2 border-primary bg-primary-fixed/20 opacity-100 flex flex-col justify-between transition-all duration-300 cursor-pointer shadow-sm hover:border-primary';
+        if (stage04Tag) {
+          stage04Tag.className = 'text-label-sm font-label-sm font-bold text-primary';
+        }
+        if (stage04Icon) {
+          stage04Icon.className = 'material-symbols-outlined text-primary';
+          stage04Icon.textContent = 'how_to_reg';
+        }
+        if (stage04Title) {
+          stage04Title.className = 'text-label-md font-label-md font-bold text-primary';
+          stage04Title.textContent = 'Department HOD';
+        }
+        if (stage04Status) {
+          stage04Status.className = 'mt-2 text-[10px] text-primary font-bold flex items-center gap-1';
+          stage04Status.innerHTML = '<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span>Awaiting Sign-off (Click to Sign)</span>';
+        }
+      }
+
+      // 5. Update footer
+      if (footerStatusText && !isHodApproved) {
+        footerStatusText.textContent = 'Stage 4 • Ready for HOD Sign-off';
+      }
+      if (footerStatusSub && !isHodApproved) {
+        footerStatusSub.textContent = '(Dr. V. Raman reviewing remediated spec)';
+      }
+
+      // 6. Add tag to reviewer comments
+      if (textarea) {
+        const tag = '[WA K6 Unit 4 Aligned]';
+        if (!textarea.value.includes(tag)) {
+          textarea.value = (textarea.value ? textarea.value.trim() + ' • ' : '') + tag + ' Unit 4 intractability proofs upgraded to K6 synthesis level.';
+        }
+      }
+
+      showWfToast('Workflow Issue Solved', 'Unit 4 intractability proofs aligned to WA K6 requirements. Exception route cleared!');
+    }
+
+    function revertHodFix() {
+      isMistakeSolved = false;
+
+      // Revert observation card UI back to pending error
+      if (hodBulletDot) {
+        hodBulletDot.className = 'absolute -left-6 top-1 w-3 h-3 rounded-full bg-error ring-4 ring-surface-container-lowest transition-colors duration-300';
+      }
+      if (hodCardContainer) {
+        hodCardContainer.className = 'bg-surface-container-low p-3.5 rounded-lg border border-error/30 transition-all duration-300';
+      }
+      if (hodAvatar) {
+        hodAvatar.className = 'w-6 h-6 rounded-full bg-error-container text-on-error-container font-bold text-[10px] flex items-center justify-center transition-colors';
+      }
+      if (hodStatusBadge) hodStatusBadge.classList.remove('hidden');
+      if (hodResolvedBadge) hodResolvedBadge.classList.add('hidden');
+      if (hodQuoteBox) {
+        hodQuoteBox.className = 'mt-2 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest p-2 rounded border border-error/20 transition-colors';
+      }
+      if (hodFixDetails) hodFixDetails.classList.add('hidden');
+
+      if (btnHodAccept) {
+        btnHodAccept.className = 'px-3 py-1.5 rounded-lg bg-primary-container hover:bg-primary text-white text-label-sm font-label-sm font-semibold transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer';
+        if (btnHodAcceptFixText) btnHodAcceptFixText.textContent = 'Accept Fix';
+        if (btnHodAcceptIcon) btnHodAcceptIcon.textContent = 'check';
+      }
+      if (btnHodRevert) btnHodRevert.classList.add('hidden');
+      if (btnHodDismiss) btnHodDismiss.classList.remove('hidden');
+
+      // Revert branch node
+      if (branchStageNode) {
+        branchStageNode.className = 'p-3 rounded-lg border border-error/50 bg-error-container/30 flex flex-col justify-between transition-all duration-300 cursor-pointer hover:border-error hover:shadow-md';
+      }
+      if (branchStageTag) {
+        branchStageTag.className = 'text-label-sm font-label-sm font-bold text-error uppercase';
+        branchStageTag.textContent = 'Exception Route';
+      }
+      if (branchStageIcon) {
+        branchStageIcon.className = 'material-symbols-outlined text-error';
+        branchStageIcon.textContent = 'replay';
+      }
+      if (branchStageTitle) {
+        branchStageTitle.className = 'text-label-md font-label-md font-bold text-on-error-container';
+        branchStageTitle.textContent = 'Returned Branch';
+      }
+      if (branchStageSub) {
+        branchStageSub.className = 'text-body-sm font-body-sm text-outline text-[11px]';
+        branchStageSub.textContent = 'Triggers author remediation loop';
+      }
+      if (branchStageStatus) {
+        branchStageStatus.className = 'text-[10px] text-error font-semibold flex items-center gap-1';
+        branchStageStatus.innerHTML = '<span>Remediation ready</span>';
+      }
+      if (btnSolveBranch) {
+        btnSolveBranch.className = 'px-2 py-0.5 rounded bg-error text-white text-[10px] font-bold shadow-xs hover:bg-error-dim flex items-center gap-0.5 transition-colors cursor-pointer';
+        if (btnSolveBranchText) btnSolveBranchText.textContent = 'Solve';
+      }
+
+      // Revert top banner
+      if (banner) {
+        banner.className = 'p-4 rounded-xl border border-amber-300 bg-amber-50/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3.5 transition-all duration-300';
+      }
+      if (bannerIconContainer) {
+        bannerIconContainer.className = 'w-9 h-9 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0';
+      }
+      if (bannerIcon) {
+        bannerIcon.textContent = 'warning';
+      }
+      if (bannerTitle) {
+        bannerTitle.className = 'text-label-md font-label-md font-bold text-amber-950';
+        bannerTitle.textContent = 'Active Exception Route: Unit 4 Intractability Proofs Flagged';
+      }
+      if (bannerTag) {
+        bannerTag.className = 'px-2 py-0.5 rounded bg-amber-200 text-amber-900 text-[10px] uppercase font-bold tracking-wide';
+        bannerTag.textContent = 'Action Required';
+      }
+      if (bannerDesc) {
+        bannerDesc.className = 'text-body-sm font-body-sm text-amber-900 mt-0.5';
+        bannerDesc.innerHTML = 'Returned by Dr. V. Raman (HOD): <em>"Ensure Unit 4 intractability proofs align with Washington Accord K6 synthesis requirements before forwarding."</em>';
+      }
+      if (btnBannerSolve) {
+        btnBannerSolve.className = 'px-4 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-label-sm font-label-sm font-bold shadow-sm transition-colors flex items-center gap-1.5 cursor-pointer';
+      }
+      if (btnBannerSolveText) {
+        btnBannerSolveText.textContent = 'Solve All Mistakes';
+      }
+
+      showWfToast('Fix Reverted', 'Observation returned to pending review status.', true);
+    }
+
+    function signOffHod() {
+      if (!isMistakeSolved) {
+        applyHodFix();
+      }
+      isHodApproved = true;
+
+      // Update Stage 04
+      if (stage04Card) {
+        stage04Card.className = 'p-3 rounded-lg border border-secondary/30 bg-surface-container-low flex flex-col justify-between transition-all duration-200 cursor-pointer hover:border-secondary';
+      }
+      if (stage04Tag) {
+        stage04Tag.className = 'text-label-sm font-label-sm font-bold text-secondary';
+      }
+      if (stage04Icon) {
+        stage04Icon.className = 'material-symbols-outlined text-secondary';
+        stage04Icon.textContent = 'check_circle';
+      }
+      if (stage04Title) {
+        stage04Title.className = 'text-label-md font-label-md font-bold text-on-surface';
+        stage04Title.textContent = 'HOD Signed Off';
+      }
+      if (stage04Status) {
+        stage04Status.className = 'mt-2 text-[10px] text-secondary font-semibold flex items-center gap-1';
+        stage04Status.innerHTML = '<span>Approved by Dr. V. Raman</span>';
+      }
+
+      // Update Stage 05 (BOS Approved)
+      if (stage05Card) {
+        stage05Card.className = 'p-3 rounded-lg border-2 border-emerald-500 bg-emerald-50 opacity-100 flex flex-col justify-between transition-all duration-300 cursor-pointer shadow-md';
+      }
+      if (stage05Tag) {
+        stage05Tag.className = 'text-label-sm font-label-sm font-bold text-emerald-800 uppercase';
+        stage05Tag.textContent = 'STAGE 05 • RATIFIED';
+      }
+      if (stage05Icon) {
+        stage05Icon.className = 'material-symbols-outlined text-emerald-700';
+        stage05Icon.textContent = 'verified';
+      }
+      if (stage05Title) {
+        stage05Title.className = 'text-label-md font-label-md font-bold text-emerald-950';
+        stage05Title.textContent = 'BOS Certified';
+      }
+      if (stage05Status) {
+        stage05Status.className = 'mt-2 text-[10px] text-emerald-800 font-bold flex items-center gap-1';
+        stage05Status.innerHTML = '<span class="material-symbols-outlined text-[14px]">done_all</span><span>Gazette Published • Ready to Export</span>';
+      }
+
+      // Update role matrix button
+      const btnRoleApproveHod = document.getElementById('btnRoleApproveHod');
+      if (btnRoleApproveHod) {
+        btnRoleApproveHod.className = 'px-3 py-1.5 rounded bg-emerald-700 text-white text-label-sm font-label-sm flex items-center gap-1 shrink-0 font-semibold';
+        btnRoleApproveHod.innerHTML = '<span class="material-symbols-outlined text-[14px]">done_all</span>Approved';
+      }
+      const badge = document.getElementById('badgeHodApprove');
+      if (badge) {
+        badge.className = 'px-2 py-0.2 rounded bg-emerald-100 text-emerald-800 text-[10px] uppercase font-bold';
+        badge.textContent = 'Ratified by HOD';
+      }
+
+      // Unlock Step 6 Export button with pulse
+      const btnNextStep6 = document.getElementById('btnWorkflowNextStep6');
+      if (btnNextStep6) {
+        btnNextStep6.className = 'px-4 py-1.5 rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 font-label-md text-label-md flex items-center gap-1.5 shadow-md font-bold cursor-pointer';
+        btnNextStep6.innerHTML = '<span>Step 6 — Export &amp; Dossier (Unlocked)</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span>';
+      }
+
+      // Update footer
+      if (footerStatusText) {
+        footerStatusText.textContent = 'Stage 5 • BOS Approved (Final Certified Gazette)';
+      }
+      if (footerStatusSub) {
+        footerStatusSub.textContent = '(Curriculum unlocked for official export)';
+      }
+      if (footerStatusDot) {
+        footerStatusDot.className = 'w-2 h-2 rounded-full bg-emerald-600 animate-pulse';
+      }
+
+      showWfToast('Workflow Fully Ratified', 'Specification signed by HOD and ratified by Board of Studies. Unlocked Step 6 Export.');
+    }
+
+    // Connect banner and branch buttons
+    if (btnBannerSolve) btnBannerSolve.addEventListener('click', applyHodFix);
+    if (btnBannerViewDiff) btnBannerViewDiff.addEventListener('click', openDiffModal);
+    if (btnSolveBranch) {
+      btnSolveBranch.addEventListener('click', (e) => {
+        e.stopPropagation();
+        applyHodFix();
+      });
+    }
+    if (branchStageNode) {
+      branchStageNode.addEventListener('click', () => {
+        if (!isMistakeSolved) {
+          applyHodFix();
+        } else {
+          openDiffModal();
+        }
+      });
+    }
+
+    // Connect stage clicks
+    if (stage01Card) {
+      stage01Card.addEventListener('click', () => {
+        showWfToast('Stage 1: Draft Initialized', 'Completed on 02 Oct by Prof. R. Kulkarni with 56 contact hours.');
+      });
+    }
+    if (stage02Card) {
+      stage02Card.addEventListener('click', () => {
+        showWfToast('Stage 2: Formally Submitted', 'Author sign-off completed on 05 Oct.');
+      });
+    }
+    if (stage03Card) {
+      stage03Card.addEventListener('click', () => {
+        showWfToast('Stage 3: Under Peer Review', 'Currently active review by Dr. P. Mehta (Day 2 of 4).');
+      });
+    }
+    if (stage04Card) {
+      stage04Card.addEventListener('click', signOffHod);
+    }
+    if (stage05Card) {
+      stage05Card.addEventListener('click', () => {
+        if (isHodApproved) {
+          if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+            window.parent.switchStep(6);
+          } else {
+            window.location.href = '/export';
+          }
+        } else {
+          signOffHod();
+        }
+      });
+    }
+
+    // Connect Dr. Raman card buttons
+    if (btnHodAccept) btnHodAccept.addEventListener('click', applyHodFix);
+    if (btnHodDismiss) {
+      btnHodDismiss.addEventListener('click', () => {
+        if (hodCardContainer) hodCardContainer.classList.add('opacity-50');
+        showWfToast('Observation Dismissed', 'Marked observation as acknowledged without spec modification.');
+      });
+    }
+    if (btnHodRevert) btnHodRevert.addEventListener('click', revertHodFix);
+    if (btnModalApply) {
+      btnModalApply.addEventListener('click', () => {
+        applyHodFix();
+        closeDiffModal();
+      });
+    }
+
+    // Tag insertion buttons
+    const tagButtons = document.querySelectorAll('button[type="button"]');
+    tagButtons.forEach(btn => {
+      if (btn.innerText && btn.innerText.trim().startsWith('+')) {
+        btn.addEventListener('click', () => {
+          const tagText = btn.innerText.replace('+', '').trim();
+          if (textarea) {
+            if (textarea.value) {
+              textarea.value += ' • [' + tagText + '] ';
+            } else {
+              textarea.value = '[' + tagText + '] ';
+            }
+            textarea.focus();
+            showWfToast('Tag Added', 'Appended ' + tagText + ' to reviewer remarks.');
+          }
+        });
+      }
+    });
+
+    // Governance Action Buttons
+    const btnForward = document.getElementById('btnForwardHod');
+    if (btnForward) {
+      btnForward.addEventListener('click', () => {
+        btnForward.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>Forwarded to HOD</span>';
+        btnForward.className = 'w-full sm:w-auto px-5 py-2 rounded-lg bg-emerald-700 text-white font-label-md text-label-md transition-colors shadow-sm flex items-center justify-center gap-2 font-semibold';
+        showWfToast('Submitted to HOD', 'Curriculum specification signed & forwarded to HOD for final sign-off.');
+        if (!isMistakeSolved) {
+          applyHodFix();
+        }
+      });
+    }
+
+    const btnReturn = document.getElementById('btnReturnComment');
+    if (btnReturn) {
+      btnReturn.addEventListener('click', () => {
+        showWfToast('Revision Requested', 'Feedback comments dispatched to Course Coordinator Dr. Sharma.', true);
+      });
+    }
+
+    const btnSaveNotes = document.getElementById('btnSaveDraftNotes');
+    if (btnSaveNotes) {
+      btnSaveNotes.addEventListener('click', () => {
+        showWfToast('Draft Saved', 'Review remarks safely saved to curriculum ledger.');
+      });
+    }
+
+    // Role switcher pills & tabs
+    const roleButtons = document.querySelectorAll('header nav button, .inline-flex button');
+    roleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const role = btn.textContent.trim().replace('(Active)', '').trim();
+        showWfToast('Perspective Switched', 'Now viewing workbench with ' + role + ' permissions.');
+      });
+    });
+
+    // Role Matrix action buttons
+    const btnRoleSubmitAuthor = document.getElementById('btnRoleSubmitAuthor');
+    if (btnRoleSubmitAuthor) {
+      btnRoleSubmitAuthor.addEventListener('click', () => {
+        showWfToast('Author Action', 'Specification draft is already submitted and active in Stage 3 Review.');
+      });
+    }
+
+    const btnRoleApproveHod = document.getElementById('btnRoleApproveHod');
+    if (btnRoleApproveHod) {
+      btnRoleApproveHod.addEventListener('click', signOffHod);
+    }
+
+    const btnRoleReturnHod = document.getElementById('btnRoleReturnHod');
+    if (btnRoleReturnHod) {
+      btnRoleReturnHod.addEventListener('click', () => {
+        showWfToast('Return Route', 'HOD return mechanism active. Author remediation channel opened.', true);
+      });
+    }
+
+    // Header buttons (Share, Save, Notifications)
+    const headerButtons = document.querySelectorAll('header button');
+    headerButtons.forEach(btn => {
+      const txt = btn.textContent.trim();
+      if (txt === 'Share') {
+        btn.addEventListener('click', () => {
+          showWfToast('Share Link Copied', 'Curriculum specification link copied to clipboard.');
+        });
+      } else if (txt === 'Save') {
+        btn.addEventListener('click', () => {
+          showWfToast('Workflow Saved', 'All stages, comments, and reviewer annotations saved.');
+        });
+      } else if (btn.getAttribute('title') === 'Notifications') {
+        btn.addEventListener('click', () => {
+          if (isMistakeSolved) {
+            showWfToast('Governance Alert', 'All remediation items cleared. 0 pending defects.');
+          } else {
+            showWfToast('Governance Alert', 'You have 1 pending remediation item from Dr. V. Raman (Unit 4).');
+          }
+        });
+      }
+    });
+
+    // Stepper navigation
+    const btnBackStep4 = document.getElementById('btnWorkflowBackStep4');
+    if (btnBackStep4) {
+      btnBackStep4.addEventListener('click', () => {
+        if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+          window.parent.switchStep(4);
+        } else {
+          window.location.href = '/checks';
+        }
+      });
+    }
+
+    const btnNextStep6 = document.getElementById('btnWorkflowNextStep6');
+    if (btnNextStep6) {
+      btnNextStep6.addEventListener('click', () => {
+        if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+          window.parent.switchStep(6);
+        } else {
+          window.location.href = '/export';
+        }
+      });
+    }
+
+    // Timeline tools
+    const timelineFilterBtn = document.querySelector('button[title="Filter Timeline"]');
+    if (timelineFilterBtn) {
+      timelineFilterBtn.addEventListener('click', () => {
+        showWfToast('Timeline Filter', 'Showing all audited governance lifecycle events.');
+      });
+    }
+
+    const timelineExportBtn = document.querySelector('button[title="Export Ledger"]');
+    if (timelineExportBtn) {
+      timelineExportBtn.addEventListener('click', () => {
+        const ledger = {
+          course: "CS401",
+          session: "AY 2024-25",
+          stage: isHodApproved ? "Stage 5 - BOS Approved" : (isMistakeSolved ? "Stage 4 - Ready for HOD" : "Stage 3 - Peer Review"),
+          events: [
+            { time: "Today, 11:42 AM", user: "Dr. P. Mehta", action: "Annotated Matrix Cell CO4->PO3" },
+            { time: "Yesterday, 4:15 PM", user: "Prof. R. Kulkarni", action: "Submitted Course Spec for Formal Review" },
+            { time: "3 days ago, 2:30 PM", user: "Dr. V. Raman", action: "Returned Draft with Observations", resolved: isMistakeSolved }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(ledger, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "CS401_governance_audit_ledger.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        showWfToast('Audit Ledger Exported', 'Downloaded cryptographic governance trail as JSON.');
+      });
+    }
+  });
+</script>
+</body></html>

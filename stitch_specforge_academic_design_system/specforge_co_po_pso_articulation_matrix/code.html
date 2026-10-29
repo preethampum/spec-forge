@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpecForge — CO-PO-PSO Mapping Workbench</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#757682",
+            "background": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-surface-variant": "#444651",
+            "on-background": "#0b1c30",
+            "inverse-surface": "#213145",
+            "secondary": "#006a63",
+            "primary": "#00236f",
+            "surface-container-high": "#dce9ff",
+            "primary-fixed-dim": "#b6c4ff",
+            "primary-container": "#1e3a8a",
+            "primary-fixed": "#dce1ff",
+            "inverse-primary": "#b6c4ff",
+            "on-secondary-fixed": "#00201d",
+            "outline-variant": "#c5c5d3",
+            "on-secondary": "#ffffff",
+            "on-surface": "#0b1c30",
+            "secondary-fixed-dim": "#80d5cb",
+            "error-container": "#ffdad6",
+            "tertiary-container": "#00389a",
+            "surface-container-highest": "#d3e4fe",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed": "#00174b",
+            "secondary-container": "#99efe5",
+            "surface-container": "#e5eeff",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "on-primary-fixed-variant": "#264191",
+            "tertiary-fixed": "#dbe1ff",
+            "inverse-on-surface": "#eaf1ff",
+            "on-secondary-fixed-variant": "#00504a",
+            "on-error": "#ffffff",
+            "surface-dim": "#cbdbf5",
+            "secondary-fixed": "#9cf2e8",
+            "surface-tint": "#4059aa",
+            "on-primary": "#ffffff",
+            "tertiary": "#00246b",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#00164e",
+            "surface-container-low": "#eff4ff",
+            "on-primary-container": "#90a8ff",
+            "surface-variant": "#d3e4fe",
+            "on-secondary-container": "#006f67",
+            "error": "#ba1a1a",
+            "surface-bright": "#f8f9ff",
+            "surface": "#f8f9ff",
+            "on-tertiary-container": "#8da9ff",
+            "on-error-container": "#93000a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "0.75rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "tabular-data": ["Inter"],
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "headline-xl": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-sm": ["Inter"]
+          },
+          "fontSize": {
+            "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }],
+            "tabular-data": ["0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.025em", "fontWeight": "600" }],
+            "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Scholarly fine scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8f9ff;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c5c5d3;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #757682;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md min-h-screen antialiased flex flex-col selection:bg-surface-container-high selection:text-primary overflow-x-hidden">
+<!-- ================= TOP APP BAR (Shared Component: TopNavBar) ================= -->
+<header class="w-full h-14 px-gutter flex items-center justify-between z-40 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 left-0 right-0 shadow-sm">
+<!-- Left Section: Logo & Context Metadata -->
+<div class="flex items-center gap-space-lg">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="schema">schema</span>
+<span class="tracking-tight text-primary">SpecForge</span>
+</div>
+<div class="h-5 w-px bg-outline-variant hidden sm:block"></div>
+<div class="hidden sm:flex items-center gap-space-sm text-body-sm">
+<span class="font-semibold text-on-surface">CS401: Advanced Algorithms</span>
+<span class="text-on-surface-variant font-normal">AY 2024-25 • Sem VII</span>
+</div>
+</div>
+<!-- Center: Role Switcher (Author active) -->
+<div class="hidden md:flex items-center gap-space-lg h-full">
+<nav class="flex items-center gap-6 h-full">
+<!-- Active link: Author -->
+<button class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary font-label-lg text-label-lg py-space-sm h-full flex items-center">
+          Author
+        </button>
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm h-full flex items-center hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors duration-150">
+          Reviewer
+        </button>
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm h-full flex items-center hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors duration-150">
+          HOD
+        </button>
+</nav>
+</div>
+<!-- Right Controls: Status, AI badge, Actions, Profile -->
+<div class="flex items-center gap-3">
+<!-- Status Badge -->
+<div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-outline-variant rounded text-on-surface-variant text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+<span>Draft / Mapping Active</span>
+</div>
+<!-- AI Connected Indicator -->
+<div class="hidden sm:flex items-center gap-1 px-2.5 py-1 bg-[#ECFDF5] border border-[#A7F3D0] rounded text-[#065F46] text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+<span>AI Connected</span>
+</div>
+<div class="h-4 w-px bg-outline-variant hidden sm:block"></div>
+<!-- Trailing Action: Share -->
+<button class="px-3 py-1.5 rounded border border-outline text-on-surface hover:bg-surface-container-low text-label-md font-label-md transition duration-150 ease-in-out flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base" data-icon="share">share</span>
+<span>Share</span>
+</button>
+<!-- Trailing Primary Action: Save -->
+<button class="px-4 py-1.5 rounded bg-primary-container text-white hover:bg-primary text-label-md font-label-md transition duration-150 ease-in-out flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="save">save</span>
+<span>Save</span>
+</button>
+<div class="h-4 w-px bg-outline-variant"></div>
+<!-- Icon Actions -->
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:text-primary rounded" title="User profile photo">
+<span class="material-symbols-outlined text-2xl text-primary" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- ================= BODY WORKSPACE (3-PANE ARCHITECTURE) ================= -->
+<div class="pt-14 flex flex-1 w-full min-h-[calc(100vh-3.5rem)]">
+<!-- PANE 1: SIDE WORKFLOW RAIL (Shared Component: SideNavBar) -->
+<aside class="fixed left-0 top-14 bottom-0 w-[280px] flex flex-col justify-between p-space-md bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-30 overflow-y-auto">
+<div class="flex flex-col gap-4">
+<!-- Course Header Info in Sidebar -->
+<div class="p-3 bg-surface-container-lowest border border-outline-variant rounded">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="school">school</span>
+<span class="text-label-lg font-label-lg font-bold text-on-surface">Curriculum Council</span>
+</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant font-medium">CS401: Advanced Algorithms</div>
+<div class="text-body-sm font-body-sm text-outline mt-0.5">AY 2024-25 • Sem VII</div>
+</div>
+<!-- Workflow Step Navigation -->
+<div>
+<div class="text-label-sm font-label-sm text-outline px-3 mb-1 uppercase tracking-wider">Curriculum Workflow</div>
+<nav class="flex flex-col gap-0.5">
+<!-- 1. Upload (Done) -->
+<a class="text-on-surface-variant font-normal px-space-md py-2 flex items-center justify-between rounded hover:bg-surface-container transition-colors group" href="#">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-base text-secondary" data-icon="upload_file">upload_file</span>
+<span class="text-label-md font-label-md">Upload</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="check_circle">check_circle</span>
+</a>
+<!-- 2. Spec (Done) -->
+<a class="text-on-surface-variant font-normal px-space-md py-2 flex items-center justify-between rounded hover:bg-surface-container transition-colors group" href="#">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-base text-secondary" data-icon="tune">tune</span>
+<span class="text-label-md font-label-md">Spec</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="check_circle">check_circle</span>
+</a>
+<!-- 3. CO-PO-PSO Map (ACTIVE) -->
+<a class="border-l-4 border-primary dark:border-inverse-primary bg-surface-container-lowest dark:bg-surface-container text-primary dark:text-inverse-primary font-semibold px-space-md py-2 flex items-center justify-between rounded shadow-xs" href="#">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-base text-primary" data-icon="grid_view">grid_view</span>
+<span class="text-label-md font-label-md">CO-PO-PSO Map</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</a>
+<!-- 4. Checks (Pending) -->
+<a class="text-on-surface-variant font-normal px-space-md py-2 flex items-center justify-between rounded hover:bg-surface-container transition-colors" href="#">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-base text-outline" data-icon="fact_check">fact_check</span>
+<span class="text-label-md font-label-md">Checks</span>
+</div>
+<span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">Pending</span>
+</a>
+<!-- 5. Workflow (Locked) -->
+<div class="text-outline font-normal px-space-md py-2 flex items-center justify-between rounded opacity-60 cursor-not-allowed">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-base" data-icon="schema">schema</span>
+<span class="text-label-md font-label-md">Workflow</span>
+</div>
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
+</div>
+<!-- 6. Export (Locked) -->
+<div class="text-outline font-normal px-space-md py-2 flex items-center justify-between rounded opacity-60 cursor-not-allowed">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-base" data-icon="download">download</span>
+<span class="text-label-md font-label-md">Export</span>
+</div>
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
+</div>
+</nav>
+</div>
+<!-- Validate Matrix CTA Button from JSON blueprint -->
+<button class="w-full mt-2 py-2 px-3 bg-white border border-primary text-primary hover:bg-surface-container rounded text-label-md font-label-md flex items-center justify-center gap-2 shadow-xs transition duration-150">
+<span class="material-symbols-outlined text-base" data-icon="fact_check">fact_check</span>
+<span>Validate Matrix</span>
+</button>
+</div>
+<!-- Footer navigation links in sidebar -->
+<div class="pt-4 border-t border-outline-variant flex flex-col gap-1">
+<a class="text-on-surface-variant font-normal px-space-md py-1.5 flex items-center gap-space-md hover:bg-surface-container rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-base" data-icon="gavel">gavel</span>
+<span class="text-body-sm font-body-sm">Accreditation Rubric</span>
+</a>
+<a class="text-on-surface-variant font-normal px-space-md py-1.5 flex items-center gap-space-md hover:bg-surface-container rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-base" data-icon="settings">settings</span>
+<span class="text-body-sm font-body-sm">Settings</span>
+</a>
+</div>
+</aside>
+<!-- PANE 2: DOCUMENT STAGE (CENTER FLUID WORKBENCH) -->
+<main class="ml-[280px] mr-[370px] flex-1 p-6 overflow-y-auto">
+<!-- Title & Criteria Guidance -->
+<div class="mb-6">
+<div class="flex items-center justify-between mb-1">
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Course Outcome to Program Outcome Mapping (CO-PO-PSO)</h1>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-label-sm font-label-sm bg-blue-50 border border-blue-200 text-primary">NBA Tier-1 Criteria 3.1</span>
+<span class="px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container text-on-surface-variant border border-outline-variant">Autonomy 2024</span>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-4xl">
+          Align Course Outcomes with Engineering Program Outcomes (PO1-PO11) and Program Specific Outcomes (PSO1-PSO3) under NBA Tier-1 accreditation criteria.
+        </p>
+</div>
+<!-- Legend Pill Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-3 mb-6 shadow-xs flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Correlation Scale:</span>
+<div class="flex items-center gap-2">
+<!-- 3: Very Strong -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1e3a8a] text-white text-label-sm font-label-sm font-semibold">
+<span class="w-4 h-4 rounded-full bg-white/20 text-center leading-4 text-xs font-bold">3</span>
+<span>Very Strong</span>
+</div>
+<!-- 2: Strong -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#60a5fa] text-slate-900 text-label-sm font-label-sm font-semibold">
+<span class="w-4 h-4 rounded-full bg-black/10 text-center leading-4 text-xs font-bold">2</span>
+<span>Strong</span>
+</div>
+<!-- 1: Moderate -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#eff4ff] text-[#1e3a8a] border border-blue-200 text-label-sm font-label-sm font-medium">
+<span class="w-4 h-4 rounded-full bg-blue-200/60 text-center leading-4 text-xs font-bold">1</span>
+<span>Moderate</span>
+</div>
+<!-- Blank / None -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-100 text-outline border border-slate-200 text-label-sm font-label-sm">
+<span class="text-xs font-bold">-</span>
+<span>None</span>
+</div>
+</div>
+</div>
+<!-- Warning rule legend item -->
+<div class="flex items-center gap-2 pl-4 border-l border-outline-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-amber-200"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Rule Warning / Justification Needed</span>
+</div>
+</div>
+<!-- Matrix Grid Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded shadow-xs overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse select-none">
+<thead>
+<!-- Top Header: Groupings -->
+<tr class="bg-surface-container-low border-b border-outline-variant text-[11px] font-semibold text-on-surface-variant uppercase">
+<th class="px-3 py-2 border-r border-outline-variant bg-surface-container text-primary font-bold" colspan="3">Course Outcome Definitions</th>
+<th class="px-3 py-2 border-r border-outline-variant text-center bg-blue-50/70 text-primary" colspan="11">Program Outcomes (NBA Engineering PO1 - PO11)</th>
+<th class="px-3 py-2 text-center bg-emerald-50/70 text-secondary" colspan="3">Program Specific Outcomes (PSO1 - PSO3)</th>
+</tr>
+<!-- Detailed Column Headers -->
+<tr class="border-b border-outline-variant bg-surface-container-lowest text-xs text-on-surface font-semibold">
+<th class="px-3 py-2.5 w-16 border-r border-outline-variant">ID</th>
+<th class="px-3 py-2.5 min-w-[260px] border-r border-outline-variant">Course Outcome Statement</th>
+<th class="px-2 py-2.5 w-24 text-center border-r border-outline-variant">Bloom</th>
+<!-- PO1-PO11 headers with tooltips -->
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO1: Engineering Knowledge">PO1</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO2: Problem Analysis">PO2</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO3: Design/Development of Solutions">PO3</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO4: Complex Investigations">PO4</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO5: Modern Tool Usage">PO5</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO6: Engineer &amp; Society">PO6</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO7: Environment &amp; Sustainability">PO7</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO8: Ethics">PO8</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO9: Individual &amp; Teamwork">PO9</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO10: Communication">PO10</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-blue-50/30" title="PO11: Project Management &amp; Finance">PO11</th>
+<!-- PSO1-PSO3 headers -->
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-emerald-50/30" title="PSO1: Algorithmic Architecture &amp; System Efficiency">PSO1</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-emerald-50/30" title="PSO2: Data Intelligence &amp; Advanced Analytics">PSO2</th>
+<th class="px-1 py-2 text-center w-11 border-r border-outline-variant bg-emerald-50/30" title="PSO3: Secure Computing &amp; Cloud Infrastructure">PSO3</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-tabular-data text-tabular-data">
+<!-- ROW 1: CO1 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="px-3 py-2.5 font-bold text-primary border-r border-outline-variant">CO1</td>
+<td class="px-3 py-2.5 text-body-sm font-body-sm text-on-surface border-r border-outline-variant">
+                  Formalize asymptotic complexities of amortized, randomized, and streaming structures.
+                </td>
+<td class="px-2 py-2.5 text-center border-r border-outline-variant">
+<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-100 text-purple-800">K4 Analyze</span>
+</td>
+<!-- PO1 - PO11 values -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs">1</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<!-- PO8 has amber rule warning -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant relative">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs">1</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-500" title="Ethics correlation requires rubric explanation"></span>
+</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<!-- PSO1 - PSO3 -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+</tr>
+<!-- ROW 2: CO2 (PROMINENTLY SELECTED CELL CO2 -> PO3) -->
+<tr class="bg-blue-50/20 hover:bg-surface-container-low/40 transition-colors">
+<td class="px-3 py-2.5 font-bold text-primary border-r border-outline-variant">CO2</td>
+<td class="px-3 py-2.5 text-body-sm font-body-sm text-on-surface border-r border-outline-variant font-medium">
+                  Design randomized algorithms for graph connectivity and evaluate expectation bounds under adversarial inputs.
+                </td>
+<td class="px-2 py-2.5 text-center border-r border-outline-variant">
+<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-100 text-indigo-800">K5 Evaluate</span>
+</td>
+<!-- PO1 -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<!-- PO2 -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<!-- PO3: ACTIVELY CLICKED/SELECTED CELL WITH FOCUS RING & CALLOUT -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant bg-surface-container-high/60 relative">
+<div class="inline-flex items-center justify-center w-8 h-8 rounded bg-[#1e3a8a] text-white font-bold text-xs shadow-md ring-2 ring-primary ring-offset-2 ring-offset-white cursor-pointer transform scale-105 transition-all">
+                    3
+                  </div>
+</td>
+<!-- PO4 - PO11 -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs">1</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs">1</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<!-- PSO1 - PSO3 -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+</tr>
+<!-- ROW 3: CO3 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="px-3 py-2.5 font-bold text-primary border-r border-outline-variant">CO3</td>
+<td class="px-3 py-2.5 text-body-sm font-body-sm text-on-surface border-r border-outline-variant">
+                  Synthesize network flow models for resource allocation problems and prove primal-dual gap properties.
+                </td>
+<td class="px-2 py-2.5 text-center border-r border-outline-variant">
+<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-100 text-purple-800">K4 Analyze</span>
+</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs">1</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+</tr>
+<!-- ROW 4: CO4 (HAS AMBER WARNING DOT AT CO4 - PO3) -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="px-3 py-2.5 font-bold text-primary border-r border-outline-variant">CO4</td>
+<td class="px-3 py-2.5 text-body-sm font-body-sm text-on-surface border-r border-outline-variant">
+                  Evaluate NP-completeness through reduction schemes and construct PTAS approximation algorithms for combinatorial bottlenecks.
+                </td>
+<td class="px-2 py-2.5 text-center border-r border-outline-variant">
+<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-100 text-purple-800">K4 Analyze</span>
+</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<!-- CO4 - PO3: WARNING DOT FOR LACK OF DIRECT CORRELATION WITHOUT JUSTIFICATION -->
+<td class="px-1 py-1.5 text-center border-r border-outline-variant relative">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs font-semibold">1</span>
+<span class="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-amber-100" title="PO3 lacks direct correlation without justification"></span>
+</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs">1</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+</tr>
+<!-- ROW 5: CO5 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="px-3 py-2.5 font-bold text-primary border-r border-outline-variant">CO5</td>
+<td class="px-3 py-2.5 text-body-sm font-body-sm text-on-surface border-r border-outline-variant">
+                  Develop quantum or sublinear algorithms to circumvent polynomial lower bounds in high-throughput streaming systems.
+                </td>
+<td class="px-2 py-2.5 text-center border-r border-outline-variant">
+<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800">K6 Create</span>
+</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#eff4ff] text-[#1e3a8a] text-xs">1</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#1e3a8a] text-white font-bold text-xs">3</span></td>
+<td class="px-1 py-1.5 text-center border-r border-outline-variant"><span class="inline-flex items-center justify-center w-7 h-7 rounded bg-[#60a5fa] text-slate-900 font-semibold text-xs">2</span></td>
+</tr>
+</tbody>
+<!-- FOOTER ROW: AVERAGE PO & PSO SCORES -->
+<tfoot class="border-t-2 border-outline-variant bg-surface-container font-tabular-data text-tabular-data font-bold">
+<tr>
+<td class="px-3 py-2 text-right text-xs uppercase tracking-wider text-on-surface border-r border-outline-variant" colspan="3">
+                  Average Correlation Score (Weighted)
+                </td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-primary">2.8</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-primary">2.6</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-primary bg-blue-100/50">2.4</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-primary">2.2</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-on-surface-variant">1.5</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-outline">-</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-amber-700">1.0*</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-on-surface-variant">1.0</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-on-surface-variant">1.0</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-on-surface-variant">1.0</td>
+<!-- PSOs -->
+<td class="px-1 py-2 text-center border-r border-outline-variant text-secondary">3.0</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-secondary">2.3</td>
+<td class="px-1 py-2 text-center border-r border-outline-variant text-secondary">2.0</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<!-- Table Subtext / Validation Notice -->
+<div class="px-4 py-2 bg-surface-container-low border-t border-outline-variant flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="check_circle">check_circle</span>
+<span>All 5 Course Outcomes meet minimum NBA mapping density (minimum 2 POs per CO).</span>
+</div>
+<div class="text-label-sm font-label-sm text-outline">
+            * 2 cells require formal audit justifications prior to Stage 4.
+          </div>
+</div>
+</div>
+<!-- Bottom Step Navigation Bar -->
+<div class="mt-6 flex items-center justify-between pt-4 border-t border-outline-variant">
+<button class="px-4 py-2 rounded border border-outline text-on-surface hover:bg-surface-container-low text-label-md font-label-md flex items-center gap-2 transition duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
+<span>Previous: Step 2 — Spec</span>
+</button>
+<button class="px-5 py-2 rounded bg-primary-container text-white hover:bg-primary text-label-md font-label-md flex items-center gap-2 shadow-xs transition duration-150">
+<span>Next: Step 4 — Run Automated Checks</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- PANE 3: AUDIT & MATRIX CELL INSPECTOR (RIGHT CONTEXTUAL PANEL: 360px) -->
+<aside class="fixed right-0 top-14 bottom-0 w-[360px] bg-surface-container-lowest border-l border-outline-variant z-30 flex flex-col justify-between shadow-sm overflow-y-auto">
+<div>
+<!-- Panel Header -->
+<div class="p-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+<div>
+<div class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Matrix Cell Inspection</div>
+<h2 class="text-headline-sm font-headline-sm text-primary font-bold">CO2 → PO3</h2>
+</div>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors" title="Close Panel">
+<span class="material-symbols-outlined text-xl" data-icon="close">close</span>
+</button>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<!-- Outcome Reference Card -->
+<div class="p-3 bg-surface-container-low rounded border border-outline-variant">
+<div class="text-label-sm font-label-sm text-primary font-semibold mb-1 flex items-center justify-between">
+<span>Course Outcome Context</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] bg-indigo-100 text-indigo-800">K5 Evaluate</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface leading-snug">
+<strong>CO2:</strong> Design randomized algorithms for graph connectivity and evaluate expectation bounds under adversarial inputs.
+            </p>
+</div>
+<!-- Program Outcome Card with Criteria -->
+<div class="p-3 bg-blue-50/40 rounded border border-blue-200">
+<div class="text-label-sm font-label-sm text-primary font-semibold mb-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="account_tree">account_tree</span>
+<span>PO3: Design/Development of Solutions</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-snug">
+              "Design solutions for complex engineering problems and design system components or processes that meet specified needs."
+            </p>
+</div>
+<!-- Strength Selection Control -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-label-sm font-label-sm text-on-surface font-semibold">Correlation Strength</label>
+<span class="text-label-sm font-label-sm text-primary font-bold">Strength: 3 (Very Strong)</span>
+</div>
+<!-- Segmented Control Button Group -->
+<div class="grid grid-cols-4 gap-1 p-1 bg-surface-container rounded border border-outline-variant">
+<button class="py-1 text-center text-label-sm font-label-sm text-on-surface-variant rounded hover:bg-white transition-colors">
+                - Blank
+              </button>
+<button class="py-1 text-center text-label-sm font-label-sm text-on-surface-variant rounded hover:bg-white transition-colors">
+                1 Mod
+              </button>
+<button class="py-1 text-center text-label-sm font-label-sm text-on-surface-variant rounded hover:bg-white transition-colors">
+                2 Strong
+              </button>
+<!-- 3 Very Strong ACTIVE -->
+<button class="py-1 text-center text-label-sm font-label-sm bg-[#1e3a8a] text-white rounded font-bold shadow-xs">
+                3 V.Strong
+              </button>
+</div>
+</div>
+<!-- Justification Section -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="text-label-sm font-label-sm text-on-surface font-semibold" for="justification-input">Faculty Justification Note</label>
+<span class="text-[11px] text-outline">Required for Level 3</span>
+</div>
+<textarea class="w-full text-body-sm font-body-sm p-2.5 bg-white border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary text-on-surface outline-none resize-none leading-relaxed" id="justification-input" rows="3">Rigorous randomized graph reduction schemes require students to synthesize tailored min-cut and probabilistic flow architectures directly satisfying complex performance constraints.</textarea>
+<!-- AI-Assisted Suggestion Chip -->
+<div class="mt-2 p-2 rounded bg-surface-container border border-surface-container-high flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" data-icon="auto_awesome">auto_awesome</span>
+<div class="text-body-sm font-body-sm text-on-surface">
+<span class="font-semibold text-primary">AI Suggested:</span> Level 3 justified by K5 Bloom level synthesis requirement.
+              </div>
+</div>
+</div>
+<!-- Rule & Compliance Check Status Card -->
+<div class="p-3 rounded border border-[#A7F3D0] bg-[#ECFDF5]">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#065F46] text-base mt-0.5" data-icon="verified">verified</span>
+<div>
+<div class="text-label-sm font-label-sm text-[#065F46] font-bold">Accreditation Compliant</div>
+<div class="text-body-sm font-body-sm text-[#065F46] mt-0.5 leading-snug">
+                  Compliant with Autonomous Regulation Rule 4.2: High correlation backed by higher-order cognitive level (K5).
+                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons at bottom of side panel -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-low flex flex-col gap-2">
+<button id="btnApplyMatrix" class="w-full py-2 bg-primary-container hover:bg-primary text-white text-label-md font-label-md font-semibold rounded shadow-xs flex items-center justify-center gap-1.5 transition duration-150 cursor-pointer">
+<span class="material-symbols-outlined text-base" data-icon="done_all">done_all</span>
+<span>Apply &amp; Recalculate Matrix</span>
+</button>
+<button id="btnCancelMatrix" class="w-full py-1.5 text-on-surface-variant hover:text-on-surface text-label-md font-label-md transition-colors text-center cursor-pointer">
+          Cancel
+        </button>
+</div>
+</aside>
+</div>
+
+<!-- Floating In-App Toast Notification -->
+<div id="matrixToast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <div class="bg-surface-container-lowest border border-outline-variant shadow-xl rounded-lg px-4 py-3 flex items-center gap-3 min-w-[300px]">
+    <div id="matrixToastIcon" class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[18px]">check_circle</span>
+    </div>
+    <div class="min-w-0 flex-1">
+      <div id="matrixToastTitle" class="text-xs font-bold text-on-surface">Matrix Action</div>
+      <div id="matrixToastMessage" class="text-xs text-on-surface-variant truncate">Changes saved successfully.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    function showMatrixToast(title, message, isError) {
+      const toast = document.getElementById('matrixToast');
+      const toastTitle = document.getElementById('matrixToastTitle');
+      const toastMessage = document.getElementById('matrixToastMessage');
+      const toastIcon = document.getElementById('matrixToastIcon');
+      if (!toast) return;
+
+      toastTitle.textContent = title;
+      toastMessage.textContent = message;
+
+      if (isError) {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">error</span>';
+      } else {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span>';
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    // Apply & Recalculate
+    const btnApply = document.getElementById('btnApplyMatrix');
+    if (btnApply) {
+      btnApply.addEventListener('click', () => {
+        btnApply.innerHTML = '<span class="material-symbols-outlined text-base">task_alt</span><span>Matrix Recalculated</span>';
+        btnApply.className = 'w-full py-2 bg-emerald-700 text-white text-label-md font-label-md font-semibold rounded shadow-xs flex items-center justify-center gap-1.5 transition duration-150';
+        showMatrixToast('Matrix Recalculated', 'All CO-PO-PSO correlation averages updated (Avg PO3: 2.8).');
+        setTimeout(() => {
+          btnApply.innerHTML = '<span class="material-symbols-outlined text-base">done_all</span><span>Apply &amp; Recalculate Matrix</span>';
+          btnApply.className = 'w-full py-2 bg-primary-container hover:bg-primary text-white text-label-md font-label-md font-semibold rounded shadow-xs flex items-center justify-center gap-1.5 transition duration-150 cursor-pointer';
+        }, 2000);
+      });
+    }
+
+    // Cancel
+    const btnCancel = document.getElementById('btnCancelMatrix');
+    if (btnCancel) {
+      btnCancel.addEventListener('click', () => {
+        showMatrixToast('Cancelled', 'Side panel revisions reset to previous values.');
+      });
+    }
+
+    // Correlation strength segment buttons
+    const strengthButtons = document.querySelectorAll('.grid-cols-4 button');
+    strengthButtons.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        strengthButtons.forEach(b => {
+          b.className = 'py-1 text-center text-label-sm font-label-sm text-on-surface-variant rounded hover:bg-white transition-colors cursor-pointer';
+        });
+        btn.className = 'py-1 text-center text-label-sm font-label-sm bg-[#1e3a8a] text-white rounded font-bold shadow-xs cursor-pointer';
+        const strengthLabel = document.querySelector('label[class*="Correlation Strength"] + span') || document.querySelector('.font-bold.text-primary');
+        if (strengthLabel) {
+          const names = ['- Blank', '1 (Moderate)', '2 (Strong)', '3 (Very Strong)'];
+          strengthLabel.textContent = 'Strength: ' + names[idx];
+        }
+        showMatrixToast('Strength Selected', 'Selected correlation: ' + btn.textContent.trim());
+      });
+    });
+
+    // Navigation and interactive buttons
+    const allButtons = document.querySelectorAll('header button, aside button, nav a');
+    allButtons.forEach(el => {
+      const txt = el.textContent.trim();
+      if (txt.includes('4. Checks')) {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+            window.parent.switchStep(4);
+          } else {
+            window.location.href = '/checks';
+          }
+        });
+      } else if (txt.includes('2. Spec')) {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+            window.parent.switchStep(2);
+          } else {
+            window.location.href = '/spec';
+          }
+        });
+      }
+    });
+  });
+</script>
+</body></html>

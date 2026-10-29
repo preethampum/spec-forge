@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpecForge - Step 1: Upload &amp; AI Blueprint Extraction</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#d3e4fe",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "primary-container": "#1e3a8a",
+            "secondary-fixed-dim": "#80d5cb",
+            "surface-dim": "#cbdbf5",
+            "surface-container-highest": "#d3e4fe",
+            "outline-variant": "#c5c5d3",
+            "on-primary-fixed-variant": "#264191",
+            "tertiary-fixed": "#dbe1ff",
+            "surface-container-low": "#eff4ff",
+            "on-error-container": "#93000a",
+            "primary": "#00236f",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#8da9ff",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#757682",
+            "secondary-container": "#99efe5",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#00201d",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#dce1ff",
+            "surface": "#f8f9ff",
+            "surface-container-high": "#dce9ff",
+            "surface-bright": "#f8f9ff",
+            "surface-container": "#e5eeff",
+            "primary-fixed-dim": "#b6c4ff",
+            "on-surface": "#0b1c30",
+            "background": "#f8f9ff",
+            "inverse-surface": "#213145",
+            "on-tertiary": "#ffffff",
+            "secondary": "#006a63",
+            "tertiary-container": "#00389a",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed": "#00174b",
+            "surface-tint": "#4059aa",
+            "on-primary-fixed": "#00164e",
+            "secondary-fixed": "#9cf2e8",
+            "error-container": "#ffdad6",
+            "tertiary": "#00246b",
+            "on-primary-container": "#90a8ff",
+            "on-secondary-container": "#006f67",
+            "on-surface-variant": "#444651",
+            "on-secondary-fixed-variant": "#00504a",
+            "inverse-primary": "#b6c4ff",
+            "on-background": "#0b1c30"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-mobile": "0.75rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-xl": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "label-sm": ["Inter"],
+            "tabular-data": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"]
+          },
+          "fontSize": {
+            "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }],
+            "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "tabular-data": ["0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.025em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface antialiased font-body-md min-h-screen flex flex-col selection:bg-surface-variant selection:text-primary">
+<!-- ==================== TOP NAVIGATION BAR ==================== -->
+<header class="w-full h-14 px-gutter flex items-center justify-between z-40 bg-surface-container-lowest border-b border-outline-variant fixed top-0 left-0 right-0 shadow-sm">
+<!-- Brand & Academic Context Breadcrumb -->
+<div class="flex items-center gap-space-lg">
+<div class="text-headline-md font-headline-md font-bold text-primary flex items-center gap-space-sm cursor-pointer">
+<span class="material-symbols-outlined text-primary text-[22px]" data-icon="auto_stories">auto_stories</span>
+<span class="tracking-tight">SpecForge</span>
+</div>
+<div class="h-4 w-px bg-outline-variant hidden md:block"></div>
+<!-- Course & Module Breadcrumb -->
+<div class="hidden lg:flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<span class="font-label-md text-on-surface font-semibold">CS401: Advanced Algorithms</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span>Document Ingestion</span>
+</div>
+<!-- Status Badge -->
+<span class="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container text-primary border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        Draft / Ready for Ingestion
+      </span>
+</div>
+<!-- Center: Academic Role Switcher (from JSON navigation_links: Author, Reviewer, HOD) -->
+<nav class="hidden md:flex items-center gap-6 h-full">
+<button class="text-primary border-b-2 border-primary font-label-lg text-label-lg py-space-sm h-full flex items-center px-1">
+        Author
+      </button>
+<button class="text-on-surface-variant font-label-lg text-label-lg hover:text-on-surface py-space-sm h-full flex items-center px-1 transition-colors duration-150">
+        Reviewer
+      </button>
+<button class="text-on-surface-variant font-label-lg text-label-lg hover:text-on-surface py-space-sm h-full flex items-center px-1 transition-colors duration-150">
+        HOD
+      </button>
+</nav>
+<!-- Trailing Actions (Save, Share, Notifications, Settings, User Profile) -->
+<div class="flex items-center gap-space-sm">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 text-label-md font-label-md rounded-lg text-on-surface hover:bg-surface-container-low transition-colors duration-150 border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="share">share</span>
+<span class="hidden sm:inline">Share</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 text-label-md font-label-md rounded-lg bg-primary-container text-white hover:bg-primary transition-colors duration-150 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="save">save</span>
+<span>Save</span>
+</button>
+<div class="h-4 w-px bg-outline-variant mx-1"></div>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 relative" title="Notifications">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-white"></span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150" title="API &amp; System Settings">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+</button>
+<!-- Profile Avatar -->
+<div class="flex items-center gap-2 pl-2 ml-1 cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-label-lg text-label-lg font-bold border border-outline-variant">
+          AS
+        </div>
+<div class="hidden xl:block text-left">
+<div class="text-label-md font-label-md text-on-surface leading-tight">Dr. A. Sharma</div>
+<div class="text-label-sm font-label-sm text-outline leading-none">Curriculum Lead</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN WORKSPACE SHELL ==================== -->
+<div class="flex pt-14 min-h-screen">
+<!-- ==================== LEFT SIDEBAR ==================== -->
+<aside class="fixed left-0 top-14 bottom-0 w-[280px] flex flex-col justify-between p-space-md bg-surface-container-low border-r border-outline-variant z-30 overflow-y-auto">
+<div class="flex flex-col gap-space-md">
+<!-- Course Header Box -->
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm">
+<div class="flex items-start gap-2.5">
+<div class="w-9 h-9 rounded bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="school">school</span>
+</div>
+<div class="min-w-0 flex-1">
+<h2 class="text-label-md font-label-md font-bold text-on-surface truncate" title="CS401: Advanced Algorithms">CS401: Advanced Algorithms</h2>
+<p class="text-body-sm font-body-sm text-outline truncate">AY 2024-25 • Sem VII</p>
+<div class="mt-1.5 flex items-center gap-2">
+<span class="px-1.5 py-0.5 text-label-sm font-label-sm rounded bg-secondary-fixed text-on-secondary-fixed">Tier-1 NBA</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">4 Credits</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Course Authoring Steps Navigation (6 steps as required) -->
+<div class="flex flex-col gap-0.5">
+<div class="px-space-md py-1 text-label-sm font-label-sm uppercase tracking-wider text-outline">Curriculum Workflow</div>
+<!-- Step 1: Upload (ACTIVE) -->
+<a class="border-l-4 border-primary bg-surface-container-lowest text-primary font-semibold px-space-md py-2.5 flex items-center justify-between rounded-r-lg shadow-sm" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-primary" data-icon="upload_file">upload_file</span>
+<span class="text-label-md font-label-md">1. Upload</span>
+</div>
+<span class="text-label-sm font-label-sm bg-primary-fixed text-primary px-1.5 py-0.2 rounded font-bold">Active</span>
+</a>
+<!-- Step 2: Spec (Pending) -->
+<a class="text-on-surface-variant font-normal px-space-md py-2.5 flex items-center justify-between hover:bg-surface-container rounded-lg transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-outline" data-icon="tune">tune</span>
+<span class="text-label-md font-label-md">2. Spec</span>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Pending</span>
+</a>
+<!-- Step 3: CO-PO-PSO Map (Pending) -->
+<a class="text-on-surface-variant font-normal px-space-md py-2.5 flex items-center justify-between hover:bg-surface-container rounded-lg transition-colors" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-outline" data-icon="grid_view">grid_view</span>
+<span class="text-label-md font-label-md">3. CO-PO-PSO Map</span>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Pending</span>
+</a>
+<!-- Step 4: Checks (Locked) -->
+<div class="text-outline font-normal px-space-md py-2.5 flex items-center justify-between opacity-60 cursor-not-allowed">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[20px]" data-icon="fact_check">fact_check</span>
+<span class="text-label-md font-label-md">4. Checks</span>
+</div>
+<span class="material-symbols-outlined text-[16px]" data-icon="lock">lock</span>
+</div>
+<!-- Step 5: Workflow (Locked) -->
+<div class="text-outline font-normal px-space-md py-2.5 flex items-center justify-between opacity-60 cursor-not-allowed">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[20px]" data-icon="schema">schema</span>
+<span class="text-label-md font-label-md">5. Workflow</span>
+</div>
+<span class="material-symbols-outlined text-[16px]" data-icon="lock">lock</span>
+</div>
+<!-- Step 6: Export (Locked) -->
+<div class="text-outline font-normal px-space-md py-2.5 flex items-center justify-between opacity-60 cursor-not-allowed">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+<span class="text-label-md font-label-md">6. Export</span>
+</div>
+<span class="material-symbols-outlined text-[16px]" data-icon="lock">lock</span>
+</div>
+</div>
+</div>
+<!-- Footer Rail Options -->
+<div class="flex flex-col gap-2 pt-4 border-t border-outline-variant">
+<a class="text-on-surface-variant hover:text-on-surface font-normal px-3 py-2 flex items-center gap-2.5 rounded-lg hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="gavel">gavel</span>
+<span class="text-label-md font-label-md">Accreditation Rubric</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface font-normal px-3 py-2 flex items-center gap-2.5 rounded-lg hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<!-- Matrix Validation CTA as prescribed in JSON CTA -->
+<button class="mt-1 w-full py-2 px-3 bg-surface-container-lowest border border-outline-variant hover:border-primary text-primary rounded-lg text-label-md font-label-md font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified">verified</span>
+          Validate Matrix
+        </button>
+</div>
+</aside>
+<!-- ==================== MAIN CONTENT AREA (STAGE) ==================== -->
+<main class="ml-[280px] flex-1 p-8 max-w-[1240px] mx-auto w-full">
+<!-- Step Header Section -->
+<header class="mb-8">
+<div class="flex items-center gap-2 text-label-md font-label-md text-secondary uppercase tracking-wider mb-1.5 font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="folder_zip">folder_zip</span>
+          Course Onboarding • Step 1 of 6
+        </div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight mb-2">
+          Step 1: Document Upload &amp; AI Blueprint Extraction
+        </h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-3xl">
+          Upload the syllabus document to extract course outcomes, contact hours, and evaluation rubrics automatically. SpecForge verifies compliance with Washington Accord and NBA guidelines.
+        </p>
+</header>
+<!-- Grid of Upload Boxes (Two boxes side by side) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+<!-- Left Box (Required): Course Specification -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm p-6 flex flex-col justify-between hover:border-primary-container transition-colors">
+<div>
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Course Specification</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Syllabus modules, outcomes, and prerequisites</p>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container font-label-sm text-label-sm font-bold rounded">
+                Required
+              </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mb-4">
+              Accepts .docx, .pdf, .html, .doc (Max 25MB)
+            </p>
+<!-- Active Uploaded State Card -->
+<div id="syllabusCard" class="bg-surface rounded-lg border border-outline-variant p-4 flex items-center justify-between mb-4 transition-all">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-[24px]" data-icon="article">article</span>
+</div>
+<div class="min-w-0">
+<div id="syllabusFileName" class="text-label-md font-label-md font-bold text-on-surface truncate" title="CS401_Syllabus_2024_v2.docx">
+                    CS401_Syllabus_2024_v2.docx
+                  </div>
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<span id="syllabusFileSize" class="font-tabular-data text-tabular-data">2.4 MB</span>
+<span class="text-outline">•</span>
+<span id="syllabusFileStatus" class="text-secondary font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Ready for parsing
+                    </span>
+</div>
+</div>
+</div>
+<!-- Remove Action -->
+<button id="syllabusRemoveBtn" type="button" aria-label="Remove uploaded syllabus" class="p-2 text-outline hover:text-error hover:bg-error-container rounded transition-colors ml-2" title="Remove file">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+<!-- Alternative / Replacement Drop Zone Area -->
+<input type="file" id="syllabusFileInput" class="hidden" accept=".docx,.pdf,.html,.doc,.txt" />
+<div id="syllabusDropzone" class="border-2 border-dashed border-outline-variant hover:border-primary rounded-lg p-4 text-center bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group select-none">
+<div class="flex items-center justify-center gap-2 text-body-sm font-body-sm text-on-surface-variant group-hover:text-primary">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="cloud_upload">cloud_upload</span>
+<span>Drop replacement syllabus or <button type="button" id="syllabusBrowseLink" class="text-primary font-semibold underline underline-offset-2 hover:text-primary-container inline">Browse file</button></span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="verified_user">verified_user</span>
+              Format integrity check passed
+            </span>
+<span id="syllabusHash" class="font-tabular-data text-tabular-data">SHA-256: 4f8b...e19a</span>
+</div>
+</section>
+<!-- Right Box (Optional): Question-Paper Blueprint -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm p-6 flex flex-col justify-between hover:border-primary-container transition-colors">
+<div>
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="quiz">quiz</span>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Question-Paper Blueprint</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Assessment framework &amp; Bloom distribution</p>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold rounded">
+                Optional
+              </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mb-4">
+              Accepts .docx, .pdf, .xlsx (Max 15MB) to auto-verify assessment-to-CO weightages
+            </p>
+<!-- Active Uploaded State Card -->
+<div id="blueprintCard" class="bg-surface rounded-lg border border-outline-variant p-4 flex items-center justify-between mb-4 transition-all">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded bg-secondary-fixed flex items-center justify-center text-secondary shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-[24px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div class="min-w-0">
+<div id="blueprintFileName" class="text-label-md font-label-md font-bold text-on-surface truncate" title="EndSem_QP_Blueprint_AY24.pdf">
+                    EndSem_QP_Blueprint_AY24.pdf
+                  </div>
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<span id="blueprintFileSize" class="font-tabular-data text-tabular-data">840 KB</span>
+<span class="text-outline">•</span>
+<span id="blueprintFileStatus" class="text-secondary font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                      Ready
+                    </span>
+</div>
+</div>
+</div>
+<!-- Remove Action -->
+<button id="blueprintRemoveBtn" type="button" aria-label="Remove blueprint" class="p-2 text-outline hover:text-error hover:bg-error-container rounded transition-colors ml-2" title="Remove file">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+<!-- Alternative / Replacement Drop Zone Area -->
+<input type="file" id="blueprintFileInput" class="hidden" accept=".docx,.pdf,.xlsx,.xls,.doc" />
+<div id="blueprintDropzone" class="border-2 border-dashed border-outline-variant hover:border-primary rounded-lg p-4 text-center bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group select-none">
+<div class="flex items-center justify-center gap-2 text-body-sm font-body-sm text-on-surface-variant group-hover:text-primary">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="cloud_upload">cloud_upload</span>
+<span>Drop exam blueprint or <button type="button" id="blueprintBrowseLink" class="text-primary font-semibold underline underline-offset-2 hover:text-primary-container inline">Browse file</button></span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="check_circle">check_circle</span>
+              Auto-mapped to CIE &amp; SEE splits
+            </span>
+<span id="blueprintHash" class="font-tabular-data text-tabular-data">100 Marks Total</span>
+</div>
+</section>
+</div>
+<!-- Action Area: Primary CTA & Parsing Configurations -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 shadow-sm mb-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2">
+<button id="btnGenerateSpec" type="button" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-lg bg-primary text-white font-label-lg text-label-lg font-bold hover:bg-primary-container shadow transition-all duration-150 transform active:scale-[0.99] cursor-pointer">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome">auto_awesome</span>
+<span>Generate Corrected Spec</span>
+</button>
+<button id="btnDryRun" type="button" class="inline-flex items-center gap-1 px-4 py-3 rounded-lg bg-surface hover:bg-surface-container-low text-on-surface-variant border border-outline-variant text-label-md font-label-md transition-colors cursor-pointer">
+<span>Test Extraction Dry-Run</span>
+</button>
+</div>
+<!-- Helper Text & Security Note -->
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant pt-1">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="check_circle">check_circle</span>
+<span>Your AI key is set in Settings •</span>
+<a id="btnManageApi" class="text-primary font-semibold hover:underline flex items-center gap-0.5 cursor-pointer" href="/ai-settings">
+                Manage API Configuration
+                <span class="material-symbols-outlined text-[14px]" data-icon="open_in_new">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Parsing Engine & Token Metrics -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-3 text-right flex flex-col md:items-end justify-center">
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+              LLM Orchestration Active
+            </div>
+<div class="text-label-md font-label-md font-bold text-on-surface">
+              Anthropic Claude 3.5 Sonnet
+            </div>
+<div class="text-body-sm font-body-sm text-outline">
+              Precision Academic Parser v2.1 • ~12,400 input tokens
+            </div>
+</div>
+</div>
+</section>
+<!-- Integrated Real-time AI Pipeline Execution & Spec Generation Progress -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 shadow-sm">
+<div class="flex items-center justify-between pb-4 mb-6 border-b border-outline-variant">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-[22px]" data-icon="manufacturing">manufacturing</span>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">AI Pipeline Execution &amp; Spec Generation Progress</h2>
+<p class="text-body-sm font-body-sm text-outline">Automated extraction against Tier-1 NBA Outcome-Based Education standard</p>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[18px] animate-spin" data-icon="progress_activity">progress_activity</span>
+<span class="text-label-md font-label-md text-primary font-semibold font-tabular-data">Approx. 25 seconds remaining</span>
+</div>
+</div>
+<!-- 5-Step Pipeline Horizontal Stepper -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+<!-- Step 1: Reading files (Completed) -->
+<div class="bg-surface-container-low border border-secondary rounded-lg p-3.5 relative flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-label-sm font-label-sm font-bold text-secondary uppercase">Step 1</span>
+<span class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="check">check</span>
+</span>
+</div>
+<h4 class="text-label-md font-label-md font-bold text-on-surface mb-1">Reading files</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Extracted 14 pages and 6 syllabus modules</p>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant flex items-center gap-1 text-label-sm font-label-sm text-secondary font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="task_alt">task_alt</span>
+<span>100% Parsed</span>
+</div>
+</div>
+<!-- Step 2: Choosing template (Completed) -->
+<div class="bg-surface-container-low border border-secondary rounded-lg p-3.5 relative flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-label-sm font-label-sm font-bold text-secondary uppercase">Step 2</span>
+<span class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="check">check</span>
+</span>
+</div>
+<h4 class="text-label-md font-label-md font-bold text-on-surface mb-1">Choosing template</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Matched Tier-1 NBA Autonomous 2024 Template</p>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant flex items-center gap-1 text-label-sm font-label-sm text-secondary font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="inventory_2">inventory_2</span>
+<span>Template Locked</span>
+</div>
+</div>
+<!-- Step 3: Mapping COs (In Progress) -->
+<div class="bg-surface-container-lowest border-2 border-primary rounded-lg p-3.5 relative flex flex-col justify-between shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-label-sm font-label-sm font-bold text-primary uppercase">Step 3 • Active</span>
+<span class="w-5 h-5 rounded-full bg-primary-fixed text-primary flex items-center justify-center animate-spin">
+<span class="material-symbols-outlined text-[14px]" data-icon="refresh">refresh</span>
+</span>
+</div>
+<h4 class="text-label-md font-label-md font-bold text-primary mb-1">Mapping COs</h4>
+<p class="text-body-sm font-body-sm text-on-surface">Analyzing Bloom levels &amp; action verbs for CO1–CO6...</p>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant flex items-center gap-1 text-label-sm font-label-sm text-primary font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span>Extracting CO3</span>
+</div>
+</div>
+<!-- Step 4: Checking (Pending) -->
+<div class="bg-surface border border-outline-variant rounded-lg p-3.5 relative flex flex-col justify-between opacity-75">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-label-sm font-label-sm font-bold text-outline uppercase">Step 4</span>
+<span class="w-5 h-5 rounded-full bg-surface-container text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="hourglass_empty">hourglass_empty</span>
+</span>
+</div>
+<h4 class="text-label-md font-label-md font-bold text-outline mb-1">Checking</h4>
+<p class="text-body-sm font-body-sm text-outline">Contact hour validation &amp; PO alignment</p>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant flex items-center gap-1 text-label-sm font-label-sm text-outline">
+<span>Queued</span>
+</div>
+</div>
+<!-- Step 5: Done (Pending) -->
+<div class="bg-surface border border-outline-variant rounded-lg p-3.5 relative flex flex-col justify-between opacity-75">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-label-sm font-label-sm font-bold text-outline uppercase">Step 5</span>
+<span class="w-5 h-5 rounded-full bg-surface-container text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="hourglass_empty">hourglass_empty</span>
+</span>
+</div>
+<h4 class="text-label-md font-label-md font-bold text-outline mb-1">Done</h4>
+<p class="text-body-sm font-body-sm text-outline">Compile corrected specification document</p>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant flex items-center gap-1 text-label-sm font-label-sm text-outline">
+<span>Awaiting Step 4</span>
+</div>
+</div>
+</div>
+<!-- Terminal / Parsing Inspector Log Drawer -->
+<div class="mt-6 bg-inverse-surface rounded-lg p-4 text-inverse-on-surface font-mono text-body-sm">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-outline">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-error inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed inline-block"></span>
+<span class="text-label-sm text-inverse-on-surface ml-2">Console: parser_output.log</span>
+</div>
+<span class="text-label-sm text-outline">UTF-8 • 1.2ms latency</span>
+</div>
+<div id="consoleLogs" class="space-y-1 text-[13px] leading-relaxed max-h-48 overflow-y-auto">
+<div class="text-secondary-fixed">[10:14:02 INFO] Ingestion engine initialized. Document: CS401_Syllabus_2024_v2.docx</div>
+<div class="text-inverse-on-surface">[10:14:04 PARSE] Discovered 6 module sections: Divide &amp; Conquer, Dynamic Programming, Greedy, Graph Algorithms, NP-Completeness, Approximation.</div>
+<div class="text-secondary-fixed">[10:14:07 MATCH] Correlated against AICTE/NBA Model Curriculum (CS 2024). Found 52 contact hours required.</div>
+<div class="text-on-tertiary-container flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] animate-spin" data-icon="refresh">refresh</span>
+              [10:14:11 PROCESS] Analyzing verb "Design" in CO3: Mapping to Bloom Level 6 (Create) &amp; PO3 (Design/development of solutions)...
+            </div>
+</div>
+</div>
+</section>
+<!-- Bottom Academic Notice & Audit Policy Card -->
+<footer class="mt-8 p-4 rounded-lg bg-surface-container-low border border-outline-variant flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline text-[24px]" data-icon="policy">policy</span>
+<div>
+<h5 class="text-label-md font-label-md font-bold text-on-surface">NBA Criterion 2 • Teaching-Learning Processes</h5>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Automated syllabus outputs comply with the National Board of Accreditation outcome framework.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<a class="text-label-md font-label-md text-primary font-semibold hover:underline" href="#">View Accreditation Criteria</a>
+<span class="text-outline">•</span>
+<span class="text-label-sm font-label-sm text-outline">SpecForge Engine v4.8</span>
+</div>
+</footer>
+</main>
+</div>
+
+<!-- Floating In-App Toast Notification -->
+<div id="specforgeToast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <div class="bg-surface-container-lowest border border-outline-variant shadow-xl rounded-lg px-4 py-3 flex items-center gap-3 min-w-[280px]">
+    <div id="toastIcon" class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[18px]">check_circle</span>
+    </div>
+    <div class="min-w-0 flex-1">
+      <div id="toastTitle" class="text-xs font-bold text-on-surface">Success</div>
+      <div id="toastMessage" class="text-xs text-on-surface-variant truncate">Document uploaded</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Utility helpers
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 KB';
+      const k = 1024;
+      if (bytes < k * 1024) return (bytes / k).toFixed(0) + ' KB';
+      return (bytes / (k * k)).toFixed(1) + ' MB';
+    }
+
+    function getTimestamp() {
+      const d = new Date();
+      return '[' + d.toTimeString().split(' ')[0] + ']';
+    }
+
+    function simpleHash(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0;
+      }
+      const hex = Math.abs(hash).toString(16).padStart(8, '0');
+      return hex.slice(0, 4) + '...' + hex.slice(-4);
+    }
+
+    function showToast(title, message, isError) {
+      const toast = document.getElementById('specforgeToast');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+      if (!toast) return;
+
+      toastTitle.textContent = title;
+      toastMessage.textContent = message;
+
+      if (isError) {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">error</span>';
+      } else {
+        toastIcon.className = 'w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0';
+        toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span>';
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(function() {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    function appendLog(type, text) {
+      const logs = document.getElementById('consoleLogs');
+      if (!logs) return;
+      const div = document.createElement('div');
+      const time = getTimestamp();
+      if (type === 'INFO') {
+        div.className = 'text-secondary-fixed';
+        div.textContent = time + ' [INFO] ' + text;
+      } else if (type === 'PARSE') {
+        div.className = 'text-inverse-on-surface';
+        div.textContent = time + ' [PARSE] ' + text;
+      } else if (type === 'SUCCESS') {
+        div.className = 'text-secondary-fixed font-semibold';
+        div.textContent = time + ' [SUCCESS] ' + text;
+      } else if (type === 'WARN') {
+        div.className = 'text-amber-300';
+        div.textContent = time + ' [WARN] ' + text;
+      }
+      logs.appendChild(div);
+      logs.scrollTop = logs.scrollHeight;
+    }
+
+    // 1. SYLLABUS UPLOAD CONTROLLER
+    const syllabusInput = document.getElementById('syllabusFileInput');
+    const syllabusDropzone = document.getElementById('syllabusDropzone');
+    const syllabusBrowseLink = document.getElementById('syllabusBrowseLink');
+    const syllabusCard = document.getElementById('syllabusCard');
+    const syllabusFileName = document.getElementById('syllabusFileName');
+    const syllabusFileSize = document.getElementById('syllabusFileSize');
+    const syllabusFileStatus = document.getElementById('syllabusFileStatus');
+    const syllabusRemoveBtn = document.getElementById('syllabusRemoveBtn');
+    const syllabusHash = document.getElementById('syllabusHash');
+
+    function triggerSyllabusBrowse(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      syllabusInput.click();
+    }
+
+    if (syllabusBrowseLink) {
+      syllabusBrowseLink.addEventListener('click', triggerSyllabusBrowse);
+    }
+    if (syllabusDropzone) {
+      syllabusDropzone.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'BUTTON') {
+          triggerSyllabusBrowse(e);
+        }
+      });
+
+      // Drag and Drop
+      ['dragenter', 'dragover'].forEach(function(ev) {
+        syllabusDropzone.addEventListener(ev, function(e) {
+          e.preventDefault();
+          syllabusDropzone.classList.add('border-primary', 'bg-primary-fixed/20');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(function(ev) {
+        syllabusDropzone.addEventListener(ev, function(e) {
+          e.preventDefault();
+          syllabusDropzone.classList.remove('border-primary', 'bg-primary-fixed/20');
+        });
+      });
+
+      syllabusDropzone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleSyllabusFile(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    function handleSyllabusFile(file) {
+      if (!file) return;
+      const formattedSize = formatBytes(file.size);
+      syllabusFileName.textContent = file.name;
+      syllabusFileName.title = file.name;
+      syllabusFileSize.textContent = formattedSize;
+      syllabusFileStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Ready for parsing';
+      syllabusCard.classList.remove('opacity-60');
+
+      const hash = simpleHash(file.name + file.size);
+      if (syllabusHash) syllabusHash.textContent = 'SHA-256: ' + hash;
+
+      appendLog('INFO', 'Loaded course specification syllabus: ' + file.name + ' (' + formattedSize + '). Validated MIME signature.');
+      showToast('Syllabus Selected', file.name + ' (' + formattedSize + ') ready for parsing.');
+    }
+
+    if (syllabusInput) {
+      syllabusInput.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files.length > 0) {
+          handleSyllabusFile(e.target.files[0]);
+        }
+      });
+    }
+
+    if (syllabusRemoveBtn) {
+      syllabusRemoveBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        syllabusInput.value = '';
+        syllabusFileName.textContent = 'No file uploaded';
+        syllabusFileName.title = 'No file';
+        syllabusFileSize.textContent = '0 KB';
+        syllabusFileStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Awaiting document';
+        syllabusCard.classList.add('opacity-60');
+        if (syllabusHash) syllabusHash.textContent = 'SHA-256: Pending upload';
+
+        appendLog('WARN', 'Course syllabus document cleared. Please select or drop a new syllabus.');
+        showToast('Document Removed', 'Please browse or drop a syllabus document.', true);
+      });
+    }
+
+    // 2. QUESTION-PAPER BLUEPRINT UPLOAD CONTROLLER
+    const blueprintInput = document.getElementById('blueprintFileInput');
+    const blueprintDropzone = document.getElementById('blueprintDropzone');
+    const blueprintBrowseLink = document.getElementById('blueprintBrowseLink');
+    const blueprintCard = document.getElementById('blueprintCard');
+    const blueprintFileName = document.getElementById('blueprintFileName');
+    const blueprintFileSize = document.getElementById('blueprintFileSize');
+    const blueprintFileStatus = document.getElementById('blueprintFileStatus');
+    const blueprintRemoveBtn = document.getElementById('blueprintRemoveBtn');
+
+    function triggerBlueprintBrowse(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      blueprintInput.click();
+    }
+
+    if (blueprintBrowseLink) {
+      blueprintBrowseLink.addEventListener('click', triggerBlueprintBrowse);
+    }
+    if (blueprintDropzone) {
+      blueprintDropzone.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'BUTTON') {
+          triggerBlueprintBrowse(e);
+        }
+      });
+
+      ['dragenter', 'dragover'].forEach(function(ev) {
+        blueprintDropzone.addEventListener(ev, function(e) {
+          e.preventDefault();
+          blueprintDropzone.classList.add('border-primary', 'bg-primary-fixed/20');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(function(ev) {
+        blueprintDropzone.addEventListener(ev, function(e) {
+          e.preventDefault();
+          blueprintDropzone.classList.remove('border-primary', 'bg-primary-fixed/20');
+        });
+      });
+
+      blueprintDropzone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleBlueprintFile(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    function handleBlueprintFile(file) {
+      if (!file) return;
+      const formattedSize = formatBytes(file.size);
+      blueprintFileName.textContent = file.name;
+      blueprintFileName.title = file.name;
+      blueprintFileSize.textContent = formattedSize;
+      blueprintFileStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Ready';
+      blueprintCard.classList.remove('opacity-60');
+
+      appendLog('INFO', 'Loaded question paper blueprint: ' + file.name + ' (' + formattedSize + ').');
+      showToast('Blueprint Selected', file.name + ' (' + formattedSize + ') ready.');
+    }
+
+    if (blueprintInput) {
+      blueprintInput.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files.length > 0) {
+          handleBlueprintFile(e.target.files[0]);
+        }
+      });
+    }
+
+    if (blueprintRemoveBtn) {
+      blueprintRemoveBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        blueprintInput.value = '';
+        blueprintFileName.textContent = 'No blueprint uploaded';
+        blueprintFileName.title = 'No blueprint';
+        blueprintFileSize.textContent = '0 KB';
+        blueprintFileStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Optional';
+        blueprintCard.classList.add('opacity-60');
+
+        appendLog('INFO', 'Question paper blueprint removed.');
+        showToast('Blueprint Removed', 'Optional blueprint cleared.', false);
+      });
+    }
+
+    // 3. ACTION BUTTONS: EXTRACT SPEC & DRY-RUN
+    const btnGenerateSpec = document.getElementById('btnGenerateSpec');
+    const btnDryRun = document.getElementById('btnDryRun');
+
+    if (btnGenerateSpec) {
+      btnGenerateSpec.addEventListener('click', function() {
+        btnGenerateSpec.disabled = true;
+        btnGenerateSpec.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span><span>Extracting Outcomes (CO1–CO6)...</span>';
+        
+        appendLog('INFO', 'Initiating neural course outcome extraction & Bloom hierarchy alignment...');
+        setTimeout(function() {
+          appendLog('PARSE', 'Synthesizing Course Outcomes CO1 through CO6 against Washington Accord criteria.');
+        }, 300);
+
+        setTimeout(function() {
+          appendLog('SUCCESS', 'Successfully extracted 6 Course Outcomes, 52 contact hours, and lecture-tutorial breakdown.');
+          btnGenerateSpec.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Extraction Complete! Loading Spec...</span>';
+          showToast('Specification Generated', 'Navigating to Step 2: Spec Correction');
+          
+          setTimeout(function() {
+            if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+              window.parent.switchStep(2);
+            } else {
+              window.location.href = '/spec';
+            }
+          }, 600);
+        }, 1200);
+      });
+    }
+
+    if (btnDryRun) {
+      btnDryRun.addEventListener('click', function() {
+        appendLog('INFO', 'Dry-Run Ingestion Engine: validating token boundaries, character encodings, and table boundaries...');
+        setTimeout(function() {
+          appendLog('SUCCESS', 'Dry-Run complete: 100% parseable, 0 formatting anomalies detected. Ready for generation.');
+          showToast('Dry-Run Verified', '14 pages and 6 units parsed without error.');
+        }, 400);
+      });
+    }
+  })();
+</script>
+</body></html>

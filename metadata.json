@@ -1,0 +1,8 @@
+{
+  "name": "SpecForge — Academic Design System",
+  "description": "Academic curriculum specification, OBE mapping, CO-PO-PSO articulation matrix, NBA compliance checks, and official accreditation dossier generation suite.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

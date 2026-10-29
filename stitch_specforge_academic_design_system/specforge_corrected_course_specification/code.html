@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpecForge — Step 2: Spec (Curriculum Spec Correction)</title>
+<!-- Material Symbols Outlined Font -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration Script -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-tertiary-container": "#8da9ff",
+            "inverse-surface": "#213145",
+            "surface-container-low": "#eff4ff",
+            "surface-container-high": "#dce9ff",
+            "tertiary-container": "#00389a",
+            "secondary-container": "#99efe5",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#00164e",
+            "error-container": "#ffdad6",
+            "surface-container": "#e5eeff",
+            "secondary-fixed": "#9cf2e8",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#006f67",
+            "tertiary-fixed": "#dbe1ff",
+            "on-secondary": "#ffffff",
+            "primary-fixed-dim": "#b6c4ff",
+            "surface": "#f8f9ff",
+            "on-surface-variant": "#444651",
+            "secondary-fixed-dim": "#80d5cb",
+            "error": "#ba1a1a",
+            "inverse-primary": "#b6c4ff",
+            "on-primary-container": "#90a8ff",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed": "#00174b",
+            "on-primary-fixed-variant": "#264191",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-variant": "#d3e4fe",
+            "surface-bright": "#f8f9ff",
+            "primary": "#00236f",
+            "background": "#f8f9ff",
+            "surface-container-highest": "#d3e4fe",
+            "on-surface": "#0b1c30",
+            "on-secondary-fixed-variant": "#00504a",
+            "primary-fixed": "#dce1ff",
+            "outline": "#757682",
+            "outline-variant": "#c5c5d3",
+            "on-error": "#ffffff",
+            "on-background": "#0b1c30",
+            "on-error-container": "#93000a",
+            "tertiary": "#00246b",
+            "primary-container": "#1e3a8a",
+            "inverse-on-surface": "#eaf1ff",
+            "on-secondary-fixed": "#00201d",
+            "secondary": "#006a63",
+            "surface-tint": "#4059aa",
+            "surface-dim": "#cbdbf5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-xl": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "label-md": ["Inter"],
+            "tabular-data": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.025em", "fontWeight": "600" }],
+            "tabular-data": ["0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Smooth collapsible transitions */
+    .collapsible-content {
+      transition: max-height 0.25s ease-in-out, opacity 0.2s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-surface-container-high selection:text-primary">
+<!-- ========================================================================= -->
+<!-- 1. TOP APP BAR (Shared Component: TopNavBar)                              -->
+<!-- ========================================================================= -->
+<header class="w-full h-14 px-gutter flex items-center justify-between z-40 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 left-0 right-0 shadow-sm">
+<!-- Left: Brand + Academic Icon & Course Breadcrumb -->
+<div class="flex items-center gap-space-md">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary flex items-center gap-space-sm tracking-tight">
+<span class="material-symbols-outlined text-primary text-[24px]">school</span>
+<span>SpecForge</span>
+</div>
+<div class="h-4 w-px bg-outline-variant"></div>
+<!-- Course & State Breadcrumb -->
+<div class="flex items-center gap-space-sm text-body-sm font-body-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">CS401: Advanced Algorithms</span>
+<span class="text-outline">/</span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          AI Corrected • Awaiting Verification
+        </span>
+</div>
+</div>
+<!-- Center/Right: Role Switcher & Actions -->
+<div class="flex items-center gap-space-lg">
+<!-- Role Switcher: Author active -->
+<div class="flex items-center bg-surface-container-low p-0.5 rounded-lg border border-outline-variant">
+<button class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary font-label-lg text-label-lg py-space-sm px-3 rounded-lg bg-surface-container-lowest shadow-sm">
+          Author
+        </button>
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm px-3 transition-colors duration-150">
+          Reviewer
+        </button>
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm px-3 transition-colors duration-150">
+          HOD
+        </button>
+</div>
+<!-- AI Connection Status Badge -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-label-sm text-label-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+        AI: Connected
+      </div>
+<!-- Secondary & Primary Actions -->
+<div class="flex items-center gap-space-sm">
+<button class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-150">
+<span class="material-symbols-outlined text-[18px]">share</span>
+          Share
+        </button>
+<button class="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary shadow-sm transition-colors duration-150">
+<span class="material-symbols-outlined text-[18px]">save</span>
+          Save
+        </button>
+</div>
+<!-- Trailing Action Icons & Faculty Profile -->
+<div class="flex items-center gap-space-sm border-l border-outline-variant pl-space-md">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Notifications">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-2 pl-1">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md" title="Dr. A. Sharma">
+            AS
+          </div>
+<div class="hidden xl:flex flex-col text-left">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Dr. A. Sharma</span>
+<span class="font-body-sm text-body-sm text-outline leading-tight">Curriculum Lead</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 2. MAIN WORKBENCH LAYOUT (SideNav + Center Document Stage + Audit Panel)   -->
+<!-- ========================================================================= -->
+<div class="flex flex-1 pt-14 pb-16">
+<!-- Left Navigation Rail (Shared Component: SideNavBar) -->
+<aside class="fixed left-0 top-14 bottom-0 w-[280px] flex flex-col justify-between p-space-md bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-30 overflow-y-auto">
+<div class="space-y-space-md">
+<!-- Header Info Card -->
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant">
+<div class="flex items-start gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</div>
+<div>
+<h2 class="text-label-lg font-label-lg font-bold text-on-surface">CS401: Advanced Algorithms</h2>
+<p class="text-body-sm font-body-sm text-outline">AY 2024-25 • Sem VII</p>
+<div class="mt-1 inline-block text-label-sm font-label-sm px-1.5 py-0.5 rounded bg-surface-container text-primary font-medium">
+                Tier-1 NBA Accredited
+              </div>
+</div>
+</div>
+</div>
+<!-- Workflow Step Tabs -->
+<nav class="space-y-1">
+<div class="px-2 py-1 text-label-sm font-label-sm text-outline uppercase tracking-wider">
+            Curriculum Lifecycle
+          </div>
+<!-- Step 1: Upload (Complete) -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center justify-between rounded-lg hover:bg-surface-container transition-colors" href="#">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-emerald-700">check_circle</span>
+<span class="text-label-md font-label-md">Upload</span>
+</div>
+<span class="text-label-sm font-label-sm text-emerald-700 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Done</span>
+</a>
+<!-- Step 2: Spec (ACTIVE / In Progress) -->
+<a class="border-l-4 border-primary dark:border-inverse-primary bg-surface-container-lowest dark:bg-surface-container text-primary dark:text-inverse-primary font-semibold px-space-md py-space-sm flex items-center justify-between rounded-r-lg shadow-sm" href="#">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-primary">tune</span>
+<span class="text-label-md font-label-md">Spec</span>
+</div>
+<span class="text-label-sm font-label-sm text-primary font-semibold bg-surface-container px-1.5 py-0.5 rounded border border-outline-variant">Active</span>
+</a>
+<!-- Step 3: CO-PO-PSO Map (Pending/Next) -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center justify-between rounded-lg hover:bg-surface-container transition-colors" href="#">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-label-md font-label-md">CO-PO-PSO Map</span>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Next</span>
+</a>
+<!-- Step 4: Checks (Locked) -->
+<div class="text-outline font-normal px-space-md py-space-sm flex items-center justify-between opacity-70 cursor-not-allowed">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-outline">fact_check</span>
+<span class="text-label-md font-label-md">Checks</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-outline">lock</span>
+</div>
+<!-- Step 5: Workflow (Locked) -->
+<div class="text-outline font-normal px-space-md py-space-sm flex items-center justify-between opacity-70 cursor-not-allowed">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-outline">schema</span>
+<span class="text-label-md font-label-md">Workflow</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-outline">lock</span>
+</div>
+<!-- Step 6: Export (Locked) -->
+<div class="text-outline font-normal px-space-md py-space-sm flex items-center justify-between opacity-70 cursor-not-allowed">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-outline">download</span>
+<span class="text-label-md font-label-md">Export</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-outline">lock</span>
+</div>
+</nav>
+</div>
+<!-- Sidebar Footer CTA and System Links -->
+<div class="pt-4 border-t border-outline-variant space-y-2">
+<button class="w-full h-9 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-opacity-90 shadow-sm transition-all">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+          Validate Matrix
+        </button>
+<a class="text-on-surface-variant font-normal px-space-md py-1.5 flex items-center gap-space-md rounded-lg hover:bg-surface-container transition-colors text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+<span>Accreditation Rubric</span>
+</a>
+<a class="text-on-surface-variant font-normal px-space-md py-1.5 flex items-center gap-space-md rounded-lg hover:bg-surface-container transition-colors text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace (Center Stage: Spec Document Editor & Verification Inspector) -->
+<main class="ml-[280px] flex-1 px-8 py-6 max-w-[1366px] mx-auto w-full">
+<!-- Screen Header & Course Identity Banner -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-6 shadow-sm mb-6">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-primary text-on-primary tracking-wide">CS401</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Advanced Algorithms &amp; Computational Complexity</h1>
+</div>
+<div class="flex flex-wrap items-center gap-3 text-body-md font-body-md text-on-surface-variant">
+<span class="font-semibold text-primary">4 Credits</span>
+<span>•</span>
+<span class="font-tabular-data text-tabular-data bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant">L: 3 • T: 1 • P: 0</span>
+<span>•</span>
+<span class="inline-flex items-center gap-1 text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-emerald-700">fact_check</span>
+                Detected: Integrated (Theory + Tutorial)
+              </span>
+</div>
+<!-- Detection Reason Line -->
+<p class="mt-2 text-body-sm font-body-sm text-outline flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+              Identified 3 lecture hours + 1 tutorial slot per week with algorithmic problem sessions; no dedicated lab syllabus section found.
+            </p>
+</div>
+<!-- Action Toolbar on Top Right -->
+<div class="flex flex-wrap items-center gap-2 shrink-0">
+<button id="btnRerunExtract" type="button" class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors cursor-pointer" title="Rerun AI Engine">
+<span class="material-symbols-outlined text-[18px]">autorenew</span>
+              Re-run Extraction
+            </button>
+<button id="btnSpecDiff" type="button" class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">difference</span>
+              Compare with Original (Diff)
+            </button>
+<button id="btnDownloadSpec" type="button" class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">download</span>
+              Download Spec Draft
+            </button>
+<button id="btnApproveAllChanges" type="button" class="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:bg-opacity-95 shadow-sm transition-colors cursor-pointer font-bold">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+              Approve All Changes
+            </button>
+</div>
+</div>
+<!-- Quick AI Corrections Summary Banner -->
+<div class="mt-5 p-3 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface">
+<span class="font-semibold text-primary">SpecForge AI applied 8 corrections:</span> 
+              3 Bloom's taxonomy verbs aligned, 1 contact hour mismatch fixed (total 56 hrs), 2 assessment weightings reconciled to 100%.
+            </p>
+</div>
+<span class="text-label-sm font-label-sm font-semibold text-primary hover:underline cursor-pointer">
+            View All Diffs (8)
+          </span>
+</div>
+</div>
+<!-- Collapsible Specification Sections List -->
+<div class="space-y-4">
+<!-- ===================================================================== -->
+<!-- SECTION 1: Course Summary                                             -->
+<!-- ===================================================================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-bright border-b border-outline-variant" onclick="toggleCollapsible('sec-1-content', 'sec-1-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="sec-1-icon">expand_more</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">1. Course Summary</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Edited by AI • Bloom verb calibrated
+              </span>
+</div>
+<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors" title="Edit Section">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-4" id="sec-1-content">
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-1.5">Course Description</h3>
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+                This course provides an advanced treatment of algorithmic design, computational complexity, and intractable optimization. 
+                Students investigate non-deterministic polynomial reductions, randomized protocols, amortized data structural bounds, and streaming models. 
+                Rigorous mathematical proof techniques and real-world system abstractions are emphasized throughout problem sets and research case evaluations.
+              </p>
+</div>
+<div class="pt-3 border-t border-outline-variant">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-1.5">Prerequisites &amp; Prior Knowledge</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-1 bg-surface-container-low border border-outline-variant rounded text-body-sm font-body-sm font-medium text-on-surface">
+                  CS201: Data Structures &amp; Algorithms (Grade ≥ B)
+                </span>
+<span class="px-2.5 py-1 bg-surface-container-low border border-outline-variant rounded text-body-sm font-body-sm font-medium text-on-surface">
+                  MA203: Discrete Mathematical Structures &amp; Graph Theory
+                </span>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-emerald-50 text-emerald-800 border border-emerald-200 self-center">
+                  Prerequisites Validated
+                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- ===================================================================== -->
+<!-- SECTION 2: Course Size and Credits                                    -->
+<!-- ===================================================================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-bright border-b border-outline-variant" onclick="toggleCollapsible('sec-2-content', 'sec-2-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="sec-2-icon">expand_more</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">2. Course Size and Credits</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Edited by AI
+              </span>
+</div>
+<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<div class="p-5" id="sec-2-content">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant">
+<span class="text-body-sm font-body-sm text-outline block">Lecture Hours (L)</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface">42 hrs</span>
+<span class="text-label-sm font-label-sm text-outline block mt-0.5">3 hrs / week</span>
+</div>
+<div class="p-3 bg-secondary-container bg-opacity-30 rounded-lg border border-secondary">
+<span class="text-body-sm font-body-sm text-on-secondary-container block font-medium">Tutorial Hours (T)</span>
+<span class="text-headline-md font-headline-md font-bold text-secondary">14 hrs</span>
+<span class="text-label-sm font-label-sm text-on-secondary-container block mt-0.5">1 hr / week (Reconciled)</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant">
+<span class="text-body-sm font-body-sm text-outline block">Practical Hours (P)</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface">0 hrs</span>
+<span class="text-label-sm font-label-sm text-outline block mt-0.5">No Lab syllabus</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant">
+<span class="text-body-sm font-body-sm text-outline block">Total Contact Hours</span>
+<span class="text-headline-md font-headline-md font-bold text-primary">56 hrs</span>
+<span class="text-label-sm font-label-sm text-outline block mt-0.5">14 Academic Weeks</span>
+</div>
+<div class="p-3 bg-primary-fixed rounded-lg border border-outline-variant">
+<span class="text-body-sm font-body-sm text-on-primary-fixed block font-medium">Earned Credits</span>
+<span class="text-headline-md font-headline-md font-bold text-on-primary-fixed">4 Credits</span>
+<span class="text-label-sm font-label-sm text-on-primary-fixed block mt-0.5">Calculated (3-1-0 = 4)</span>
+</div>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low border border-outline-variant text-body-sm font-body-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">verified_user</span>
+<span><strong>AI Adjustment:</strong> Adjusted tutorial contact hours to meet autonomous university Regulation 2024 guidelines (14 weeks × 1 tutorial hour/week = 14 hours).</span>
+</div>
+</div>
+</div>
+<!-- ===================================================================== -->
+<!-- SECTION 3: Course Outcomes (COs)                                      -->
+<!-- ===================================================================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-bright border-b border-outline-variant" onclick="toggleCollapsible('sec-3-content', 'sec-3-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="sec-3-icon">expand_more</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">3. Course Outcomes (COs)</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Edited by AI • Bloom calibrated
+              </span>
+</div>
+<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<div class="p-5" id="sec-3-content">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant text-label-md font-label-md text-outline">
+<th class="py-2.5 px-3 w-16">CO ID</th>
+<th class="py-2.5 px-4">Course Outcome Statement</th>
+<th class="py-2.5 px-3 w-36">Bloom's Taxonomy</th>
+<th class="py-2.5 px-3 w-64">Revised Status / AI Note</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant text-body-sm font-body-sm">
+<!-- CO1 -->
+<tr class="hover:bg-surface-bright">
+<td class="py-3 px-3 font-semibold text-primary">CO1</td>
+<td class="py-3 px-4 text-on-surface">
+                      Analyze time and space complexity of divide-and-conquer and amortized algorithms using master theorem and potential methods.
+                    </td>
+<td class="py-3 px-3">
+<span class="px-2 py-1 rounded font-label-sm text-label-sm font-semibold bg-surface-container-high text-primary border border-outline-variant">
+                        K4 - Analyze
+                      </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="material-symbols-outlined text-[14px]">spark</span>
+                        Replaced vague verb "Understand" with "Analyze"
+                      </span>
+</td>
+</tr>
+<!-- CO2 -->
+<tr class="hover:bg-surface-bright">
+<td class="py-3 px-3 font-semibold text-primary">CO2</td>
+<td class="py-3 px-4 text-on-surface">
+                      Design randomized algorithms for graph connectivity and evaluate expectation bounds under adversarial inputs.
+                    </td>
+<td class="py-3 px-3">
+<span class="px-2 py-1 rounded font-label-sm text-label-sm font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        K5 - Evaluate
+                      </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="material-symbols-outlined text-[14px]">spark</span>
+                        Refined to higher-order K5 level
+                      </span>
+</td>
+</tr>
+<!-- CO3 -->
+<tr class="hover:bg-surface-bright">
+<td class="py-3 px-3 font-semibold text-primary">CO3</td>
+<td class="py-3 px-4 text-on-surface">
+                      Formulate maximum network flow reductions for bipartite matching and project scheduling constraints.
+                    </td>
+<td class="py-3 px-3">
+<span class="px-2 py-1 rounded font-label-sm text-label-sm font-semibold bg-surface-container-high text-primary border border-outline-variant">
+                        K4 - Analyze
+                      </span>
+</td>
+<td class="py-3 px-3 text-outline">
+                      Retained from syllabus
+                    </td>
+</tr>
+<!-- CO4 -->
+<tr class="hover:bg-surface-bright">
+<td class="py-3 px-3 font-semibold text-primary">CO4</td>
+<td class="py-3 px-4 text-on-surface">
+                      Demonstrate NP-Completeness through polynomial-time reductions for 3-SAT, Vertex Cover, and Subset-Sum.
+                    </td>
+<td class="py-3 px-3">
+<span class="px-2 py-1 rounded font-label-sm text-label-sm font-semibold bg-surface-container-high text-primary border border-outline-variant">
+                        K4 - Analyze
+                      </span>
+</td>
+<td class="py-3 px-3 text-outline">
+                      Retained from syllabus
+                    </td>
+</tr>
+<!-- CO5 -->
+<tr class="hover:bg-surface-bright">
+<td class="py-3 px-3 font-semibold text-primary">CO5</td>
+<td class="py-3 px-4 text-on-surface">
+                      Implement approximation algorithms for metric Travelling Salesperson Problem (TSP) with proven guarantee ratios.
+                    </td>
+<td class="py-3 px-3">
+<span class="px-2 py-1 rounded font-label-sm text-label-sm font-semibold bg-purple-100 text-purple-900 border border-purple-300">
+                        K6 - Create
+                      </span>
+</td>
+<td class="py-3 px-3 text-outline">
+                      Calibrated metric constraints
+                    </td>
+</tr>
+<!-- CO6 -->
+<tr class="hover:bg-surface-bright">
+<td class="py-3 px-3 font-semibold text-primary">CO6</td>
+<td class="py-3 px-4 text-on-surface">
+                      Synthesize sublinear space algorithms using streaming sketches (Count-Min, HyperLogLog) for massive data pipelines.
+                    </td>
+<td class="py-3 px-3">
+<span class="px-2 py-1 rounded font-label-sm text-label-sm font-semibold bg-purple-100 text-purple-900 border border-purple-300">
+                        K6 - Create
+                      </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary-fixed text-on-primary-fixed">
+<span class="material-symbols-outlined text-[14px]">spark</span>
+                        Added explicit streaming primitives
+                      </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ===================================================================== -->
+<!-- SECTION 4: Course Contents (Units / Modules with Topics and Hours)    -->
+<!-- ===================================================================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-bright border-b border-outline-variant" onclick="toggleCollapsible('sec-4-content', 'sec-4-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="sec-4-icon">expand_more</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">4. Course Contents (Units / Modules with Topics and Hours)</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Edited by AI
+              </span>
+</div>
+<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-4" id="sec-4-content">
+<!-- Unit 1 -->
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-lg text-label-lg text-primary">Unit 1: Divide &amp; Conquer, Recurrences &amp; Amortized Analysis</h3>
+<span class="font-tabular-data text-tabular-data font-semibold px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant">
+                  8 Contact Hours
+                </span>
+</div>
+<ul class="list-disc list-inside text-body-sm font-body-sm text-on-surface space-y-1">
+<li>Master Theorem cases, substitution method, and recursion tree transformations.</li>
+<li>Amortized Accounting &amp; Potential methods: Dynamic array resizing and binary counter bounds.</li>
+<li>Advanced persistent search trees and splay tree amortized bounds.</li>
+</ul>
+</div>
+<!-- Unit 2 -->
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-lg text-label-lg text-primary">Unit 2: Graph Algorithms &amp; Network Flow Reductions</h3>
+<span class="font-tabular-data text-tabular-data font-semibold px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant">
+                  10 Contact Hours
+                </span>
+</div>
+<ul class="list-disc list-inside text-body-sm font-body-sm text-on-surface space-y-1">
+<li>Max-Flow Min-Cut Theorem, Ford-Fulkerson method, and Edmonds-Karp complexity bounds.</li>
+<li>Push-Relabel algorithm with highest-label selection heuristic.</li>
+<li>Applications: Maximum bipartite matching, minimum path cover in DAGs, and project scheduling.</li>
+</ul>
+</div>
+<!-- Unit 3 -->
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-lg text-label-lg text-primary">Unit 3: Randomized Algorithms &amp; Probabilistic Analysis</h3>
+<span class="font-tabular-data text-tabular-data font-semibold px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant">
+                  8 Contact Hours
+                </span>
+</div>
+<ul class="list-disc list-inside text-body-sm font-body-sm text-on-surface space-y-1">
+<li>Monte Carlo vs Las Vegas algorithms; Randomized QuickSort expected depth bounds.</li>
+<li>Karger’s minimum cut algorithm and contraction analysis.</li>
+<li>Chernoff bounds, Markov &amp; Chebyshev inequalities applied to hash universal families.</li>
+</ul>
+</div>
+<!-- Unit 4 -->
+<div class="p-4 bg-surface-container-low rounded-lg border border-secondary">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<h3 class="font-label-lg text-label-lg text-primary">Unit 4: NP-Completeness &amp; Intractability Proofs</h3>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-label-sm font-label-sm bg-secondary-container text-on-secondary-container">
+                    AI Adjusted
+                  </span>
+</div>
+<span class="font-tabular-data text-tabular-data font-semibold px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant">
+                  9 Contact Hours
+                </span>
+</div>
+<ul class="list-disc list-inside text-body-sm font-body-sm text-on-surface space-y-1">
+<li>Classes P, NP, NP-Hard, and NP-Complete; Cook-Levin Theorem foundations.</li>
+<li>Polynomial-time Karp reductions: 3-SAT to Clique, Vertex Cover, and Subset-Sum.</li>
+<li>Dealing with hardness: Branch-and-bound and fixed-parameter tractability (FPT).</li>
+</ul>
+<div class="mt-2 text-label-sm font-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                AI note: Added formal reduction techniques from Garey &amp; Johnson standard for Tier-1 outcome compliance.
+              </div>
+</div>
+<!-- Unit 5 -->
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-lg text-label-lg text-primary">Unit 5: Approximation Algorithms &amp; Heuristics</h3>
+<span class="font-tabular-data text-tabular-data font-semibold px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant">
+                  7 Contact Hours
+                </span>
+</div>
+<ul class="list-disc list-inside text-body-sm font-body-sm text-on-surface space-y-1">
+<li>Approximation ratios and schemes: PTAS and FPTAS definitions.</li>
+<li>Metric TSP: 2-approximation using MST and 1.5-approximation Christofides algorithm.</li>
+<li>Set Cover greedy logarithmic approximation; Knapsack dynamic programming FPTAS.</li>
+</ul>
+</div>
+<!-- Total Contact Hours Footer -->
+<div class="p-3 bg-surface-bright rounded-lg border border-outline-variant flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface">Curricular Contact Distribution:</span>
+<span class="font-label-lg text-label-lg text-primary font-bold">
+                42 Lecture + 14 Tutorial = 56 Hours Total
+              </span>
+</div>
+</div>
+</div>
+<!-- ===================================================================== -->
+<!-- SECTION 5: Teaching and Learning Methods                              -->
+<!-- ===================================================================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-bright border-b border-outline-variant" onclick="toggleCollapsible('sec-5-content', 'sec-5-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="sec-5-icon">expand_more</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">5. Teaching and Learning Methods</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Edited by AI
+              </span>
+</div>
+<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<div class="p-5" id="sec-5-content">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-md text-label-md text-primary">Interactive Lectures</h3>
+<span class="font-label-lg text-label-lg font-bold text-primary">60%</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                  Chalk-and-talk formal theorem derivations combined with algorithmic step animations and whiteboard trace diagrams.
+                </p>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-md text-label-md text-primary">Tutorial Problem Solving</h3>
+<span class="font-label-lg text-label-lg font-bold text-primary">25%</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                  Small-batch algorithmic recitations, adversarial complexity reduction practice, and peer verification exercises.
+                </p>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-md text-label-md text-primary">Collaborative Case Proofs</h3>
+<span class="font-label-lg text-label-lg font-bold text-primary">15%</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                  Pair-formulated NP reduction proofs and research paper discussions on sublinear and streaming architectures.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- ===================================================================== -->
+<!-- SECTION 6: Assessment                                                 -->
+<!-- ===================================================================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-bright border-b border-outline-variant" onclick="toggleCollapsible('sec-6-content', 'sec-6-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="sec-6-icon">expand_more</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">6. Assessment</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Edited by AI • Sum Reconciled
+              </span>
+</div>
+<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<div class="p-5" id="sec-6-content">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+<!-- CIE -->
+<div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-3">
+<h3 class="font-label-lg text-label-lg text-primary">Continuous Internal Evaluation (CIE)</h3>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">50%</span>
+</div>
+<ul class="space-y-2 text-body-sm font-body-sm">
+<li class="flex items-center justify-between">
+<span>Mid-Term Written Examination</span>
+<span class="font-tabular-data text-tabular-data font-semibold">25%</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="flex items-center gap-1">
+                      Quizzes &amp; Tutorial Problem Sheets
+                      <span class="text-secondary text-[12px] font-semibold">(Adjusted +5%)</span>
+</span>
+<span class="font-tabular-data text-tabular-data font-semibold text-secondary">15%</span>
+</li>
+<li class="flex items-center justify-between">
+<span>Term Paper / Advanced Problem Set</span>
+<span class="font-tabular-data text-tabular-data font-semibold">10%</span>
+</li>
+</ul>
+</div>
+<!-- SEE -->
+<div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-3">
+<h3 class="font-label-lg text-label-lg text-primary">Semester End Examination (SEE)</h3>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">50%</span>
+</div>
+<ul class="space-y-2 text-body-sm font-body-sm">
+<li class="flex items-center justify-between">
+<span>Comprehensive Written Examination (3 Hours)</span>
+<span class="font-tabular-data text-tabular-data font-semibold">50%</span>
+</li>
+<li class="pt-4 text-outline text-body-sm font-body-sm">
+                    Evaluates algorithmic design, formal reductions, and proof correctness across all Units 1–5.
+                  </li>
+</ul>
+</div>
+</div>
+<!-- Weighting Reconciled Badge -->
+<div class="p-3 rounded-lg bg-emerald-50 border border-emerald-300 flex items-center justify-between">
+<div class="flex items-center gap-2 text-emerald-900 font-label-md text-label-md">
+<span class="material-symbols-outlined text-emerald-700">check_circle</span>
+<span>Total Weight: 100% (CIE: 50% + SEE: 50%) — Reconciled and Validated</span>
+</div>
+<span class="text-body-sm font-body-sm text-emerald-800">
+                AI reconciled original syllabus sum of 95% to 100%
+              </span>
+</div>
+</div>
+</div>
+<!-- ===================================================================== -->
+<!-- SECTION 7: Resources                                                  -->
+<!-- ===================================================================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-bright border-b border-outline-variant" onclick="toggleCollapsible('sec-7-content', 'sec-7-icon')">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="sec-7-icon">expand_more</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">7. Resources</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Edited by AI • Citations Verified
+              </span>
+</div>
+<div class="flex items-center gap-2" onclick="event.stopPropagation()">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-4" id="sec-7-content">
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-2">Prescribed Textbooks</h3>
+<div class="space-y-2">
+<div class="p-3 rounded bg-surface-container-low border border-outline-variant flex items-start justify-between">
+<div>
+<span class="font-semibold text-primary block">Introduction to Algorithms (4th Edition)</span>
+<span class="text-body-sm font-body-sm text-on-surface">Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein • MIT Press • ISBN: 978-0262046305</span>
+</div>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-emerald-100 text-emerald-800">Verified Edition</span>
+</div>
+<div class="p-3 rounded bg-surface-container-low border border-outline-variant flex items-start justify-between">
+<div>
+<span class="font-semibold text-primary block">Algorithm Design</span>
+<span class="text-body-sm font-body-sm text-on-surface">Jon Kleinberg and Éva Tardos • Pearson Education • ISBN: 978-0321295354</span>
+</div>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-emerald-100 text-emerald-800">Verified Edition</span>
+</div>
+</div>
+</div>
+<div class="pt-3 border-t border-outline-variant">
+<h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-2">Reference Books &amp; MOOC Resources</h3>
+<div class="space-y-2 text-body-sm font-body-sm">
+<div class="p-2.5 rounded bg-surface-bright border border-outline-variant flex items-center justify-between">
+<span>Computers and Intractability: A Guide to the Theory of NP-Completeness — M. R. Garey and D. S. Johnson (W. H. Freeman)</span>
+<span class="text-outline">Reference</span>
+</div>
+<div class="p-2.5 rounded bg-surface-bright border border-outline-variant flex items-center justify-between">
+<span>NPTEL / Swayam: Advanced Algorithms (Prof. Madhavan Mukund, CMI)</span>
+<a class="text-primary font-semibold hover:underline inline-flex items-center gap-1" href="#">
+<span>Course Link</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- ========================================================================= -->
+<!-- 3. BOTTOM STICKY ACTION BAR                                               -->
+<!-- ========================================================================= -->
+<footer class="fixed bottom-0 left-0 right-0 h-14 bg-surface-container-lowest border-t border-outline-variant px-gutter flex items-center justify-between z-40 shadow-sm">
+<!-- Left Action -->
+<button id="btnSpecPrevStep1" type="button" class="inline-flex items-center gap-2 h-9 px-4 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+      Previous: Step 1 — Upload
+    </button>
+<!-- Center Autosave indicator -->
+<div class="hidden sm:flex items-center gap-2 text-body-sm font-body-sm text-outline">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+<span>Changes saved automatically 1 min ago</span>
+</div>
+<!-- Right Action -->
+<button id="btnSpecNextStep3" type="button" class="inline-flex items-center gap-2 h-9 px-5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary shadow-sm transition-all font-semibold cursor-pointer">
+<span>Next: Step 3 — Proceed to CO-PO-PSO Mapping</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</footer>
+
+<!-- Floating In-App Toast Notification -->
+<div id="specToast" class="fixed bottom-20 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <div class="bg-surface-container-lowest border border-outline-variant shadow-xl rounded-lg px-4 py-3 flex items-center gap-3 min-w-[320px]">
+    <div id="specToastIcon" class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[18px]">check_circle</span>
+    </div>
+    <div class="min-w-0 flex-1">
+      <div id="specToastTitle" class="text-xs font-bold text-on-surface">Curriculum Spec</div>
+      <div id="specToastMessage" class="text-xs text-on-surface-variant truncate">Changes approved successfully.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Micro-interactions Script -->
+<script>
+    function toggleCollapsible(contentId, iconId) {
+      const content = document.getElementById(contentId);
+      const icon = document.getElementById(iconId);
+      if (!content || !icon) return;
+
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.innerText = 'expand_more';
+        icon.classList.remove('-rotate-90');
+      } else {
+        content.classList.add('hidden');
+        icon.innerText = 'chevron_right';
+        icon.classList.add('-rotate-90');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      function showSpecToast(title, message, isError) {
+        const toast = document.getElementById('specToast');
+        const toastTitle = document.getElementById('specToastTitle');
+        const toastMessage = document.getElementById('specToastMessage');
+        const toastIcon = document.getElementById('specToastIcon');
+        if (!toast) return;
+
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+
+        if (isError) {
+          toastIcon.className = 'w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center shrink-0';
+          toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">error</span>';
+        } else {
+          toastIcon.className = 'w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0';
+          toastIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span>';
+        }
+
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function() {
+          toast.classList.add('translate-y-20', 'opacity-0');
+          toast.classList.remove('translate-y-0', 'opacity-100');
+        }, 3500);
+      }
+
+      const btnApproveAll = document.getElementById('btnApproveAllChanges');
+      if (btnApproveAll) {
+        btnApproveAll.addEventListener('click', () => {
+          btnApproveAll.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>All 8 Changes Approved</span>';
+          btnApproveAll.className = 'inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-emerald-700 text-white font-label-md text-label-md shadow-sm transition-colors font-bold';
+          showSpecToast('Corrections Approved', 'All 8 Bloom verbs and contact hour fixes ratified.');
+        });
+      }
+
+      const btnDiff = document.getElementById('btnSpecDiff');
+      if (btnDiff) {
+        btnDiff.addEventListener('click', () => {
+          showSpecToast('Curriculum Diff', 'Showing 8 highlighted AI corrections across CO1–CO6.');
+        });
+      }
+
+      const btnDownload = document.getElementById('btnDownloadSpec');
+      if (btnDownload) {
+        btnDownload.addEventListener('click', () => {
+          showSpecToast('Exporting Draft', 'Downloading CS401_Corrected_Specification.docx draft...');
+          window.print();
+        });
+      }
+
+      const btnRerun = document.getElementById('btnRerunExtract');
+      if (btnRerun) {
+        btnRerun.addEventListener('click', () => {
+          const icon = btnRerun.querySelector('.material-symbols-outlined');
+          if (icon) icon.classList.add('animate-spin');
+          showSpecToast('AI Engine', 'Re-extracting course specification parameters...');
+          setTimeout(() => {
+            if (icon) icon.classList.remove('animate-spin');
+            showSpecToast('Extraction Complete', 'Curriculum specification verified.');
+          }, 800);
+        });
+      }
+
+      const btnPrevStep1 = document.getElementById('btnSpecPrevStep1');
+      if (btnPrevStep1) {
+        btnPrevStep1.addEventListener('click', () => {
+          if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+            window.parent.switchStep(1);
+          } else {
+            window.location.href = '/upload';
+          }
+        });
+      }
+
+      const btnNextStep3 = document.getElementById('btnSpecNextStep3');
+      if (btnNextStep3) {
+        btnNextStep3.addEventListener('click', () => {
+          if (window.parent && window.parent !== window && typeof window.parent.switchStep === 'function') {
+            window.parent.switchStep(3);
+          } else {
+            window.location.href = '/matrix';
+          }
+        });
+      }
+    });
+  </script>
+</body></html>

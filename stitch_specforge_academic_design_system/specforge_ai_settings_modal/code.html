@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpecForge - AI Configuration &amp; Model Settings</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#00174b",
+            "on-secondary-container": "#006f67",
+            "inverse-surface": "#213145",
+            "primary-fixed": "#dce1ff",
+            "inverse-on-surface": "#eaf1ff",
+            "primary": "#00236f",
+            "surface-bright": "#f8f9ff",
+            "on-secondary-fixed": "#00201d",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#80d5cb",
+            "primary-fixed-dim": "#b6c4ff",
+            "outline": "#757682",
+            "surface-container": "#e5eeff",
+            "on-primary-container": "#90a8ff",
+            "surface-tint": "#4059aa",
+            "error-container": "#ffdad6",
+            "secondary-fixed": "#9cf2e8",
+            "inverse-primary": "#b6c4ff",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "secondary-container": "#99efe5",
+            "surface-container-high": "#dce9ff",
+            "surface-container-highest": "#d3e4fe",
+            "surface-dim": "#cbdbf5",
+            "background": "#f8f9ff",
+            "on-surface": "#0b1c30",
+            "on-background": "#0b1c30",
+            "on-surface-variant": "#444651",
+            "secondary": "#006a63",
+            "on-error": "#ffffff",
+            "on-primary": "#ffffff",
+            "primary-container": "#1e3a8a",
+            "surface-variant": "#d3e4fe",
+            "outline-variant": "#c5c5d3",
+            "surface-container-lowest": "#ffffff",
+            "surface": "#f8f9ff",
+            "tertiary-container": "#00389a",
+            "tertiary-fixed": "#dbe1ff",
+            "error": "#ba1a1a",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#00164e",
+            "on-secondary-fixed-variant": "#00504a",
+            "surface-container-low": "#eff4ff",
+            "on-primary-fixed-variant": "#264191",
+            "tertiary": "#00246b",
+            "on-tertiary-container": "#8da9ff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed-variant": "#003ea8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "margin-mobile": "1rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "gutter-mobile": "0.75rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "tabular-data": ["Inter"],
+            "headline-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "headline-lg": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "tabular-data": ["0.8125rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.025em", "fontWeight": "600" }],
+            "body-lg": ["1rem", { "lineHeight": "1.625rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- ================= TOP NAVIGATION BAR (Shared Component) ================= -->
+<header class="w-full h-14 px-gutter flex items-center justify-between z-40 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 left-0 right-0 shadow-sm">
+<!-- Brand & Academic Breadcrumb Cluster -->
+<div class="flex items-center gap-space-lg">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary flex items-center gap-space-sm select-none">
+<span class="material-symbols-outlined text-primary text-2xl font-bold" data-icon="token">token</span>
+<span class="tracking-tight">SpecForge</span>
+</div>
+<!-- Divider -->
+<div class="h-5 w-[1px] bg-outline-variant"></div>
+<!-- Breadcrumbs -->
+<nav aria-label="Course hierarchy" class="flex items-center gap-1.5 text-body-sm font-body-sm text-on-surface-variant">
+<span class="hover:text-primary cursor-pointer transition-colors">Curriculum</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="chevron_right">chevron_right</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Computer Science</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="chevron_right">chevron_right</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold bg-surface-container-low px-2 py-0.5 rounded">CS401: Advanced Algorithms</span>
+</nav>
+</div>
+<!-- Center Navigation Role Switcher -->
+<div class="flex items-center gap-6 h-full">
+<!-- Role: Author (Active) -->
+<button class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary font-label-lg text-label-lg py-space-sm flex items-center gap-1.5 focus:outline-none">
+<span class="material-symbols-outlined text-base" data-icon="edit_document">edit_document</span>
+        Author
+      </button>
+<!-- Role: Reviewer (Inactive) -->
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm flex items-center gap-1.5 focus:outline-none transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="rate_review">rate_review</span>
+        Reviewer
+      </button>
+<!-- Role: HOD (Inactive) -->
+<button class="text-on-surface-variant dark:text-inverse-on-surface font-label-lg text-label-lg hover:text-on-surface dark:hover:text-inverse-surface py-space-sm flex items-center gap-1.5 focus:outline-none transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="verified">verified</span>
+        HOD
+      </button>
+</div>
+<!-- Trailing Actions & AI Status Chip -->
+<div class="flex items-center gap-space-md">
+<!-- AI Status Badge (Prominent Indicator) -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#ECFDF5] border border-[#A7F3D0] text-[#065F46] font-label-md text-label-md shadow-xs cursor-pointer hover:bg-[#D1FAE5] transition-colors" id="top-ai-badge" title="AI Provider Configured: Google Gemini">
+<span class="inline-block w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+<span class="font-semibold tracking-tight">AI: Connected</span>
+</div>
+<!-- Action Buttons -->
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+        Share
+      </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-[#172554] flex items-center gap-1.5 transition-colors shadow-xs">
+<span class="material-symbols-outlined text-sm" data-icon="save">save</span>
+        Save
+      </button>
+<!-- Divider -->
+<div class="h-5 w-[1px] bg-outline-variant"></div>
+<!-- Action Icons -->
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+<button class="p-1.5 rounded bg-surface-container text-primary hover:bg-surface-container-high transition-colors" title="AI Settings">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+</button>
+</div>
+<!-- User Profile -->
+<div class="flex items-center gap-2 pl-1">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-xs ring-1 ring-outline-variant">
+          AS
+        </div>
+<div class="hidden xl:flex flex-col text-left">
+<span class="text-xs font-semibold text-on-surface leading-tight">Dr. A. Sharma</span>
+<span class="text-[10px] text-outline leading-tight">Faculty Lead</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ================= WORKSPACE SHELL (Background Content) ================= -->
+<div class="pt-14 h-screen flex overflow-hidden">
+<!-- SIDE NAVIGATION RAIL (Shared Component) -->
+<aside class="fixed left-0 top-14 bottom-0 w-[280px] flex flex-col justify-between p-space-md bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-30">
+<div class="flex flex-col gap-space-sm">
+<!-- Sidebar Header / Course Badge -->
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant shadow-xs mb-2">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded bg-[#EFF6FF] border border-[#BFDBFE] flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="account_balance">account_balance</span>
+</div>
+<div class="overflow-hidden">
+<h2 class="text-label-md font-label-md font-bold text-on-surface truncate">CS401: Advanced Algorithms</h2>
+<p class="text-body-sm font-body-sm text-outline text-[11px]">AY 2024-25 • Sem VII</p>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="space-y-1">
+<!-- Upload Tab -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="upload_file">upload_file</span>
+<span class="text-body-md font-body-md">Upload</span>
+</a>
+<!-- Spec Tab -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="tune">tune</span>
+<span class="text-body-md font-body-md">Spec</span>
+</a>
+<!-- CO-PO-PSO Map (Active Tab in Syllabus workflow) -->
+<a class="border-l-4 border-primary dark:border-inverse-primary bg-surface-container-lowest dark:bg-surface-container text-primary dark:text-inverse-primary font-semibold px-space-md py-space-sm flex items-center gap-space-md rounded-r shadow-xs" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="grid_view">grid_view</span>
+<span class="text-body-md font-body-md font-semibold">CO-PO-PSO Map</span>
+</a>
+<!-- Checks -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="fact_check">fact_check</span>
+<span class="text-body-md font-body-md">Checks</span>
+</a>
+<!-- Workflow -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="schema">schema</span>
+<span class="text-body-md font-body-md">Workflow</span>
+</a>
+<!-- Export -->
+<a class="text-on-surface-variant dark:text-inverse-on-surface font-normal px-space-md py-space-sm flex items-center gap-space-md hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+<span class="text-body-md font-body-md">Export</span>
+</a>
+</nav>
+<!-- CTA in Sidebar -->
+<div class="pt-3">
+<button class="w-full py-2 px-3 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md hover:bg-[#00504a] transition-colors flex items-center justify-center gap-2 shadow-xs">
+<span class="material-symbols-outlined text-base" data-icon="verified_user">verified_user</span>
+            Validate Matrix
+          </button>
+</div>
+</div>
+<!-- Sidebar Footer -->
+<div class="pt-3 border-t border-outline-variant space-y-1">
+<a class="text-on-surface-variant font-normal px-space-md py-2 flex items-center gap-space-md hover:bg-surface-container rounded text-body-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="gavel">gavel</span>
+<span>Accreditation Rubric</span>
+</a>
+<a class="text-primary font-semibold px-space-md py-2 flex items-center gap-space-md bg-surface-container-highest rounded text-body-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</aside>
+<!-- MAIN STAGE / UNDERLYING MATRIX (Blurred / Covered by scrim) -->
+<main class="ml-[280px] flex-1 bg-surface-bright overflow-y-auto p-8 relative">
+<div class="max-w-[1100px] mx-auto opacity-40 pointer-events-none filter blur-[1px]">
+<!-- Page Title & Controls -->
+<div class="flex items-center justify-between mb-6 pb-4 border-b border-outline-variant">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Outcome Articulation Matrix (CO-PO-PSO)</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">Map direct correlations for CS401 algorithms accreditation adherence under NBA/ABET standards.</p>
+</div>
+<div class="flex gap-2">
+<span class="px-2.5 py-1 bg-surface-container text-on-surface font-label-sm text-label-sm rounded uppercase">Draft v2.4</span>
+<span class="px-2.5 py-1 bg-[#ECFDF5] text-[#065F46] font-label-sm text-label-sm rounded uppercase">In Review</span>
+</div>
+</div>
+<!-- Sample Mocked Matrix Canvas -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 shadow-xs space-y-6">
+<div class="grid grid-cols-12 gap-2 text-xs font-semibold text-outline pb-2 border-b border-outline-variant">
+<div class="col-span-3">Course Outcome Definition</div>
+<div class="col-span-1 text-center">PO1</div>
+<div class="col-span-1 text-center">PO2</div>
+<div class="col-span-1 text-center">PO3</div>
+<div class="col-span-1 text-center">PO4</div>
+<div class="col-span-1 text-center">PO5</div>
+<div class="col-span-1 text-center">PSO1</div>
+<div class="col-span-1 text-center">PSO2</div>
+<div class="col-span-2 text-right">Bloom Level</div>
+</div>
+<!-- Mock Row 1 -->
+<div class="grid grid-cols-12 gap-2 items-center py-2 border-b border-surface-container">
+<div class="col-span-3 text-body-sm font-medium text-on-surface">CO1: Synthesize asymptotic runtime of randomized algorithms</div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#0F766E] text-white flex items-center justify-center font-bold text-xs">3</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#CCFBF1] text-[#0F766E] flex items-center justify-center font-bold text-xs">2</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#F0FDFA] text-[#0F766E] flex items-center justify-center text-xs">1</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded border border-outline-variant text-outline flex items-center justify-center text-xs">-</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#0F766E] text-white flex items-center justify-center font-bold text-xs">3</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#CCFBF1] text-[#0F766E] flex items-center justify-center font-bold text-xs">2</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded border border-outline-variant text-outline flex items-center justify-center text-xs">-</span></div>
+<div class="col-span-2 text-right font-label-md text-xs text-primary">L5: Evaluate</div>
+</div>
+<!-- Mock Row 2 -->
+<div class="grid grid-cols-12 gap-2 items-center py-2">
+<div class="col-span-3 text-body-sm font-medium text-on-surface">CO2: Formulate dynamic programming proofs for network flow</div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#CCFBF1] text-[#0F766E] flex items-center justify-center font-bold text-xs">2</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#0F766E] text-white flex items-center justify-center font-bold text-xs">3</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#0F766E] text-white flex items-center justify-center font-bold text-xs">3</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#F0FDFA] text-[#0F766E] flex items-center justify-center text-xs">1</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded border border-outline-variant text-outline flex items-center justify-center text-xs">-</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#0F766E] text-white flex items-center justify-center font-bold text-xs">3</span></div>
+<div class="col-span-1 flex justify-center"><span class="w-9 h-9 rounded bg-[#CCFBF1] text-[#0F766E] flex items-center justify-center font-bold text-xs">2</span></div>
+<div class="col-span-2 text-right font-label-md text-xs text-primary">L6: Create</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- ================= MODAL DIALOG BACKDROP & CONTAINER ================= -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F172A]/45 backdrop-blur-[3px] transition-opacity duration-200">
+<!-- Modal Card (Elevation Level 3: Clean Hairline Outline & Academic Serenity) -->
+<div class="w-full max-w-[620px] bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_20px_25px_-5px_rgba(15,23,42,0.12),0_8px_10px_-6px_rgba(15,23,42,0.06)] overflow-hidden flex flex-col transform transition-all duration-200">
+<!-- Modal Header -->
+<div class="px-6 py-4.5 bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low text-primary flex items-center justify-center border border-surface-container">
+<span class="material-symbols-outlined text-lg" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-primary font-bold tracking-tight">AI Configuration &amp; Model Settings</h2>
+<p class="text-body-sm font-body-sm text-outline">Manage local curriculum synthesis &amp; NBA/ABET outcome mapping engine</p>
+</div>
+</div>
+<!-- Close 'X' Button -->
+<button class="w-8 h-8 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors focus:outline-none" id="close-modal-x" title="Close dialog">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+<!-- Security / Privacy Callout Box -->
+<div class="px-6 pt-5 pb-1">
+<div class="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg p-3.5 flex items-start gap-3 shadow-2xs">
+<div class="mt-0.5 text-secondary">
+<span class="material-symbols-outlined text-lg" data-icon="lock">lock</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+<span class="font-semibold text-on-surface">Client-Side Privacy Guarantee:</span>
+            Your API key stays in this browser and is never saved on the server. Keys are stored strictly in local browser encryption memory.
+          </div>
+</div>
+</div>
+<!-- Modal Body / Form Fields -->
+<div class="px-6 py-4 space-y-4.5">
+<!-- Field 1: Provider Selection -->
+<div>
+<label class="block text-label-md font-label-md font-semibold text-on-surface mb-1.5" for="ai-provider-select">
+            AI Provider
+          </label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border border-[#CBD5E1] text-on-surface text-body-md font-body-md rounded-lg py-2.5 pl-3.5 pr-10 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-shadow outline-none cursor-pointer" id="ai-provider-select">
+<option selected="" value="google">Google Gemini (Official Cloud Vertex &amp; Studio)</option>
+<option value="openrouter">OpenRouter (Multi-model Gateway)</option>
+<option value="anthropic">Anthropic Claude (Direct API)</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-1 text-body-sm text-outline">
+<span>Direct inference protocol with zero server data retention</span>
+<span class="font-medium text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+              OAuth / Bearer key supported
+            </span>
+</div>
+</div>
+<!-- Field 2: API Key Input -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="text-label-md font-label-md font-semibold text-on-surface" for="api-key-input">
+              API Key
+            </label>
+<a class="text-xs text-primary hover:underline font-medium inline-flex items-center gap-0.5" href="https://aistudio.google.com/app/apikey" rel="noopener noreferrer" target="_blank">
+<span>Get API key from Google AI Studio</span>
+<span class="material-symbols-outlined text-xs" data-icon="open_in_new">open_in_new</span>
+</a>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-[#CBD5E1] text-on-surface font-mono text-sm rounded-lg py-2.5 pl-3.5 pr-11 tracking-wider focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-shadow outline-none" id="api-key-input" placeholder="Paste AI key here (e.g. AIzaSy...)" type="password" value="AIzaSyD_89XNmq98102374Kl9921_3a8F"/>
+<button class="absolute inset-y-0 right-0 flex items-center px-3.5 text-outline hover:text-on-surface focus:outline-none transition-colors" id="toggle-password-btn" title="Toggle visibility" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="visibility" id="eye-icon">visibility</span>
+</button>
+</div>
+<p class="text-body-sm text-outline mt-1 font-body-sm">Format: 39-character alpha-numeric token issued by your organization or AI Studio workspace.</p>
+</div>
+<!-- Field 3: Model Specification -->
+<div>
+<label class="block text-label-md font-label-md font-semibold text-on-surface mb-1.5" for="model-id-input">
+            Target Model Name
+          </label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-[#CBD5E1] text-on-surface font-body-md text-sm rounded-lg py-2.5 pl-3.5 pr-28 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-shadow outline-none" id="model-id-input" placeholder="gemini-1.5-pro" type="text" value="gemini-1.5-pro"/>
+<!-- Badge Hint -->
+<div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
+<span class="bg-[#EFF6FF] text-[#1E40AF] border border-[#BFDBFE] text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded">
+                Recommended
+              </span>
+</div>
+</div>
+<!-- Quick Suggestion Badges -->
+<div class="flex items-center gap-1.5 mt-2 flex-wrap text-body-sm">
+<span class="text-outline text-xs">Quick pick:</span>
+<button class="quick-pick-btn px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-mono text-xs border border-surface-variant transition-colors" type="button">gemini-1.5-pro</button>
+<button class="quick-pick-btn px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-mono text-xs border border-surface-variant transition-colors" type="button">gemini-1.5-flash</button>
+<button class="quick-pick-btn px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-mono text-xs border border-surface-variant transition-colors" type="button">claude-3-5-sonnet-20241022</button>
+</div>
+</div>
+<!-- Diagnostic & Specs Callout (Academic Rigor context) -->
+<div class="grid grid-cols-2 gap-3 pt-1">
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/60 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-base" data-icon="memory">memory</span>
+<div class="text-[11px] leading-tight">
+<div class="font-semibold text-on-surface">Context Window</div>
+<div class="text-outline">2,000,000 tokens (Syllabus batching)</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/60 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-base" data-icon="speed">speed</span>
+<div class="text-[11px] leading-tight">
+<div class="font-semibold text-on-surface">Rate Limit Guidance</div>
+<div class="text-outline">360 RPM / Paid tier allocation</div>
+</div>
+</div>
+</div>
+<!-- Verification Status Cards Container -->
+<div class="pt-2">
+<!-- Active Success Status Banner -->
+<div class="p-3 bg-[#ECFDF5] border border-[#A7F3D0] rounded-lg flex items-start gap-2.5 shadow-2xs" id="status-success-banner">
+<div class="text-[#065F46] mt-0.5">
+<span class="material-symbols-outlined text-lg" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-[#065F46]">Key verified with gemini-1.5-pro</span>
+<span class="text-[11px] font-mono text-[#047857] bg-white/70 px-1.5 py-0.5 rounded border border-[#A7F3D0]">280ms ping</span>
+</div>
+<div class="text-body-sm font-body-sm text-[#065F46]/90 mt-0.5 text-xs">
+                Quota verified: Active Pay-as-you-go tier. Matrix auto-articulation and Bloom taxonomy mapping enabled.
+              </div>
+</div>
+</div>
+<!-- Alternative Error State (Interactive Preview Toggle) -->
+<div class="hidden p-3 bg-[#FEF2F2] border border-[#FECACA] rounded-lg flex items-start gap-2.5 shadow-2xs mt-2" id="status-error-banner">
+<div class="text-[#991B1B] mt-0.5">
+<span class="material-symbols-outlined text-lg" data-icon="cancel">cancel</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-[#991B1B]">Authentication Failure (401 Unauthorized)</span>
+<span class="text-[11px] font-mono text-[#B91C1C] bg-white/70 px-1.5 py-0.5 rounded border border-[#FECACA]">HTTP 401</span>
+</div>
+<div class="text-body-sm font-body-sm text-[#991B1B]/90 mt-0.5 text-xs">
+                The provider rejected this key or model: Invalid API key. Check expiration date or IP restriction settings in your cloud console.
+              </div>
+</div>
+</div>
+<!-- Demonstration Toggle Pill for Error State Demonstration -->
+<div class="flex justify-end pt-1">
+<button class="text-[11px] text-outline hover:text-primary underline flex items-center gap-1 focus:outline-none" id="toggle-state-demo" type="button">
+<span class="material-symbols-outlined text-xs" data-icon="sync_alt">sync_alt</span>
+              Toggle simulation: Test Success vs. Error 401
+            </button>
+</div>
+</div>
+</div>
+<!-- Modal Footer Actions -->
+<div class="px-6 py-4 bg-surface-container-low border-t border-outline-variant flex items-center justify-between">
+<!-- Clear Key Action -->
+<button class="px-3.5 py-2 rounded-lg border border-[#CBD5E1] text-[#991B1B] hover:bg-[#FEF2F2] hover:border-[#FECACA] font-label-md text-label-md transition-colors flex items-center gap-1.5 focus:outline-none" id="clear-key-btn" type="button">
+<span class="material-symbols-outlined text-base" data-icon="delete">delete</span>
+          Clear key
+        </button>
+<!-- Right action cluster -->
+<div class="flex items-center gap-2.5">
+<button class="px-4 py-2 rounded-lg border border-[#CBD5E1] bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors focus:outline-none" id="close-modal-btn" type="button">
+            Close
+          </button>
+<button class="px-5 py-2 rounded-lg bg-primary-container text-white hover:bg-[#172554] font-label-md text-label-md transition-colors shadow-sm flex items-center gap-2 focus:ring-2 focus:ring-[#2563EB] focus:outline-none" id="test-key-btn" type="button">
+<span class="material-symbols-outlined text-base" data-icon="bolt" id="test-key-icon">bolt</span>
+<span id="test-key-label">Test key</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Script for UI Interactivity -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle Password Visibility
+      const apiKeyInput = document.getElementById('api-key-input');
+      const togglePasswordBtn = document.getElementById('toggle-password-btn');
+      const eyeIcon = document.getElementById('eye-icon');
+
+      togglePasswordBtn.addEventListener('click', () => {
+        if (apiKeyInput.type === 'password') {
+          apiKeyInput.type = 'text';
+          eyeIcon.innerText = 'visibility_off';
+        } else {
+          apiKeyInput.type = 'password';
+          eyeIcon.innerText = 'visibility';
+        }
+      });
+
+      // Quick Pick Model Buttons
+      const modelInput = document.getElementById('model-id-input');
+      const quickPickButtons = document.querySelectorAll('.quick-pick-btn');
+
+      quickPickButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          modelInput.value = btn.innerText.trim();
+        });
+      });
+
+      // Simulation of Error vs Success State
+      const toggleStateDemo = document.getElementById('toggle-state-demo');
+      const statusSuccess = document.getElementById('status-success-banner');
+      const statusError = document.getElementById('status-error-banner');
+      const topAiBadge = document.getElementById('top-ai-badge');
+
+      let isConnected = true;
+
+      function updateStatusViews() {
+        if (isConnected) {
+          statusSuccess.classList.remove('hidden');
+          statusError.classList.add('hidden');
+          topAiBadge.className = "flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#ECFDF5] border border-[#A7F3D0] text-[#065F46] font-label-md text-label-md shadow-xs cursor-pointer hover:bg-[#D1FAE5] transition-colors";
+          topAiBadge.innerHTML = `
+            <span class="inline-block w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+            <span class="font-semibold tracking-tight">AI: Connected</span>
+          `;
+        } else {
+          statusSuccess.classList.add('hidden');
+          statusError.classList.remove('hidden');
+          topAiBadge.className = "flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#FEF2F2] border border-[#FECACA] text-[#991B1B] font-label-md text-label-md shadow-xs cursor-pointer hover:bg-[#FEE2E2] transition-colors";
+          topAiBadge.innerHTML = `
+            <span class="inline-block w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            <span class="font-semibold tracking-tight">AI: No key</span>
+          `;
+        }
+      }
+
+      toggleStateDemo.addEventListener('click', () => {
+        isConnected = !isConnected;
+        updateStatusViews();
+      });
+
+      // Clear key action
+      const clearKeyBtn = document.getElementById('clear-key-btn');
+      clearKeyBtn.addEventListener('click', () => {
+        apiKeyInput.value = '';
+        isConnected = false;
+        updateStatusViews();
+      });
+
+      // Test key micro-interaction
+      const testKeyBtn = document.getElementById('test-key-btn');
+      const testKeyIcon = document.getElementById('test-key-icon');
+      const testKeyLabel = document.getElementById('test-key-label');
+
+      testKeyBtn.addEventListener('click', () => {
+        testKeyIcon.innerText = 'autorenew';
+        testKeyIcon.classList.add('animate-spin');
+        testKeyLabel.innerText = 'Validating...';
+
+        setTimeout(() => {
+          testKeyIcon.classList.remove('animate-spin');
+          testKeyIcon.innerText = 'bolt';
+          testKeyLabel.innerText = 'Test key';
+          isConnected = apiKeyInput.value.trim().length > 5;
+          updateStatusViews();
+        }, 600);
+      });
+
+      // Close modal handlers (Simulated visual feedback)
+      const closeButtons = [document.getElementById('close-modal-x'), document.getElementById('close-modal-btn')];
+      closeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.style.opacity = '0.5';
+          setTimeout(() => { btn.style.opacity = '1'; }, 200);
+        });
+      });
+    });
+  </script>
+</body></html>
